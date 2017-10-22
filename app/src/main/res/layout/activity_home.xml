@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <RadioGroup
+        android:background="@color/colorAccent"
+        android:id="@android:id/tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/home_rb"
+            style="@style/home_tab_style"
+            android:checked="true"
+            android:drawableTop="@drawable/ic_tab_fresh"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/find_rb"
+            style="@style/home_tab_style"
+            android:drawableTop="@drawable/ic_tab_fresh"
+            android:text="发现" />
+
+        <RadioButton
+            android:id="@+id/new_rb"
+            style="@style/home_tab_style"
+            android:drawableTop="@drawable/ic_tab_fresh"
+            android:text="新鲜" />
+
+        <RadioButton
+            android:id="@+id/message_rb"
+            style="@style/home_tab_style"
+            android:drawableTop="@drawable/ic_tab_fresh"
+            android:text="消息" />
+    </RadioGroup>
+
+
+</LinearLayout>
