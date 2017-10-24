@@ -1,4 +1,4 @@
-package sankemao.baselib.ui.utils;
+package sankemao.baselib.mvp;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;

@@ -12,12 +12,16 @@ import android.view.WindowManager;
 
 /**
  * Created by jin on 2017/6/19.
+ *
  */
 class AlertController {
     private AlertDialog mDialog;
     private Window mWindow;
 
-    private DialogViewHelper mViewHelper;//在内部类的Params的apply()方法中注入.
+    /**
+     * 在内部类的Params的apply()方法中注入.
+     */
+    private DialogViewHelper mViewHelper;
 
     public AlertController(AlertDialog dialog, Window window) {
         this.mDialog = dialog;
@@ -55,26 +59,36 @@ class AlertController {
     public static class AlertParams {
         public Context mContext;
         public int mThemeResId;
-        //点击空白是否能取消.
+        /**
+         * 点击空白是否能取消.
+         */
         public boolean mCancelable = true;
-        //监听
+
         public DialogInterface.OnCancelListener mOnCancelListener;
         public DialogInterface.OnDismissListener mOnDismissListener;
         public DialogInterface.OnKeyListener mOnKeyListener;
-        //布局view.
+        /**
+         * 布局view.
+         */
         public View mView;
-        //布局layout id;
+        /**
+         * 布局layoutId
+         */
         public int mViewLayoutResId;
-        //存放text.
         public SparseArray<CharSequence> mTextArray = new SparseArray<>();
-        //存放点击事件
         public SparseArray<View.OnClickListener> mClickArray = new SparseArray<>();
-        //默认宽高为包裹内容.
+        /**
+         * 默认宽高为包裹内容.
+         */
         public int mWidth = ViewGroup.LayoutParams.WRAP_CONTENT;
         public int mHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
-        //动画
+        /**
+         * 动画
+         */
         public int mAnimations = 0;
-        //位置
+        /**
+         * 位置
+         */
         public int mGravity = Gravity.CENTER;
         public float mAmount = 0.6f;
 

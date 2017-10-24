@@ -24,14 +24,23 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     protected P mPresenter;
     protected Context mContext;
     private View mRootView;
+    /**
+     * 记录onCreateView()中rootView是否被解析了.
+     */
+    private boolean mViewInflated;
+
+    public boolean isViewInflated() {
+        return mViewInflated;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = inflater.inflate(getLayoutId(), container, false);
+        mViewInflated = true;
         mBind = ButterKnife.bind(this, mRootView);
         mContext = getContext();
-        initNavigationBar();
+        initNavigationBar(mRootView);
         initView(mRootView);
         return mRootView;
     }
@@ -51,7 +60,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         super.onActivityCreated(savedInstanceState);
     }
 
-    protected abstract @LayoutRes int getLayoutId();
+    protected abstract @LayoutRes
+    int getLayoutId();
 
     @Override
     public abstract P getPresenter();
@@ -59,12 +69,18 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     /**
      * 顶栏, 不是必须的.
      */
-    protected void initNavigationBar(){
+    protected void initNavigationBar(View rootView){
 
     }
 
+    /**
+     * 初始化View.
+     */
     protected abstract void initView(View rootView);
 
+    /**
+     * 加载数据, 在onViewCreated中执行
+     */
     protected abstract void initData();
 
     @Override

@@ -9,7 +9,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.BaseActivity;
 import sankemao.baselib.mvp.IPresenter;
-import sankemao.baselib.ui.utils.FragmentManagerHelper;
+import sankemao.baselib.mvp.FragmentManagerHelper;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.fragment.FindFragment;
 import sankemao.gankio.ui.fragment.HomeFragment;
@@ -94,6 +94,8 @@ public class HomeAcitivy extends BaseActivity {
                     mMessageFragment = new MessageFragment();
                 }
                 mFragmentHelper.switchFragment(mMessageFragment);
+                break;
+            default:
                 break;
         }
     }
