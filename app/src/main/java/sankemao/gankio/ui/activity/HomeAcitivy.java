@@ -39,7 +39,7 @@ public class HomeAcitivy extends BaseActivity {
     }
 
     @Override
-    public IPresenter getPresenter() {
+    public IPresenter attachPresenter() {
         return null;
     }
 

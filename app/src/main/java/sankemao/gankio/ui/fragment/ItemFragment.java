@@ -1,18 +1,19 @@
 package sankemao.gankio.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.IPresenter;
 import sankemao.baselib.mvp.LazyFragment;
 import sankemao.gankio.R;
+import sankemao.gankio.ui.activity.MvpTestActivity;
 
 /**
  * Description:TODO
@@ -48,7 +49,7 @@ public class ItemFragment extends LazyFragment {
     }
 
     @Override
-    public IPresenter getPresenter() {
+    public IPresenter attachPresenter() {
         return null;
     }
 
@@ -83,6 +84,7 @@ public class ItemFragment extends LazyFragment {
 
     @OnClick(R.id.btn_get_text)
     public void onClick() {
-        ToastUtils.showShort(mTvTitle.getText());
+        startActivity(new Intent(mContext, MvpTestActivity.class));
+//        ToastUtils.showShort(mTvTitle.getText());
     }
 }

@@ -30,7 +30,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public IPresenter getPresenter() {
+    public IPresenter attachPresenter() {
         return null;
     }
 

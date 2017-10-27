@@ -19,7 +19,7 @@ public class MessageFragment extends BaseFragment {
     }
 
     @Override
-    public IPresenter getPresenter() {
+    public IPresenter attachPresenter() {
         return null;
     }
 

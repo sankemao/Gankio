@@ -19,7 +19,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    public IPresenter getPresenter() {
+    public IPresenter attachPresenter() {
         return null;
     }
 

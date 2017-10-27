@@ -18,14 +18,14 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     private Unbinder mBind;
 
-    private IPresenter mPresenter;
+    protected P mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mBind = ButterKnife.bind(this);
-        mPresenter = getPresenter();
+        mPresenter = attachPresenter();
         if (mPresenter != null) {
             mPresenter.attatchView(this);
         }
@@ -37,12 +37,21 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected abstract @LayoutRes int getLayoutId();
 
     @Override
-    public abstract P getPresenter();
+    public abstract P attachPresenter();
 
+    /**
+     * 标题栏
+     */
     protected abstract void initNavigationBar();
 
+    /**
+     * 初始化view.
+     */
     protected abstract void initView(Bundle savedInstanceState);
 
+    /**
+     * 初始化data
+     */
     protected abstract void initData(Bundle savedInstanceState);
 
     @Override

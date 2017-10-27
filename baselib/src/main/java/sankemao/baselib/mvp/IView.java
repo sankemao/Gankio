@@ -11,5 +11,5 @@ import android.content.Context;
 public interface IView<T> {
     Context getContext();
 
-    T getPresenter();
+    T attachPresenter();
 }

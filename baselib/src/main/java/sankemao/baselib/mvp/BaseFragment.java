@@ -48,7 +48,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter = getPresenter();
+        mPresenter = attachPresenter();
         if (mPresenter != null) {
             mPresenter.attatchView(this);
         }
@@ -64,7 +64,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     int getLayoutId();
 
     @Override
-    public abstract P getPresenter();
+    public abstract P attachPresenter();
 
     /**
      * 顶栏, 不是必须的.
