@@ -10,8 +10,9 @@ import sankemao.baselib.recyclerview.JViewHolder;
  * Created by jin on 2017/5/10.
  *
  */
-public class JHolderImageLoader extends JViewHolder.HolderImageLoader {
-    public JHolderImageLoader(Object imagePath) {
+public class DefaultHolderImageLoader extends JViewHolder.HolderImageLoader {
+
+    public DefaultHolderImageLoader(Object imagePath) {
         super(imagePath);
     }
 

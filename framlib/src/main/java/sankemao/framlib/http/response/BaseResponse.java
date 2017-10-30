@@ -1,4 +1,4 @@
-package http.response;
+package sankemao.framlib.http.response;
 
 import java.util.List;
 

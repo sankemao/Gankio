@@ -6,6 +6,8 @@ import java.util.List;
 
 import sankemao.baselib.recyclerview.JViewHolder;
 import sankemao.baselib.recyclerview.JrecyAdapter;
+import sankemao.baselib.recyclerview.helper.DefaultHolderImageLoader;
+import sankemao.gankio.R;
 import sankemao.gankio.data.bean.ResultsBean;
 
 /**
@@ -22,6 +24,6 @@ public class FuliAdapter extends JrecyAdapter<ResultsBean> {
 
     @Override
     protected void convert(JViewHolder holder, ResultsBean itemData, int position) {
-
+        holder.setImgByUrl(R.id.iv_fuli, new DefaultHolderImageLoader(itemData.getUrl()));
     }
 }

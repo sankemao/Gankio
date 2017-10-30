@@ -1,4 +1,4 @@
-package http.callbacks;
+package sankemao.framlib.http.callbacks;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-import http.response.BaseResponse;
+import sankemao.framlib.http.response.BaseResponse;
 import sankemao.baselib.commonutils.ThreadUtil;
 import sankemao.baselib.http.callback.EngineCallBack;
 
