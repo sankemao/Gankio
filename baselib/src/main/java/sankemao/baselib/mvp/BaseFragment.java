@@ -40,7 +40,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         mViewInflated = true;
         mBind = ButterKnife.bind(this, mRootView);
         mContext = getContext();
-        initNavigationBar(mRootView);
+        initNavigationBar((ViewGroup) mRootView);
         initView(mRootView);
         return mRootView;
     }
@@ -60,8 +60,11 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         super.onActivityCreated(savedInstanceState);
     }
 
-    protected abstract @LayoutRes
-    int getLayoutId();
+    public P getPresenter() {
+        return mPresenter;
+    }
+
+    protected abstract @LayoutRes int getLayoutId();
 
     @Override
     public abstract P attachPresenter();
@@ -69,7 +72,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     /**
      * 顶栏, 不是必须的.
      */
-    protected void initNavigationBar(View rootView){
+    protected void initNavigationBar(ViewGroup rootView){
 
     }
 

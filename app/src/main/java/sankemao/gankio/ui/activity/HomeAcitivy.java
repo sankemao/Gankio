@@ -50,11 +50,6 @@ public class HomeAcitivy extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    protected void initData(Bundle savedInstanceState) {
         mFragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fl_container);
         HomeFragment homeFragment = mFragmentHelper.findfragment(HomeFragment.class);
         if (homeFragment == null) {
@@ -66,6 +61,11 @@ public class HomeAcitivy extends BaseActivity {
             mNewFragment = mFragmentHelper.findfragment(NewFragment.class);
             mMessageFragment = mFragmentHelper.findfragment(MessageFragment.class);
         }
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
     }
 
     @OnClick({R.id.home_rb, R.id.find_rb, R.id.new_rb, R.id.message_rb})

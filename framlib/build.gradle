@@ -23,4 +23,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile project(':baselib')
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }

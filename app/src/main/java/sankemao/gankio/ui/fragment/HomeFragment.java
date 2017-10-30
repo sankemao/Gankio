@@ -42,11 +42,6 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-//        mItemFragments = new ArrayList<>();
-//        for (String item : items) {
-//            ItemFragment itemFragment = ItemFragment.newInstance(item);
-//            mItemFragments.add(itemFragment);
-//        }
         initViewPager();
     }
 
