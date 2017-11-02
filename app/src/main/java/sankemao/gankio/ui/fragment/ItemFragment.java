@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.LogUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import sankemao.baselib.mvp.IPresenter;
 import sankemao.baselib.mvp.LazyFragment;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.activity.MvpTestActivity;
@@ -49,11 +48,6 @@ public class ItemFragment extends LazyFragment {
     }
 
     @Override
-    public IPresenter attachPresenter() {
-        return null;
-    }
-
-    @Override
     protected void initView(View rootView) {
         mTvTitle.setText(mTitle);
         LogUtils.e(mTitle, "initView" + mTvTitle.getText());
@@ -86,5 +80,10 @@ public class ItemFragment extends LazyFragment {
     public void onClick() {
         startActivity(new Intent(mContext, MvpTestActivity.class));
 //        ToastUtils.showShort(mTvTitle.getText());
+    }
+
+    @Override
+    public void attachPresenters() {
+
     }
 }

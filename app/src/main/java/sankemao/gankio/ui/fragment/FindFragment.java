@@ -14,7 +14,6 @@ import http.callbacks.SimpleCallBack;
 import http.response.BaseResponse;
 import sankemao.baselib.http.HttpUtils;
 import sankemao.baselib.mvp.BaseFragment;
-import sankemao.baselib.mvp.IPresenter;
 import sankemao.baselib.recyclerview.WrapRecyclerView;
 import sankemao.gankio.R;
 import sankemao.gankio.data.adapter.FuliAdapter;
@@ -38,11 +37,6 @@ public class FindFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_find;
-    }
-
-    @Override
-    public IPresenter attachPresenter() {
-        return null;
     }
 
     @Override
@@ -84,5 +78,10 @@ public class FindFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void attachPresenters() {
+
     }
 }

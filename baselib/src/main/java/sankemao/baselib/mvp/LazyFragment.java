@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
  * Author:jin
  * Email:210980059@qq.com
  */
-public abstract class LazyFragment<P extends IPresenter> extends BaseFragment<P> {
+public abstract class LazyFragment extends BaseFragment {
     protected boolean mIsVisible = false;   //当前fragment是否可见.
     private boolean mIsFirst = true;        //第一次加载数据.
     private boolean mIsPrepared = false;    //在onActivityCreated中变为true, 即已执行initView.

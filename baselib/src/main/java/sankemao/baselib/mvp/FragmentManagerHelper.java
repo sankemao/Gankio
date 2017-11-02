@@ -63,6 +63,9 @@ public class FragmentManagerHelper {
         fragmentTransaction.commit();
     }
 
+    /**
+     * 在fragmentManager栈中找fragment.
+     */
     public <T extends Fragment> T findfragment(Class<T> fragmentClass) {
         return (T) mFragmentManager.findFragmentByTag(fragmentClass.getName());
     }

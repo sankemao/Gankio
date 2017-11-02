@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import sankemao.baselib.mvp.BaseActivity;
-import sankemao.baselib.mvp.IPresenter;
 
 public class SplashActivity extends BaseActivity {
 
@@ -19,8 +18,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    public IPresenter attachPresenter() {
-        return null;
+    public void attachPresenters() {
+
     }
 
     @Override

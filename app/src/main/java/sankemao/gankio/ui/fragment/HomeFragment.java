@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import sankemao.baselib.mvp.BaseFragment;
-import sankemao.baselib.mvp.IPresenter;
 import sankemao.gankio.R;
 
 /**
@@ -27,11 +26,6 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home;
-    }
-
-    @Override
-    public IPresenter attachPresenter() {
-        return null;
     }
 
 
@@ -65,4 +59,8 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void attachPresenters() {
+
+    }
 }

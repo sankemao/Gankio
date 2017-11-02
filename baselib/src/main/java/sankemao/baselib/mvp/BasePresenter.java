@@ -11,13 +11,15 @@ import java.lang.reflect.Proxy;
  * Author:jin
  * Email:210980059@qq.com
  */
-public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
+public abstract class BasePresenter<V extends IView> {
 
     /**弱引用, 防止内存泄漏*/
     private WeakReference<V> weakReference;
     private V mProxyView;
 
-    @Override
+    /**
+     * 关联V层和P层
+     */
     public void attatchView(V v) {
         weakReference = new WeakReference<>(v);
         MvpViewHandler viewHandler = new MvpViewHandler(weakReference.get());
@@ -31,7 +33,9 @@ public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
         return weakReference != null && weakReference.get() != null;
     }
 
-    @Override
+    /**
+     * 断开V层和P层
+     */
     public void detachView() {
         if (isViewAttached()) {
             weakReference.clear();
@@ -52,9 +56,11 @@ public abstract class BasePresenter<V extends IView> implements IPresenter<V> {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            //如果V层没被销毁, 执行V层的方法.
             if (isViewAttached()) {
                 return method.invoke(mvpView, args);
             }
+            //P层不需要关注V层的返回值
             return null;
         }
     }

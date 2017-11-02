@@ -10,9 +10,8 @@ import sankemao.baselib.mvp.BasePresenter;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class MvpTestPresenter extends BasePresenter<MvpTestContract.View> implements MvpTestContract.Presenter{
+public class MvpTestPresenter extends BasePresenter<IMvpTestView> {
 
-    @Override
     public void testDely(Handler handler) {
         handler.postDelayed(new Runnable() {
             @Override

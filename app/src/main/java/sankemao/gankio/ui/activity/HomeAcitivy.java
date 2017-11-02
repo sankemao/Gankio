@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.BaseActivity;
-import sankemao.baselib.mvp.IPresenter;
 import sankemao.baselib.mvp.FragmentManagerHelper;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.fragment.FindFragment;
@@ -39,8 +38,8 @@ public class HomeAcitivy extends BaseActivity {
     }
 
     @Override
-    public IPresenter attachPresenter() {
-        return null;
+    public void attachPresenters() {
+
     }
 
     @Override

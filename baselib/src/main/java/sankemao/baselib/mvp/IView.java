@@ -8,8 +8,8 @@ import android.content.Context;
  * Author:jin
  * Email:210980059@qq.com
  */
-public interface IView<T> {
+public interface IView {
     Context getContext();
 
-    T attachPresenter();
+    void attachPresenters();
 }

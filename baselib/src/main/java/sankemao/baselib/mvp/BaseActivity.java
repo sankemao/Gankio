@@ -5,6 +5,8 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.LinkedHashMap;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -14,20 +16,25 @@ import butterknife.Unbinder;
  * Author:jin
  * Email:210980059@qq.com
  */
-public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements IView<P> {
+public abstract class BaseActivity extends AppCompatActivity implements IView {
 
     private Unbinder mBind;
 
-    protected P mPresenter;
+    private LinkedHashMap<String, BasePresenter> mPresenters;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         mBind = ButterKnife.bind(this);
-        mPresenter = attachPresenter();
-        if (mPresenter != null) {
-            mPresenter.attatchView(this);
+
+        attachPresenters();
+
+        if (mPresenters != null) {
+            for (String tag : mPresenters.keySet()) {
+                BasePresenter presenter = mPresenters.get(tag);
+                presenter.attatchView(this);
+            }
         }
         initNavigationBar();
         initView(savedInstanceState);
@@ -35,9 +42,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     }
 
     protected abstract @LayoutRes int getLayoutId();
-
-    @Override
-    public abstract P attachPresenter();
 
     /**
      * 标题栏
@@ -57,9 +61,25 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.detachView();
+        if (mPresenters != null) {
+            for (String tag : mPresenters.keySet()) {
+                BasePresenter presenter = mPresenters.get(tag);
+                if (presenter != null) {
+                    presenter.detachView();
+                }
+            }
         }
         mBind.unbind();
+    }
+
+    protected void addPresenter(BasePresenter presenter) {
+        if (mPresenters == null) {
+            mPresenters = new LinkedHashMap<>();
+        }
+        mPresenters.put(presenter.getClass().getName(), presenter);
+    }
+
+    protected <T> T getPresenter(Class<T> clazz) {
+        return (T) mPresenters.get(clazz.getName());
     }
 }
