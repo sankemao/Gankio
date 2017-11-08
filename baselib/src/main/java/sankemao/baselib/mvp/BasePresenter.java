@@ -45,6 +45,7 @@ public abstract class BasePresenter<V extends IView> {
 
     public V getView() {
         return mProxyView;
+
     }
 
     private class MvpViewHandler implements InvocationHandler {
