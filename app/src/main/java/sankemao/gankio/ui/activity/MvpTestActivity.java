@@ -10,7 +10,7 @@ import butterknife.OnClick;
 import sankemao.baselib.mvp.BaseActivity;
 import sankemao.gankio.R;
 
-public class MvpTestActivity extends BaseActivity implements IMvpTestView, ITestView{
+public class MvpTestActivity extends BaseActivity implements IMvpTestV, ITestV {
 
     @Override
     public Context getContext() {
@@ -20,7 +20,7 @@ public class MvpTestActivity extends BaseActivity implements IMvpTestView, ITest
     @Override
     public void attachPresenters() {
         addPresenter(new MvpTestPresenter());
-        addPresenter(new TestPresenter());
+        addPresenter(new TestP());
     }
 
     @Override
@@ -50,11 +50,22 @@ public class MvpTestActivity extends BaseActivity implements IMvpTestView, ITest
 
     @OnClick(R.id.btn_testcontract)
     public void onViewClicked() {
-        getPresenter(TestPresenter.class).test();
+        getPresenter(TestP.class).test();
     }
 
     @Override
     public void showTestMesg() {
         ToastUtils.showShort("我是TestPresenter中的发过来的消息");
+    }
+
+    @Override
+    public void handleByView(int action, Object arg) {
+        switch (action) {
+            case IMvpTestV.ACTION_TOAST:
+                ToastUtils.showShort(((String) arg));
+                break;
+            default:
+                break;
+        }
     }
 }

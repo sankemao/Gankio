@@ -82,4 +82,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     protected <T> T getPresenter(Class<T> clazz) {
         return (T) mPresenters.get(clazz.getName());
     }
+
+    @Override
+    public void handleByView(int action, Object arg) {
+
+    }
 }

@@ -12,4 +12,6 @@ public interface IView {
     Context getContext();
 
     void attachPresenters();
+
+    void handleByView(int action, Object arg);
 }

@@ -10,13 +10,14 @@ import sankemao.baselib.mvp.BasePresenter;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class MvpTestPresenter extends BasePresenter<IMvpTestView> {
+public class MvpTestPresenter extends BasePresenter<IMvpTestV> {
 
     public void testDely(Handler handler) {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getView().showMesg();
+//                getView().showMesg();
+                handleByView(IMvpTestV.ACTION_TOAST, "ssss");
             }
         }, 2000);
     }

@@ -8,6 +8,8 @@ import sankemao.baselib.mvp.IView;
  * Author:jin
  * Email:210980059@qq.com
  */
-public interface IMvpTestView extends IView{
+public interface IMvpTestV extends IView{
     void showMesg();
+
+    int ACTION_TOAST = 0x0011;
 }

@@ -1,5 +1,7 @@
 package sankemao.baselib.mvp;
 
+import android.content.Context;
+
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -45,7 +47,6 @@ public abstract class BasePresenter<V extends IView> {
 
     public V getView() {
         return mProxyView;
-
     }
 
     private class MvpViewHandler implements InvocationHandler {
@@ -64,6 +65,18 @@ public abstract class BasePresenter<V extends IView> {
             //P层不需要关注V层的返回值
             return null;
         }
+    }
+
+    /**
+     * 获取上下文
+     * @return
+     */
+    protected Context getContext() {
+        return getView().getContext();
+    }
+
+    protected void handleByView(int ation, Object obj) {
+        getView().handleByView(ation, obj);
     }
 
 }
