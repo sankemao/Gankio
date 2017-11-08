@@ -1,5 +1,6 @@
 package sankemao.gankio.ui.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
-import http.callbacks.SimpleCallBack;
-import http.response.BaseResponse;
+import sankemao.framlib.http.callbacks.SimpleCallBack;
+import sankemao.framlib.http.response.BaseResponse;
 import sankemao.baselib.http.HttpUtils;
 import sankemao.baselib.mvp.BaseFragment;
 import sankemao.baselib.recyclerview.WrapRecyclerView;
 import sankemao.gankio.R;
 import sankemao.gankio.data.adapter.FuliAdapter;
 import sankemao.gankio.data.bean.ResultsBean;
-import ui.QuickNavigationBar;
+import sankemao.framlib.ui.QuickNavigationBar;
 
 /**
  * Description:TODO
@@ -33,6 +34,7 @@ public class FindFragment extends BaseFragment {
 
     private int mPageCount = 1;
     private int mItemCount = 20;
+    private FuliAdapter mFuliAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -50,8 +52,9 @@ public class FindFragment extends BaseFragment {
     @Override
     protected void initView(View rootView) {
         mRvFuli.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        FuliAdapter fuliAdapter = new FuliAdapter(mContext, null, R.layout.item_fuli);
-        mRvFuli.setAdapter(fuliAdapter);
+//        mRvFuli.setLayoutManager(new LinearLayoutManager(mContext));
+        mFuliAdapter = new FuliAdapter(mContext, null, R.layout.item_fuli);
+        mRvFuli.setAdapter(mFuliAdapter);
     }
 
     @Override
@@ -64,6 +67,9 @@ public class FindFragment extends BaseFragment {
                         List<ResultsBean> results = result.getResults();
                         int size = results.size();
                         ToastUtils.showShort("总条目为: " + size);
+
+                        //加载图片
+                        mFuliAdapter.refreshAllData(results);
                     }
 
                     @Override
