@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".ui.activity.SplashActivity">
         </activity>
-        <activity android:name=".ui.activity.MvpTestActivity">
+        <activity android:name=".ui.activity.mvptest.MvpTestActivity">
         </activity>
     </application>
 

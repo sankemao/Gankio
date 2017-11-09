@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.LazyFragment;
 import sankemao.gankio.R;
-import sankemao.gankio.ui.activity.MvpTestActivity;
+import sankemao.gankio.ui.activity.mvptest.MvpTestActivity;
 
 /**
  * Description:TODO

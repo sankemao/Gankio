@@ -1,4 +1,4 @@
-package sankemao.gankio.ui.activity;
+package sankemao.gankio.ui.activity.mvptest;
 
 import sankemao.baselib.mvp.IView;
 

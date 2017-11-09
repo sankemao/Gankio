@@ -102,12 +102,11 @@ public abstract class BaseFragment extends Fragment implements IView {
         mBind.unbind();
     }
 
-    protected BaseFragment addPresenter(BasePresenter presenter) {
+    protected void addPresenter(BasePresenter presenter) {
         if (mPresenters == null) {
             mPresenters = new HashMap<>();
         }
         mPresenters.put(presenter.getClass().getName(), presenter);
-        return this;
     }
 
     protected <T> T getPresenter(Class<T> clazz) {

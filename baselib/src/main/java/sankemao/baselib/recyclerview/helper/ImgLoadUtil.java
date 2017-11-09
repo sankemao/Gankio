@@ -19,19 +19,10 @@ public class ImgLoadUtil {
                 .into(imageView);
     }
 
-//    public static void displayImageAsBmp(Object url, ImageView imageView) {
-//        Glide.with(imageView.getContext())
-//                .load(url)
-////                .asBitmap()
-//                .centerCrop()
-//                .error(getDefaultPic(0))
-//                .into(imageView);
-//    }
+
 
     /**
      * 加载圆形图片
-     * @param imageView
-     * @param imageUrl
      */
     public static void displayCircle(ImageView imageView, Object imageUrl) {
         Glide.with(imageView.getContext()).load(imageUrl)

@@ -15,7 +15,7 @@ import sankemao.baselib.http.callback.EngineCallBack;
  * Created by jin on 2017/7/22.
  *
  */
-public abstract class HttpCallBack<T> implements EngineCallBack {
+public abstract class DefaultCallBack<T> implements EngineCallBack {
 
     @Override
     public void onPreExecute(Context cxt, Map<String, Object> params) {

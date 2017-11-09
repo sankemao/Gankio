@@ -13,5 +13,5 @@ public interface IView {
 
     void attachPresenters();
 
-    void handleByView(int action, Object arg);
+    <T>void handleByView(int action, T arg);
 }

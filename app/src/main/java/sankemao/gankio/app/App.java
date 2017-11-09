@@ -25,7 +25,8 @@ public class App extends Application {
 
     private void initHttp() {
         HttpUtils.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-        HttpUtils.setConnTimeOut(7);
+        HttpUtils.setConnTimeOut(5);
+        HttpUtils.supportHttps();
     }
 
 }

@@ -1,4 +1,4 @@
-package sankemao.gankio.ui.activity;
+package sankemao.gankio.ui.activity.mvptest;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class MvpTestActivity extends BaseActivity implements IMvpTestV, ITestV {
 
     @Override
     public void attachPresenters() {
-        addPresenter(new MvpTestPresenter());
+        addPresenter(new MvpTestP());
         addPresenter(new TestP());
     }
 
@@ -40,7 +40,7 @@ public class MvpTestActivity extends BaseActivity implements IMvpTestV, ITestV {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        getPresenter(MvpTestPresenter.class).testDely(new Handler());
+        getPresenter(MvpTestP.class).testDely(new Handler());
     }
 
     @Override

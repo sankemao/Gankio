@@ -5,9 +5,10 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.Target;
 
 import sankemao.framlib.R;
+
+import static com.bumptech.glide.request.target.Target.SIZE_ORIGINAL;
 
 /**
  * Glide加载图片
@@ -34,12 +35,36 @@ public class GlideLoadUtil {
                 .into(imageView);
     }
 
-    public static void displayImage(Context context, Object path, ImageView imageView, boolean placeHolder) {
+    public static void displayImage(Context context, Object url, ImageView imageView, boolean placeHolder) {
         if (placeHolder) {
-            displayImage(context, path, imageView);
+            displayImage(context, url, imageView);
         } else {
-            Glide.with(context).load(path)
+            Glide.with(context).load(url)
                     .into(imageView);
+        }
+    }
+
+    public static void displayImage(Context context, Object url, ImageView imageView, boolean placeHolder, int x, int y) {
+        if (placeHolder) {
+            if (x > 0 && y > 0) {
+                Glide.with(context).load(url)
+                        .placeholder(getDefaultPic(0))
+                        .error(getDefaultPic(0))
+                        .centerCrop()
+                        .override(x, y)
+                        .into(imageView);
+            } else {
+                displayImage(context, url, imageView);
+            }
+        } else {
+            if (x > 0 && y > 0) {
+                Glide.with(context).load(url)
+                        .override(x, y)
+                        .into(imageView);
+            } else {
+                Glide.with(context).load(url)
+                        .into(imageView);
+            }
         }
     }
 
@@ -60,7 +85,7 @@ public class GlideLoadUtil {
             return  Glide.with(context)
                     .load(url)
                     .asBitmap() //必须
-                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                    .into(SIZE_ORIGINAL, SIZE_ORIGINAL)
                     .get();
         } catch (Exception e) {
             e.printStackTrace();

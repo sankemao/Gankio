@@ -1,25 +1,21 @@
 package sankemao.gankio.ui.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.ToastUtils;
-
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
-import sankemao.framlib.http.callbacks.SimpleCallBack;
-import sankemao.framlib.http.response.BaseResponse;
-import sankemao.baselib.http.HttpUtils;
 import sankemao.baselib.mvp.BaseFragment;
 import sankemao.baselib.recyclerview.WrapRecyclerView;
-import sankemao.gankio.R;
-import sankemao.gankio.data.adapter.FuliAdapter;
-import sankemao.gankio.data.bean.ResultsBean;
 import sankemao.framlib.ui.QuickNavigationBar;
+import sankemao.gankio.R;
+import sankemao.gankio.app.Actions;
+import sankemao.gankio.data.adapter.PinsAdapter;
+import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.presenter.PinsPresenter;
+import sankemao.gankio.ui.iview.IFindV;
 
 /**
  * Description:TODO
@@ -27,14 +23,10 @@ import sankemao.framlib.ui.QuickNavigationBar;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class FindFragment extends BaseFragment {
+public class FindFragment extends BaseFragment implements IFindV{
     @BindView(R.id.rv_fuli)
     WrapRecyclerView mRvFuli;
-    Unbinder unbinder;
-
-    private int mPageCount = 1;
-    private int mItemCount = 20;
-    private FuliAdapter mFuliAdapter;
+    private PinsAdapter mPinsAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -52,42 +44,29 @@ public class FindFragment extends BaseFragment {
     @Override
     protected void initView(View rootView) {
         mRvFuli.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mRvFuli.setLayoutManager(new LinearLayoutManager(mContext));
-        mFuliAdapter = new FuliAdapter(mContext, null, R.layout.item_fuli);
-        mRvFuli.setAdapter(mFuliAdapter);
+        mPinsAdapter = new PinsAdapter(mContext, null);
+        mRvFuli.setAdapter(mPinsAdapter);
     }
 
     @Override
     protected void initData() {
-        HttpUtils.with(mContext)
-                .url("http://gank.io/api/data/福利/" + mItemCount + "/" + mPageCount)
-                .enqueue(new SimpleCallBack<BaseResponse<ResultsBean>>() {
-                    @Override
-                    public void onMainSuccess(BaseResponse<ResultsBean> result) {
-                        List<ResultsBean> results = result.getResults();
-                        int size = results.size();
-                        ToastUtils.showShort("总条目为: " + size);
-
-                        //加载图片
-                        mFuliAdapter.refreshAllData(results);
-                    }
-
-                    @Override
-                    protected void onMainError(Exception e) {
-
-                    }
-                });
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+        getPresenter(PinsPresenter.class).getPinsByType();
     }
 
     @Override
     public void attachPresenters() {
-
+        addPresenter(new PinsPresenter());
     }
+
+    @Override
+    public void handleByView(int action, Object arg) {
+        switch (action) {
+            case Actions.Find.PIN_PICS:
+                mPinsAdapter.refreshAllData((List<PinsMainEntity>) arg);
+                break;
+            default:
+                break;
+        }
+    }
+
 }
