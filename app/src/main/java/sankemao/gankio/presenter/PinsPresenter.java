@@ -27,14 +27,14 @@ public class PinsPresenter extends BasePresenter<IView> {
                 .addParam("limit", 20)
                 .enqueue(new DefaultCallBack<ListPinsBean>() {
                     @Override
-                    public void onSuccess(ListPinsBean result) {
+                    public void onMainSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
                         handleByView(Actions.Find.PIN_PICS, pins);
                     }
 
                     @Override
-                    public void onError(Exception e) {
-                        handleByView(Actions.Error.HTTP_FAIL, 1);
+                    public void onMainError(Exception e) {
+                        handleByView(Actions.Error.HTTP_FAIL, e);
                     }
                 });
 
@@ -48,14 +48,14 @@ public class PinsPresenter extends BasePresenter<IView> {
                 .addParam("max", maxId)
                 .enqueue(new DefaultCallBack<ListPinsBean>() {
                     @Override
-                    public void onSuccess(ListPinsBean result) {
+                    public void onMainSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
                         handleByView(Actions.Find.PIN_PICS, pins);
                     }
 
                     @Override
-                    public void onError(Exception e) {
-                        handleByView(Actions.Error.HTTP_FAIL, 1);
+                    public void onMainError(Exception e) {
+                        handleByView(Actions.Error.HTTP_FAIL, e);
                     }
                 });
 

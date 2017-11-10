@@ -105,6 +105,7 @@ public class FindFragment extends BaseFragment implements IFindV {
                 maxId = refreshMaxId(pins);
                 break;
             case Actions.Error.HTTP_FAIL:
+                Exception exception = (Exception) arg;
                 mRvFuli.stopRefreshLoadByfail();
                 break;
             default:

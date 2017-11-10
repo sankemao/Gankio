@@ -35,8 +35,18 @@ public abstract class DefaultCallBack<T> implements EngineCallBack {
             @Override
             public void run() {
                 if (objResult != null) {
-                    onSuccess(objResult);
+                    onMainSuccess(objResult);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void onError(final Exception e) {
+        ThreadUtil.runOnMainThread(new Runnable() {
+            @Override
+            public void run() {
+                onMainError(e);
             }
         });
     }
@@ -54,5 +64,7 @@ public abstract class DefaultCallBack<T> implements EngineCallBack {
     /**
      * 返回可以直接操作的对象
      */
-    public abstract void onSuccess(T result);
+    public abstract void onMainSuccess(T result);
+
+    public abstract void onMainError(Exception e);
 }
