@@ -60,7 +60,11 @@ public abstract class BasePresenter<V extends IView> {
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             //如果V层没被销毁, 执行V层的方法.
             if (isViewAttached()) {
-                return method.invoke(mvpView, args);
+                try {
+                    return method.invoke(mvpView, args);
+                } catch (Exception e) {
+                    throw e.getCause();
+                }
             }
             //P层不需要关注V层的返回值
             return null;
@@ -75,8 +79,8 @@ public abstract class BasePresenter<V extends IView> {
         return getView().getContext();
     }
 
-    protected void handleByView(int ation, Object obj) {
-        getView().handleByView(ation, obj);
+    protected void handleByView(int action, Object obj) {
+        getView().handleByView(action, obj);
     }
 
 }

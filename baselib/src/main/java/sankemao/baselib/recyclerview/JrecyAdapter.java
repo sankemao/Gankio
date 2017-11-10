@@ -62,9 +62,7 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
 
     /**
      * TODO:
-     * RECYCLERVIEW的条目数据有偏移
-     * @param holder
-     * @param position
+     * RecyclerView的条目数据有偏移
      */
     @Override
     public void onBindViewHolder(final JViewHolder holder, final int position) {
@@ -128,6 +126,22 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
         mShowItems.remove(position);
         this.notifyItemRemoved(position);//删除条目并带有动画效果
         this.notifyItemRangeChanged(position, getItemCount() - position);//刷新列表的position.
+    }
+
+    /**
+     * 清除所有条目.
+     */
+    public void clear() {
+        synchronized (JrecyAdapter.class) {
+            if (mShowItems == null) {
+                return;
+            }
+            int size = mShowItems.size();
+            if (size > 0) {
+                mShowItems.clear();
+                notifyItemRangeRemoved(0, size);
+            }
+        }
     }
 
     /****************

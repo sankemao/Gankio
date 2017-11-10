@@ -3,6 +3,7 @@ package sankemao.gankio.ui.fragment;
 import android.view.View;
 
 import sankemao.baselib.mvp.BaseFragment;
+import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 
 /**
@@ -28,7 +29,7 @@ public class NewFragment extends BaseFragment {
     }
 
     @Override
-    public void attachPresenters() {
-
+    public PresenterManager attachPresenters() {
+        return null;
     }
 }

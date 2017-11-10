@@ -29,6 +29,10 @@ public class Constant {
     }
 
     public static final class Http {
+        //每次加载条目数限制
+        public static final int LIMIT = 20;
+        public static final int DEFAULT_VALUE_MINUS_ONE = -1;
+
         //用于生成图片地址
         public static final String URL_GENERAL_FORMAT = "http://img.hb.aicdn.com/%s_fw320sf";
         //大图的后缀

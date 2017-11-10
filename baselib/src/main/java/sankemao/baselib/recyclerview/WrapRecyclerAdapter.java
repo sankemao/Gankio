@@ -2,6 +2,7 @@ package sankemao.baselib.recyclerview;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private RecyclerView.Adapter mAdapter;
     private SparseArray<View> mHeaderViews;
     private SparseArray<View> mFooterViews;
+
+    //瀑布流支持头尾部
+    private boolean isStaggered;
 
     public WrapRecyclerAdapter(RecyclerView.Adapter adapter) {
         this.mAdapter = adapter;
@@ -90,12 +94,21 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     /**
      * 创建头部或者底部的ViewHolder
+     * https://segmentfault.com/a/1190000005883687
+     * 瀑布流头部独占一行
      */
     private RecyclerView.ViewHolder createHeaderFooterViewHolder(View view) {
+        if (isStaggered) {
+            StaggeredGridLayoutManager.LayoutParams params = new StaggeredGridLayoutManager.LayoutParams(StaggeredGridLayoutManager.LayoutParams.MATCH_PARENT,
+                    StaggeredGridLayoutManager.LayoutParams.WRAP_CONTENT);
+            params.setFullSpan(true);
+            view.setLayoutParams(params);
+        }
+
         return new RecyclerView.ViewHolder(view) {
+
         };
     }
-
 
     /**
      * 注意考虑头部部带来的条目偏移
@@ -174,10 +187,7 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     /**
-     * 解决GridLayoutManager添加头部和底部不占用一行的问题
-     *
-     * @param recycler
-     * @version 1.0
+     * 解决GridLayoutManager和StaggeredGridLayoutManager添加头部和底部不占用一行的问题
      */
     public void adjustSpanSize(RecyclerView recycler) {
         if (recycler.getLayoutManager() instanceof GridLayoutManager) {
@@ -190,6 +200,10 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     return isHeaderOrFooter ? layoutManager.getSpanCount() : 1;
                 }
             });
+        }
+
+        if (recycler.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            isStaggered = true;
         }
     }
 

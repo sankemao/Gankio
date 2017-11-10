@@ -9,7 +9,7 @@ package sankemao.gankio.app;
 public class Actions {
 
     public static final class Error{
-
+        public static final int HTTP_FAIL = 0x0010;
     }
 
     public static final class Find{

@@ -3,6 +3,8 @@ package sankemao.baselib.http;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.FileNameMap;
@@ -35,7 +37,9 @@ import sankemao.baselib.http.progress.DownInterceptor;
  * 默认引擎
  */
 public class OkhttpEngine implements IHttpEngine {
-    private static OkHttpClient mOkHttpClient = new OkHttpClient();
+    private static OkHttpClient mOkHttpClient = new OkHttpClient.Builder()
+            .addNetworkInterceptor(new StethoInterceptor())
+            .build();
 
     @Override
     public void addInterceptor(Interceptor interceptor) {

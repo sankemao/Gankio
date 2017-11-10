@@ -21,9 +21,9 @@ public class PinsPresenter extends BasePresenter<IView> {
 
     //https://api.huaban.com/favorite/all?limit=20
 
-    public void getPinsByType() {
+    public void getTypePins(String type) {
         HttpUtils.with(getContext())
-                .url("https://api.huaban.com/favorite/all")
+                .url("https://api.huaban.com/favorite/" + type)
                 .addParam("limit", 20)
                 .enqueue(new DefaultCallBack<ListPinsBean>() {
                     @Override
@@ -34,7 +34,28 @@ public class PinsPresenter extends BasePresenter<IView> {
 
                     @Override
                     public void onError(Exception e) {
+                        handleByView(Actions.Error.HTTP_FAIL, 1);
+                    }
+                });
 
+    }
+
+    //https://api.huaban.com/favorite/anime?max=1389093486&limit=20
+    public void getTypePins(String type, int maxId) {
+        HttpUtils.with(getContext())
+                .url("https://api.huaban.com/favorite/" + type)
+                .addParam("limit", 20)
+                .addParam("max", maxId)
+                .enqueue(new DefaultCallBack<ListPinsBean>() {
+                    @Override
+                    public void onSuccess(ListPinsBean result) {
+                        List<PinsMainEntity> pins = result.getPins();
+                        handleByView(Actions.Find.PIN_PICS, pins);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        handleByView(Actions.Error.HTTP_FAIL, 1);
                     }
                 });
 

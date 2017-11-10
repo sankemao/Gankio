@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.BaseActivity;
 import sankemao.baselib.mvp.FragmentManagerHelper;
+import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.fragment.FindFragment;
 import sankemao.gankio.ui.fragment.HomeFragment;
@@ -38,8 +39,8 @@ public class HomeAcitivy extends BaseActivity {
     }
 
     @Override
-    public void attachPresenters() {
-
+    public PresenterManager attachPresenters() {
+        return null;
     }
 
     @Override

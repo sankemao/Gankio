@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -25,13 +23,11 @@ public abstract class BaseFragment extends Fragment implements IView {
     private Unbinder mBind;
     protected Context mContext;
     private View mRootView;
-
-    private HashMap<String, BasePresenter> mPresenters;
-
     /**
      * 记录onCreateView()中rootView是否被解析了.
      */
     private boolean mViewInflated;
+    private PresenterManager mPresenterManager;
 
     public boolean isViewInflated() {
         return mViewInflated;
@@ -52,15 +48,7 @@ public abstract class BaseFragment extends Fragment implements IView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        attachPresenters();
-        if (mPresenters != null) {
-            for (String tag : mPresenters.keySet()) {
-                BasePresenter presenter = mPresenters.get(tag);
-                if (presenter != null) {
-                    presenter.attatchView(this);
-                }
-            }
-        }
+        mPresenterManager = attachPresenters();
         initData();
     }
 
@@ -91,26 +79,17 @@ public abstract class BaseFragment extends Fragment implements IView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mPresenters != null) {
-            for (String tag : mPresenters.keySet()) {
-                BasePresenter presenter = mPresenters.get(tag);
-                if (presenter != null) {
-                    presenter.detachView();
-                }
-            }
+        if (mPresenterManager != null) {
+            mPresenterManager.destory();
         }
         mBind.unbind();
     }
 
-    protected void addPresenter(BasePresenter presenter) {
-        if (mPresenters == null) {
-            mPresenters = new HashMap<>();
-        }
-        mPresenters.put(presenter.getClass().getName(), presenter);
-    }
-
     protected <T> T getPresenter(Class<T> clazz) {
-        return (T) mPresenters.get(clazz.getName());
+        if (mPresenterManager == null) {
+            return null;
+        }
+        return (T) mPresenterManager.getPresenter(clazz.getName());
     }
 
     @Override

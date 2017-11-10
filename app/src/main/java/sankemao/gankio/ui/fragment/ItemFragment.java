@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.LogUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.LazyFragment;
+import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.activity.mvptest.MvpTestActivity;
 
@@ -83,7 +84,7 @@ public class ItemFragment extends LazyFragment {
     }
 
     @Override
-    public void attachPresenters() {
-
+    public PresenterManager attachPresenters() {
+        return null;
     }
 }

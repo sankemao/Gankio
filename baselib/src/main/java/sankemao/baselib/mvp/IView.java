@@ -11,7 +11,7 @@ import android.content.Context;
 public interface IView {
     Context getContext();
 
-    void attachPresenters();
+    PresenterManager attachPresenters();
 
-    <T>void handleByView(int action, T arg);
+    void handleByView(int action, Object arg);
 }

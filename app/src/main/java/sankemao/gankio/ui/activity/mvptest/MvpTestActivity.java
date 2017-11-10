@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.OnClick;
 import sankemao.baselib.mvp.BaseActivity;
+import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 
 public class MvpTestActivity extends BaseActivity implements IMvpTestV, ITestV {
@@ -18,10 +19,13 @@ public class MvpTestActivity extends BaseActivity implements IMvpTestV, ITestV {
     }
 
     @Override
-    public void attachPresenters() {
-        addPresenter(new MvpTestP());
-        addPresenter(new TestP());
+    public PresenterManager attachPresenters() {
+        return PresenterManager.begin()
+                .addPresenter(new TestP())
+                .addPresenter(new MvpTestP())
+                .attach(this);
     }
+
 
     @Override
     protected int getLayoutId() {

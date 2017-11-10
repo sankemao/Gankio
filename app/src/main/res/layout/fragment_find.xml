@@ -4,11 +4,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <sankemao.baselib.recyclerview.WrapRecyclerView
+    <sankemao.baselib.recyclerview.LoadRefreshRecyclerView
         android:id="@+id/rv_fuli"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </sankemao.baselib.recyclerview.WrapRecyclerView>
+    </sankemao.baselib.recyclerview.LoadRefreshRecyclerView>
 
 </LinearLayout>

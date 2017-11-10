@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import sankemao.baselib.mvp.BaseFragment;
+import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 
 /**
@@ -60,7 +61,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public void attachPresenters() {
-
+    public PresenterManager attachPresenters() {
+        return null;
     }
 }
