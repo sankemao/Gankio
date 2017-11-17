@@ -23,7 +23,7 @@ import dalvik.system.BaseDexClassLoader;
  */
 public class FixDexManager {
     private Context mContext;
-    private File mDexDir;
+    private File mDexDir;//data目录下
 
     public FixDexManager(Context context) {
         this.mContext = context;
@@ -45,9 +45,9 @@ public class FixDexManager {
             throw new FileNotFoundException(fixDexPath + "不存在");
         }
         File destFile = new File(mDexDir, srcFile.getName());
-        if (destFile.exists()) {
-            return;
-        }
+//        if (destFile.exists()) {
+//            return;
+//        }
         copyFile(srcFile, destFile);
 
         //2.2 ClassLoader读取fixDex路径
@@ -116,7 +116,6 @@ public class FixDexManager {
      * 合并两个dexElements数组
      */
     private static Object combineArray(Object arrayLhs, Object arrayRhs) {
-        //这句值得学习.
         Class<?> localClass = arrayLhs.getClass().getComponentType();
         int i = Array.getLength(arrayLhs);
         int j = i + Array.getLength(arrayRhs);

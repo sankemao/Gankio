@@ -2,6 +2,7 @@ package sankemao.gankio.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -20,6 +21,7 @@ public class HomeAcitivy extends BaseActivity {
 
     @BindView(R.id.fl_container)
     FrameLayout mFlContainer;
+
 
     private HomeFragment mHomeFragment;
     private FindFragment mFindFragment;
@@ -50,6 +52,7 @@ public class HomeAcitivy extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
         mFragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fl_container);
         HomeFragment homeFragment = mFragmentHelper.findfragment(HomeFragment.class);
         if (homeFragment == null) {
