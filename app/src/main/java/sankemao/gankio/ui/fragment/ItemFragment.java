@@ -80,7 +80,6 @@ public class ItemFragment extends LazyFragment {
     @OnClick(R.id.btn_get_text)
     public void onClick() {
         startActivity(new Intent(mContext, MvpTestActivity.class));
-//        ToastUtils.showShort(mTvTitle.getText());
     }
 
     @Override

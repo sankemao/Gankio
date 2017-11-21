@@ -1,1 +1,2 @@
 sankemao/gankio/ui/fragment/ItemFragment.class
+sankemao/gankio/data/bean/Person.class

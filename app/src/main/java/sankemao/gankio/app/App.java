@@ -35,16 +35,9 @@ public class App extends Application {
         FixDexManager fixDexManager = new FixDexManager(this);
         try {
             fixDexManager.fixDex(patchFilePath);
-//            fixDexManager.loadFixDex();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        try {
-//            Fix.injectDexElements(this, patchFilePath);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void initHttp() {
