@@ -19,8 +19,8 @@ import sankemao.baselib.imageload.ImageLoaderStrategyInter;
 public class GlideStrategy implements ImageLoaderStrategyInter {
 
     @Override
-    public void showImage(Context context, View container, Object imagePath, ImageLoaderOptions options) {
-        DrawableTypeRequest<Object> mRequest = Glide.with(context)
+    public void showImage(View container, Object imagePath, ImageLoaderOptions options) {
+        DrawableTypeRequest<Object> mRequest = Glide.with(container.getContext())
                 .load(imagePath);
 
         applyOptions(mRequest, options);
@@ -53,7 +53,7 @@ public class GlideStrategy implements ImageLoaderStrategyInter {
     }
 
     @Override
-    public void showRoundImage(Context context, View container, Object imagePath) {
+    public void showRoundImage(View container, Object imagePath) {
 
     }
 

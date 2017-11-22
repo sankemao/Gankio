@@ -17,12 +17,12 @@ public interface ImageLoaderStrategyInter {
      * @param imagePath 图片path
      * @param options   图片加载参数
      */
-    void showImage(Context context, View container, Object imagePath, ImageLoaderOptions options);
+    void showImage(View container, Object imagePath, ImageLoaderOptions options);
 
     /**
      * 加载圆形图片
      */
-    void showRoundImage(Context context, View container, Object imagePath);
+    void showRoundImage(View container, Object imagePath);
 
     /**
      * 暂停图片加载， 可以在BaseActivity中调用

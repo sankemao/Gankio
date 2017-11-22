@@ -43,19 +43,19 @@ public enum ImageLoaderManager {
      * @param container 图片容器
      * @param imagePath 图片path
      */
-    public void showImage(Context context, View container, Object imagePath) {
-        mStrategy.showImage(context, container, imagePath, mOptions);
+    public void showImage(View container, Object imagePath) {
+        mStrategy.showImage(container, imagePath, mOptions);
     }
 
     /**
      * 加载图片，图片参数可配置
      */
-    public void showImage(Context context, View container, Object imagePath, ImageLoaderOptions options) {
-        mStrategy.showImage(context, container, imagePath, options);
+    public void showImage(View container, Object imagePath, ImageLoaderOptions options) {
+        mStrategy.showImage(container, imagePath, options);
     }
 
-    public void showRoundImage(Context context, View container, Object imagePath) {
-        mStrategy.showRoundImage(context, container, imagePath);
+    public void showRoundImage(View container, Object imagePath) {
+        mStrategy.showRoundImage(container, imagePath);
     }
 
     /**
