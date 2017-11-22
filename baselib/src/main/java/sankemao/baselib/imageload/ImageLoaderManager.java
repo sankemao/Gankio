@@ -1,18 +1,19 @@
 package sankemao.baselib.imageload;
 
 import android.content.Context;
-import android.widget.ImageView;
+import android.view.View;
 
 import sankemao.baselib.imageload.strategies.GlideStrategy;
 
 
 /**
- * Description:图片加载管理类
+ * Description:图片加载管理类(管理策略和图片参数)
  * Create Time: 2017/11/21.16:29
  * Author:jin
  * Email:210980059@qq.com
  */
 public enum ImageLoaderManager {
+
     INSTANCE;
 
     ImageLoaderStrategyInter mStrategy;
@@ -42,14 +43,36 @@ public enum ImageLoaderManager {
      * @param container 图片容器
      * @param imagePath 图片path
      */
-    public void showImage(Context context, ImageView container, Object imagePath) {
+    public void showImage(Context context, View container, Object imagePath) {
         mStrategy.showImage(context, container, imagePath, mOptions);
     }
 
     /**
-     * 加载图片，图片参数可配置。
+     * 加载图片，图片参数可配置
      */
-    public void showImage(Context context, ImageView container, Object imagePath, ImageLoaderOptions options) {
+    public void showImage(Context context, View container, Object imagePath, ImageLoaderOptions options) {
         mStrategy.showImage(context, container, imagePath, options);
+    }
+
+    public void showRoundImage(Context context, View container, Object imagePath) {
+        mStrategy.showRoundImage(context, container, imagePath);
+    }
+
+    /**
+     * 暂停图片加载
+     */
+    public void pauseRequest(Context context) {
+        if (mStrategy != null) {
+            mStrategy.onPause(context);
+        }
+    }
+
+    /**
+     * 恢复图片加载
+     */
+    public void resumeRequest(Context context) {
+        if (mStrategy != null) {
+            mStrategy.onResume(context);
+        }
     }
 }

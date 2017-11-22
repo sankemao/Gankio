@@ -9,9 +9,10 @@ import com.blankj.utilcode.util.ScreenUtils;
 
 import java.util.List;
 
+import sankemao.baselib.imageload.ImageLoaderManager;
+import sankemao.baselib.imageload.ImageLoaderOptions;
 import sankemao.baselib.recyclerview.JViewHolder;
 import sankemao.baselib.recyclerview.JrecyAdapter;
-import sankemao.framlib.image.GlideHolderLoader;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.data.bean.pins.PinsMainEntity;
@@ -26,8 +27,11 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
 
     public static final int originWidth = ScreenUtils.getScreenWidth() / 2 - ConvertUtils.dp2px(8);
 
+    private ImageLoaderOptions options;
+
     public PinsAdapter(Context context, List<PinsMainEntity> showItems) {
         super(context, showItems, R.layout.item_pins);
+        options = ImageLoaderOptions.getDefault().setCropType(ImageLoaderOptions.centerCrop);
     }
 
     @Override
@@ -46,11 +50,16 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
         imageViewParams.height = (int) (originWidth / scale);
         imageView.setLayoutParams(imageViewParams);
 
-        holder.setImgByUrl(R.id.iv_pin,
-                new GlideHolderLoader(String.format(Constant.Http.URL_GENERAL_FORMAT,
-                        itemData.getFile().getKey()),
-                        true,
-                        imageViewParams.width,
-                        imageViewParams.height));
+//        holder.setImgByUrl(R.id.iv_pin,
+//                new GlideHolderLoader(String.format(Constant.Http.URL_GENERAL_FORMAT,
+//                        itemData.getFile().getKey()),
+//                        true,
+//                        imageViewParams.width,
+//                        imageViewParams.height));
+
+        ImageView iv = holder.getViewById(R.id.iv_pin);
+        ImageLoaderManager.INSTANCE.showImage(iv,
+                String.format(Constant.Http.URL_GENERAL_FORMAT, itemData.getFile().getKey()),
+                options.override(imageViewParams.width, imageViewParams.height));
     }
 }

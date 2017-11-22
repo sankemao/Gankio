@@ -1,7 +1,10 @@
 package sankemao.gankio.ui.fragment;
 
 import android.view.View;
+import android.widget.ImageView;
 
+import butterknife.BindView;
+import sankemao.baselib.imageload.ImageLoaderManager;
 import sankemao.baselib.mvp.BaseFragment;
 import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
@@ -13,6 +16,9 @@ import sankemao.gankio.R;
  * Email:210980059@qq.com
  */
 public class NewFragment extends BaseFragment {
+    @BindView(R.id.iv_test)
+    ImageView mIvTest;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_new;
@@ -25,11 +31,12 @@ public class NewFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
+        ImageLoaderManager.INSTANCE.showImage(mIvTest, "https://raw.githubusercontent.com/MindorksOpenSource/PRDownloader/master/assets/sample_download.png");
     }
 
     @Override
     public PresenterManager attachPresenters() {
         return null;
     }
+
 }

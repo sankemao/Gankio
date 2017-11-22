@@ -1,7 +1,7 @@
 package sankemao.baselib.imageload;
 
 import android.content.Context;
-import android.widget.ImageView;
+import android.view.View;
 
 /**
  * Description:图片策略加载规范
@@ -17,6 +17,22 @@ public interface ImageLoaderStrategyInter {
      * @param imagePath 图片path
      * @param options   图片加载参数
      */
-    void showImage(Context context, ImageView container, Object imagePath, ImageLoaderOptions options);
+    void showImage(Context context, View container, Object imagePath, ImageLoaderOptions options);
 
+    /**
+     * 加载圆形图片
+     */
+    void showRoundImage(Context context, View container, Object imagePath);
+
+    /**
+     * 暂停图片加载， 可以在BaseActivity中调用
+     * @param context   activity的上下文
+     */
+    void onPause(Context context);
+
+    /**
+     * 恢复图片加载
+     * @param context   activity的上下文
+     */
+    void onResume(Context context);
 }
