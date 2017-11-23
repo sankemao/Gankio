@@ -1,6 +1,8 @@
 package sankemao.baselib.imageload;
 
-import android.support.annotation.IdRes;
+import android.support.annotation.DrawableRes;
+
+import sankemao.baselib.R;
 
 /**
  * Description:图片加载参数
@@ -52,7 +54,7 @@ public class ImageLoaderOptions {
     /**
      * 设置默认的占位图
      */
-    public ImageLoaderOptions placeHolder(@IdRes int holderRes) {
+    public ImageLoaderOptions placeHolder(@DrawableRes int holderRes) {
         this.mHolderRes = holderRes;
         return this;
     }
@@ -67,10 +69,8 @@ public class ImageLoaderOptions {
 
     /**
      * 设置图片加载失败占位图
-     * @param holderRes
-     * @return
      */
-    public ImageLoaderOptions errorHolder(@IdRes int holderRes) {
+    public ImageLoaderOptions errorHolder(@DrawableRes int holderRes) {
         this.mErrorHolderRes = holderRes;
         return this;
     }
@@ -88,14 +88,21 @@ public class ImageLoaderOptions {
         if (cropType == centerCrop || cropType == fitCenter) {
             this.mCropType = cropType;
         }
-
         return this;
     }
+
+    private static ImageLoaderOptions DEFAULT_OPS = new ImageLoaderOptions()
+            .placeHolder(R.drawable.shape_loading_fail)
+            .setCropType(ImageLoaderOptions.centerCrop);
 
     /**
      * 提供一个默认的参数配置。
      */
     public static ImageLoaderOptions getDefault() {
+        return DEFAULT_OPS;
+    }
+
+    public static ImageLoaderOptions newOptions() {
         return new ImageLoaderOptions();
     }
 

@@ -44,6 +44,9 @@ public enum ImageLoaderManager {
      * @param imagePath 图片path
      */
     public void showImage(View container, Object imagePath) {
+        if (imagePath == null || container == null) {
+            return;
+        }
         mStrategy.showImage(container, imagePath, mOptions);
     }
 
@@ -51,10 +54,20 @@ public enum ImageLoaderManager {
      * 加载图片，图片参数可配置
      */
     public void showImage(View container, Object imagePath, ImageLoaderOptions options) {
-        mStrategy.showImage(container, imagePath, options);
+        if (imagePath == null || container == null) {
+            return;
+        }
+        if (options == null) {
+            mStrategy.showImage(container, imagePath, mOptions);
+        } else {
+            mStrategy.showImage(container, imagePath, options);
+        }
     }
 
     public void showRoundImage(View container, Object imagePath) {
+        if (imagePath == null || container == null) {
+            return;
+        }
         mStrategy.showRoundImage(container, imagePath);
     }
 

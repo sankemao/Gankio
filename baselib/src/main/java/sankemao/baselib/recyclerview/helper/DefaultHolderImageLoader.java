@@ -1,8 +1,9 @@
 package sankemao.baselib.recyclerview.helper;
 
-import android.content.Context;
 import android.widget.ImageView;
 
+import sankemao.baselib.imageload.ImageLoaderManager;
+import sankemao.baselib.imageload.ImageLoaderOptions;
 import sankemao.baselib.recyclerview.JViewHolder;
 
 
@@ -12,23 +13,23 @@ import sankemao.baselib.recyclerview.JViewHolder;
  */
 public class DefaultHolderImageLoader extends JViewHolder.HolderImageLoader {
 
+
     public DefaultHolderImageLoader(Object imagePath) {
         super(imagePath);
     }
 
-    @Override
-    public void displayImage(Context context, ImageView imageView, Object imagePath) {
-        if (imagePath == null) {
-            return;
-        }
-        ImgLoadUtil.displayImage(imagePath, imageView);
+    public DefaultHolderImageLoader(Object imagePath, ImageLoaderOptions options) {
+        super(imagePath, options);
     }
 
     @Override
-    public void displayCircleImage(Context context, ImageView imageView, Object imagePath) {
-        if (imagePath == null) {
-            return;
-        }
-        ImgLoadUtil.displayCircle(imageView, imagePath);
+    public void displayImage(ImageView imageView, Object imagePath, ImageLoaderOptions options) {
+        ImageLoaderManager.INSTANCE.showImage(imageView, imagePath, options);
     }
+
+    @Override
+    public void displayCircleImage(ImageView imageView, Object imagePath) {
+        ImageLoaderManager.INSTANCE.showRoundImage(imageView, imagePath);
+    }
+
 }

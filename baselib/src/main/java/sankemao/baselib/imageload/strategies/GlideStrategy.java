@@ -23,12 +23,12 @@ public class GlideStrategy implements ImageLoaderStrategyInter {
         DrawableTypeRequest<Object> mRequest = Glide.with(container.getContext())
                 .load(imagePath);
 
-        applyOptions(mRequest, options);
+        loadOptions(mRequest, options);
 
         mRequest.into(((ImageView) container));
     }
 
-    private void applyOptions(DrawableTypeRequest<Object> mRequest, ImageLoaderOptions options) {
+    private void loadOptions(DrawableTypeRequest<Object> mRequest, ImageLoaderOptions options) {
         //裁剪方式
         if (options.getCropType() == ImageLoaderOptions.fitCenter) {
             mRequest.fitCenter();

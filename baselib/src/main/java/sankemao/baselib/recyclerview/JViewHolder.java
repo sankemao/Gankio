@@ -1,14 +1,16 @@
 package sankemao.baselib.recyclerview;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import sankemao.baselib.imageload.ImageLoaderOptions;
+
 /**
  * Created by jin on 2017/5/10.
+ *
  */
 public class JViewHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews;
@@ -51,7 +53,7 @@ public class JViewHolder extends RecyclerView.ViewHolder {
         if (imageLoader == null) {
             throw new NullPointerException("imageLoader is null");
         }
-        imageLoader.displayImage(imageView.getContext(), imageView, imageLoader.getImagePath());
+        imageLoader.displayImage(imageView, imageLoader.getImagePath(), imageLoader.getOptions());
         return this;
     }
 
@@ -60,7 +62,7 @@ public class JViewHolder extends RecyclerView.ViewHolder {
         if (imageLoader == null) {
             throw new NullPointerException("imageLoader is null");
         }
-        imageLoader.displayCircleImage(imageView.getContext(), imageView, imageLoader.getImagePath());
+        imageLoader.displayCircleImage(imageView, imageLoader.getImagePath());
         return this;
     }
 
@@ -79,18 +81,28 @@ public class JViewHolder extends RecyclerView.ViewHolder {
 
     public static abstract class HolderImageLoader {
         private Object mImagePath;
+        private ImageLoaderOptions mOptions;
 
         public HolderImageLoader(Object imagePath) {
+            this(imagePath, null);
+        }
+
+        public HolderImageLoader(Object imagePath, ImageLoaderOptions options) {
             this.mImagePath = imagePath;
+            this.mOptions = options;
         }
 
         public Object getImagePath() {
             return mImagePath;
         }
 
-        public abstract void displayImage(Context context, ImageView imageView, Object imagePath);
+        public ImageLoaderOptions getOptions() {
+            return mOptions;
+        }
 
-        public abstract void displayCircleImage(Context context, ImageView imageView, Object imagePath);
+        public abstract void displayImage(ImageView imageView, Object imagePath, ImageLoaderOptions options);
+
+        public abstract void displayCircleImage(ImageView imageView, Object imagePath);
     }
 
 
