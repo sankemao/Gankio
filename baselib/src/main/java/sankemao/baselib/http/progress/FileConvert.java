@@ -34,7 +34,7 @@ public class FileConvert {
             folder = Environment.getExternalStorageDirectory() + DM_TARGET_FOLDER;
 
         File dir = new File(folder);
-        FileUtils.createOrExistsFile(dir);
+        FileUtils.createOrExistsDir(dir);
         File file = new File(dir, fileName);
         FileUtils.createFileByDeleteOldFile(file);
 

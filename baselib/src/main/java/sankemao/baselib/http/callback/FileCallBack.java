@@ -23,11 +23,11 @@ public abstract class FileCallBack {
         mFileConvert = new FileConvert(destFileDir, destFileName);
     }
 
-    public void downError() {
+    public void downError(final String errorMsg) {
         ThreadUtil.runOnMainThread(new Runnable() {
             @Override
             public void run() {
-                onError();
+                onError(errorMsg);
             }
         });
     }
@@ -41,9 +41,11 @@ public abstract class FileCallBack {
         });
     }
 
+    public abstract void onBefore();
+
     public abstract void onSuccess(File file);
 
-    public abstract void onError();
+    public abstract void onError(String errorMsg);
 
     public abstract void onProgress(long currentBytes, long contentLength, boolean done);
 

@@ -127,6 +127,7 @@ public class HttpUtils {
             LogUtils.d("必须设置fileCallback");
             return;
         }
+        fileCallBack.onBefore();
         downFile(mUrl, fileCallBack);
     }
 

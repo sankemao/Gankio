@@ -1,5 +1,9 @@
 package sankemao.gankio.app;
 
+import android.os.Environment;
+
+import java.io.File;
+
 /**
  * Description:TODO
  * Create Time:2017/11/8.23:15
@@ -41,4 +45,8 @@ public class Constant {
         public static final String FORMAT_URL_IMAGE_SMALL = "http://img.hb.aicdn.com/%s_sq75sf";
     }
 
+    public static final class Commom {
+        public static final String APP_DIR =
+                Environment.getExternalStorageDirectory().getPath() + File.separator + App.mContext.getPackageName();
+    }
 }

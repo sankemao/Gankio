@@ -15,8 +15,10 @@ import sankemao.baselib.http.callback.FileCallBack;
  */
 public interface IHttpEngine {
 
+    //添加拦截器
     void addInterceptor(Interceptor interceptor);
 
+    //忽略https
     void supportHttps();
 
     //get请求

@@ -71,15 +71,15 @@ public class OkhttpEngine implements IHttpEngine {
                 .url(url)
                 .tag(context)
                 .build();
-        mOkHttpClient
-                .newBuilder()
+        new OkHttpClient
+                .Builder()
                 .addInterceptor(new DownInterceptor(callBack))
                 .build()
                 .newCall(request)
                 .enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        callBack.onError();
+                        callBack.onError(e.getMessage());
                     }
 
                     @Override
@@ -90,7 +90,7 @@ public class OkhttpEngine implements IHttpEngine {
                                 callBack.downSuccess(file);
                             } catch (Throwable throwable) {
                                 throwable.printStackTrace();
-                                callBack.downError();
+                                callBack.downError(throwable.getMessage());
                             }
                         }
                     }
@@ -140,6 +140,7 @@ public class OkhttpEngine implements IHttpEngine {
 
     /**
      * 添加参数.
+     *
      * @param builder
      * @param params
      */
@@ -267,17 +268,17 @@ public class OkhttpEngine implements IHttpEngine {
     }
 
 
-
     /**
      * 根据tag取消请求
      * 参照:
      * https://github.com/jeasonlzy/okhttp-OkGo/blob/1b2a7edd092b7dedf321a2c5911a3e132db82d9b/okgo/src/main/java/com/lzy/okgo/OkGo.java
+     *
      * @param tag
      */
     @Override
     public void cancelRequest(Object tag) {
         Dispatcher dispatcher = mOkHttpClient.dispatcher();
-        synchronized (OkhttpEngine.class){
+        synchronized (OkhttpEngine.class) {
             for (Call call : dispatcher.queuedCalls()) {
                 if (tag.equals(call.request().tag())) {
                     call.cancel();

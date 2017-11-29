@@ -1,6 +1,7 @@
 package sankemao.gankio.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Environment;
 
 import com.blankj.utilcode.util.Utils;
@@ -17,16 +18,18 @@ import sankemao.gankio.fix.FixDexManager;
  * Email:210980059@qq.com
  */
 public class App extends Application {
+    public static Context mContext;
 
     static String patchFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dex/";
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = this;
+
         Utils.init(this);
         Stetho.initializeWithDefaults(this);
         initHttp();
-
         fix();
     }
 
