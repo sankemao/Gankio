@@ -14,8 +14,7 @@ import sankemao.framlib.R;
  * time: 2017/10/18 10:17
  * description: 默认的导航栏(项目中大部分用到的, 自带viewGroup)
  */
-public class QuickNavigationBar extends AbsNavigationBar <QuickNavigationBar.Builder> {
-
+public class QuickNavigationBar extends AbsNavigationBar<QuickNavigationBar.Builder> {
 
     public QuickNavigationBar(Builder builder) {
         super(builder);

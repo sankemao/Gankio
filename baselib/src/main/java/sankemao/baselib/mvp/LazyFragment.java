@@ -71,7 +71,7 @@ public abstract class LazyFragment extends BaseFragment {
     }
 
     /**
-     * 懒加载， 当fragment可见的时候执行。
+     * 懒加载， 当fragment可见的时候执行(一次)。
      */
     protected abstract void initLazyData();
 

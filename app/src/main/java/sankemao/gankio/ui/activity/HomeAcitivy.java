@@ -1,8 +1,8 @@
 package sankemao.gankio.ui.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import sankemao.baselib.mvp.BaseActivity;
 import sankemao.baselib.mvp.FragmentManagerHelper;
 import sankemao.baselib.mvp.PresenterManager;
+import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.fragment.FindFragment;
 import sankemao.gankio.ui.fragment.HomeFragment;
@@ -52,6 +53,8 @@ public class HomeAcitivy extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        //沉浸式状态栏
+        StatusbarUtil.setStatusBarColor(this, Color.WHITE);
 
         mFragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fl_container);
         HomeFragment homeFragment = mFragmentHelper.findfragment(HomeFragment.class);

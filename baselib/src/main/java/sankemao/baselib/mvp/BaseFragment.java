@@ -24,11 +24,14 @@ public abstract class BaseFragment extends Fragment implements IView {
     protected Context mContext;
     private View mRootView;
     /**
-     * 记录onCreateView()中rootView是否被解析了.
+     * 记录onCreateView()中rootView是否被初始化过.
      */
     private boolean mViewInflated;
     private PresenterManager mPresenterManager;
 
+    /**
+     * @return 该fragment所关联的view是否被初始化过
+     */
     public boolean isViewInflated() {
         return mViewInflated;
     }

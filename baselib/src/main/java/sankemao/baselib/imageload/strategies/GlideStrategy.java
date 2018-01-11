@@ -25,7 +25,7 @@ public class GlideStrategy implements ImageLoaderStrategyInter {
 
         loadOptions(mRequest, options);
 
-        mRequest.into(((ImageView) container));
+        mRequest.into((ImageView) container);
     }
 
     private void loadOptions(DrawableTypeRequest<Object> mRequest, ImageLoaderOptions options) {

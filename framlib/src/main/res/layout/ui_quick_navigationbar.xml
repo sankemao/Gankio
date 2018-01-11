@@ -1,35 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:background="#FF4081"
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:framlib="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@android:color/white"
+    framlib:layout_behavior="sankemao.gankio.ui.custom.TitleBehavior">
+
     <ImageView
         android:id="@+id/left_icon"
-        android:background="@drawable/ripple"
-        android:layout_centerVertical="true"
-        android:padding="14dp"
         android:layout_width="46dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ripple"
+        android:padding="14dp"/>
 
     <TextView
         android:id="@+id/title"
-        tools:text="我是标题"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:singleLine="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:text="我是标题"/>
 
     <ImageView
         android:id="@+id/right_icon"
-        android:visibility="gone"
-        android:background="@drawable/ripple"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:padding="12dp"
         android:layout_width="46dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ripple"
+        android:padding="12dp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
+

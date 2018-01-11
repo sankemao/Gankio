@@ -15,7 +15,6 @@ import sankemao.baselib.recyclerview.LoadRefreshRecyclerView;
 import sankemao.baselib.recyclerview.RefreshRecyclerView;
 import sankemao.baselib.recyclerview.headfootview.DefaultLoadMoreCreator;
 import sankemao.baselib.recyclerview.headfootview.DefaultRefreshCreator;
-import sankemao.framlib.ui.QuickNavigationBar;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Actions;
 import sankemao.gankio.app.Constant;
@@ -44,9 +43,9 @@ public class FindFragment extends BaseFragment implements IFindV {
 
     @Override
     protected void initNavigationBar(ViewGroup rootView) {
-        new QuickNavigationBar.Builder(mContext, rootView)
-                .setTitle("图片")
-                .build();
+//        new QuickNavigationBar.Builder(mContext, rootView)
+//                .setTitle("图片")
+//                .build();
     }
 
     @Override
