@@ -1,6 +1,7 @@
 package sankemao.gankio.data.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -16,6 +17,7 @@ import sankemao.baselib.recyclerview.helper.DefaultHolderImageLoader;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.ui.activity.ViewImageActivity;
 
 /**
  * Description:TODO
@@ -53,6 +55,12 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
         imageView.setLayoutParams(imageViewParams);
 
         holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(String.format(Constant.Http.URL_GENERAL_FORMAT, itemData.getFile().getKey()),
-                options.override(imageViewParams.width, imageViewParams.height)));
+                options.override(imageViewParams.width, imageViewParams.height)))
+                .setOnItemClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewImageActivity.go(mContext);
+                    }
+                });
     }
 }

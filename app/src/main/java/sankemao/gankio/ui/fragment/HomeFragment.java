@@ -1,10 +1,7 @@
 package sankemao.gankio.ui.fragment;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 
 import butterknife.BindView;
 import sankemao.baselib.mvp.BaseFragment;
@@ -41,23 +38,23 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initViewPager() {
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return ItemFragment.newInstance(items[position]);
-//                return mItemFragments.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return items.length;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                super.destroyItem(container, position, object);
-            }
-        });
+//        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
+//            @Override
+//            public Fragment getItem(int position) {
+//                return ItemFragment.newInstance(items[position]);
+////                return mItemFragments.get(position);
+//            }
+//
+//            @Override
+//            public int getCount() {
+//                return items.length;
+//            }
+//
+//            @Override
+//            public void destroyItem(ViewGroup container, int position, Object object) {
+//                super.destroyItem(container, position, object);
+//            }
+//        });
     }
 
     @Override
