@@ -49,4 +49,8 @@ public class Constant {
         public static final String APP_DIR =
                 Environment.getExternalStorageDirectory().getPath() + File.separator + App.mContext.getPackageName();
     }
+
+    public static final class Db {
+        public static final String DB_NAME = "mac.db";
+    }
 }

@@ -31,6 +31,8 @@ public class App extends Application {
         Stetho.initializeWithDefaults(this);
         initHttp();
         fix();
+
+//        Dat2Db.readDat(this, "ncoui.dat");
     }
 
     private void fix() {
