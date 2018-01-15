@@ -2,7 +2,7 @@ package sankemao.gankio.ui.activity.mvptest;
 
 import android.os.Handler;
 
-import sankemao.baselib.mvp.BasePresenter;
+import sankemao.baselib.mvp.base.BasePresenter;
 
 /**
  * Description:TODO

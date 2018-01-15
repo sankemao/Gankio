@@ -3,7 +3,7 @@ package sankemao.gankio.presenter;
 import java.util.List;
 
 import sankemao.baselib.http.HttpUtils;
-import sankemao.baselib.mvp.BasePresenter;
+import sankemao.baselib.mvp.base.BasePresenter;
 import sankemao.baselib.mvp.IView;
 import sankemao.framlib.http.callbacks.SimpleCallBack;
 import sankemao.framlib.http.response.BaseResponse;

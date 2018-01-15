@@ -2,6 +2,8 @@ package sankemao.baselib.mvp;
 
 import java.util.LinkedHashMap;
 
+import sankemao.baselib.mvp.base.BasePresenter;
+
 /**
  * Description:TODO
  * Create Time: 2017/11/10.11:09
@@ -27,7 +29,7 @@ public class PresenterManager {
         if (mBuilder.mPresenters != null) {
             for (String tag : mBuilder.mPresenters.keySet()) {
                 BasePresenter presenter = mBuilder.mPresenters.get(tag);
-                presenter.attatchView(view);
+                presenter.attachView(view);
             }
         }
     }
@@ -35,7 +37,7 @@ public class PresenterManager {
     /**
      * 断开P层与V层的连接.
      */
-    public void destory() {
+    public void destroy() {
         if (mBuilder.mPresenters != null) {
             for (String tag : mBuilder.mPresenters.keySet()) {
                 BasePresenter presenter = mBuilder.mPresenters.get(tag);

@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import butterknife.BindView;
 import sankemao.baselib.imageload.ImageLoaderManager;
-import sankemao.baselib.mvp.BaseFragment;
+import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 

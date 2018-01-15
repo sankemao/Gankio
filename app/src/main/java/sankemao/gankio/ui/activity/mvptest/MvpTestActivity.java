@@ -7,7 +7,7 @@ import android.os.Handler;
 import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.OnClick;
-import sankemao.baselib.mvp.BaseActivity;
+import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 

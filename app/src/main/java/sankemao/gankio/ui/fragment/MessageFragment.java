@@ -2,7 +2,7 @@ package sankemao.gankio.ui.fragment;
 
 import android.view.View;
 
-import sankemao.baselib.mvp.BaseFragment;
+import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
 

@@ -59,7 +59,7 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
                 .setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewImageActivity.go(mContext);
+//                        ViewImageActivity.go(mContext);
                     }
                 });
     }

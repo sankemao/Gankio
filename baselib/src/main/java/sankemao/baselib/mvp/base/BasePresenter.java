@@ -1,4 +1,4 @@
-package sankemao.baselib.mvp;
+package sankemao.baselib.mvp.base;
 
 import android.content.Context;
 
@@ -6,6 +6,8 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+
+import sankemao.baselib.mvp.IView;
 
 /**
  * Description:TODO
@@ -22,7 +24,7 @@ public abstract class BasePresenter<V extends IView> {
     /**
      * 关联V层和P层
      */
-    public void attatchView(V v) {
+    public void attachView(V v) {
         weakReference = new WeakReference<>(v);
         MvpViewHandler viewHandler = new MvpViewHandler(weakReference.get());
         mProxyView = (V) Proxy.newProxyInstance(v.getClass().getClassLoader(), v.getClass().getInterfaces(), viewHandler);

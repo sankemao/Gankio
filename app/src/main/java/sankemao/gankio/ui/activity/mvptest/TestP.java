@@ -3,7 +3,7 @@ package sankemao.gankio.ui.activity.mvptest;
 
 import com.blankj.utilcode.util.ToastUtils;
 
-import sankemao.baselib.mvp.BasePresenter;
+import sankemao.baselib.mvp.base.BasePresenter;
 
 /**
  * Description:TODO

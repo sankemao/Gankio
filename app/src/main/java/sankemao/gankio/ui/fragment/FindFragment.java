@@ -9,7 +9,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import java.util.List;
 
 import butterknife.BindView;
-import sankemao.baselib.mvp.BaseFragment;
+import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.PresenterManager;
 import sankemao.baselib.recyclerview.LoadRefreshRecyclerView;
 import sankemao.baselib.recyclerview.RefreshRecyclerView;

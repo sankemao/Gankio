@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 
+import sankemao.baselib.mvp.base.BaseFragment;
+
 /**
  * Description:懒加载
  * Create Time:2017/9/30.11:26

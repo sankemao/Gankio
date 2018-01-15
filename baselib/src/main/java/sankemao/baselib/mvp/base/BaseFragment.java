@@ -1,4 +1,4 @@
-package sankemao.baselib.mvp;
+package sankemao.baselib.mvp.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import sankemao.baselib.mvp.IView;
+import sankemao.baselib.mvp.PresenterManager;
 
 /**
  * Description:TODO
@@ -83,7 +85,7 @@ public abstract class BaseFragment extends Fragment implements IView {
     public void onDestroy() {
         super.onDestroy();
         if (mPresenterManager != null) {
-            mPresenterManager.destory();
+            mPresenterManager.destroy();
         }
         mBind.unbind();
     }

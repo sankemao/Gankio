@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import sankemao.baselib.mvp.BaseActivity;
+import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.mvp.FragmentManagerHelper;
 import sankemao.baselib.mvp.PresenterManager;
 import sankemao.baselib.ui.utils.StatusbarUtil;
