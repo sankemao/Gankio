@@ -16,11 +16,11 @@ import sankemao.baselib.mvp.inject.InjectPresenter;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class MvpProxyImpl<V extends IView> implements IMvpProxy {
+public class MvpProxyImpl implements IMvpProxy {
     private List<BasePresenter> mPresenters;
-    private V mView;
+    private IView mView;
 
-    public MvpProxyImpl(V view) {
+    public MvpProxyImpl(IView view) {
         this.mView = view;
         mPresenters = new ArrayList<>();
     }

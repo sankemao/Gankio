@@ -69,9 +69,4 @@ public class NewFragment extends BaseFragment {
 //                });
     }
 
-    @Override
-    public PresenterManager attachPresenters() {
-        return null;
-    }
-
 }

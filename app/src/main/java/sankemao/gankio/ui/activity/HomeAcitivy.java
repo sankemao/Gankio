@@ -1,6 +1,5 @@
 package sankemao.gankio.ui.activity;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +9,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.mvp.FragmentManagerHelper;
-import sankemao.baselib.mvp.PresenterManager;
 import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.fragment.FindFragment;
@@ -34,16 +32,6 @@ public class HomeAcitivy extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_home;
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-    @Override
-    public PresenterManager attachPresenters() {
-        return null;
     }
 
     @Override

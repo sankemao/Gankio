@@ -27,9 +27,4 @@ public class MessageFragment extends BaseFragment {
     protected void initData() {
 
     }
-
-    @Override
-    public PresenterManager attachPresenters() {
-        return null;
-    }
 }

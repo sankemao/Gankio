@@ -29,12 +29,12 @@ public class PinsPresenter extends BasePresenter<IView> {
                     @Override
                     public void onMainSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
-                        handleByView(Actions.Find.PIN_PICS, pins);
+//                        handleByView(Actions.Find.PIN_PICS, pins);
                     }
 
                     @Override
                     public void onMainError(Exception e) {
-                        handleByView(Actions.Error.HTTP_FAIL, e);
+//                        handleByView(Actions.Error.HTTP_FAIL, e);
                     }
                 });
 
@@ -50,12 +50,12 @@ public class PinsPresenter extends BasePresenter<IView> {
                     @Override
                     public void onMainSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
-                        handleByView(Actions.Find.PIN_PICS, pins);
+//                        handleByView(Actions.Find.PIN_PICS, pins);
                     }
 
                     @Override
                     public void onMainError(Exception e) {
-                        handleByView(Actions.Error.HTTP_FAIL, e);
+//                        handleByView(Actions.Error.HTTP_FAIL, e);
                     }
                 });
 

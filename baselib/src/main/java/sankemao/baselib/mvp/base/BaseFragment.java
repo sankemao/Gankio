@@ -1,6 +1,5 @@
 package sankemao.baselib.mvp.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -12,7 +11,8 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sankemao.baselib.mvp.IView;
-import sankemao.baselib.mvp.PresenterManager;
+import sankemao.baselib.mvp.proxy.FragmentMvpProxy;
+import sankemao.baselib.mvp.proxy.FragmentMvpProxyImp;
 
 /**
  * Description:TODO
@@ -23,13 +23,12 @@ import sankemao.baselib.mvp.PresenterManager;
 public abstract class BaseFragment extends Fragment implements IView {
 
     private Unbinder mBind;
-    protected Context mContext;
     private View mRootView;
     /**
      * 记录onCreateView()中rootView是否被初始化过.
      */
     private boolean mViewInflated;
-    private PresenterManager mPresenterManager;
+    private FragmentMvpProxy mMvpProxy;
 
     /**
      * @return 该fragment所关联的view是否被初始化过
@@ -44,7 +43,6 @@ public abstract class BaseFragment extends Fragment implements IView {
         mRootView = inflater.inflate(getLayoutId(), container, false);
         mViewInflated = true;
         mBind = ButterKnife.bind(this, mRootView);
-        mContext = getContext();
         initNavigationBar((ViewGroup) mRootView);
         initView(mRootView);
         return mRootView;
@@ -53,7 +51,10 @@ public abstract class BaseFragment extends Fragment implements IView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenterManager = attachPresenters();
+        if (mMvpProxy == null) {
+            mMvpProxy = new FragmentMvpProxyImp(this);
+        }
+        mMvpProxy.bindPresenter();
         initData();
     }
 
@@ -84,21 +85,8 @@ public abstract class BaseFragment extends Fragment implements IView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mPresenterManager != null) {
-            mPresenterManager.destroy();
-        }
+        mMvpProxy.unbindPresenter();
         mBind.unbind();
     }
 
-    protected <T> T getPresenter(Class<T> clazz) {
-        if (mPresenterManager == null) {
-            return null;
-        }
-        return (T) mPresenterManager.getPresenter(clazz.getName());
-    }
-
-    @Override
-    public void handleByView(int action, Object arg) {
-
-    }
 }

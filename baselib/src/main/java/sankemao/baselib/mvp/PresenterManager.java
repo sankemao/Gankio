@@ -10,6 +10,7 @@ import sankemao.baselib.mvp.base.BasePresenter;
  * Author:jin
  * Email:210980059@qq.com
  */
+@Deprecated
 public class PresenterManager {
 
     private Builder mBuilder;

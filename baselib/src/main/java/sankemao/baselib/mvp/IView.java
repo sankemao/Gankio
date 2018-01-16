@@ -10,8 +10,4 @@ import android.content.Context;
  */
 public interface IView {
     Context getContext();
-
-    PresenterManager attachPresenters();
-
-    void handleByView(int action, Object arg);
 }

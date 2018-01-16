@@ -16,35 +16,29 @@ import sankemao.baselib.mvp.IView;
  * Email:210980059@qq.com
  */
 public abstract class BasePresenter<V extends IView> {
-
-    /**弱引用, 防止内存泄漏*/
-    private WeakReference<V> weakReference;
+    private V mView;
     private V mProxyView;
 
     /**
      * 关联V层和P层
      */
-    public void attachView(V v) {
-        weakReference = new WeakReference<>(v);
-        MvpViewHandler viewHandler = new MvpViewHandler(weakReference.get());
-        mProxyView = (V) Proxy.newProxyInstance(v.getClass().getClassLoader(), v.getClass().getInterfaces(), viewHandler);
+    public void attachView(V view) {
+        MvpViewHandler viewHandler = new MvpViewHandler(mView);
+        mProxyView = (V) Proxy.newProxyInstance(view.getClass().getClassLoader(), view.getClass().getInterfaces(), viewHandler);
     }
 
     /**
      * @return P层和V层是否关联.
      */
     public boolean isViewAttached() {
-        return weakReference != null && weakReference.get() != null;
+        return mView != null;
     }
 
     /**
      * 断开V层和P层
      */
     public void detachView() {
-        if (isViewAttached()) {
-            weakReference.clear();
-            weakReference = null;
-        }
+        mView = null;
     }
 
     public V getView() {
@@ -75,14 +69,9 @@ public abstract class BasePresenter<V extends IView> {
 
     /**
      * 获取上下文
-     * @return
      */
     protected Context getContext() {
         return getView().getContext();
-    }
-
-    protected void handleByView(int action, Object obj) {
-        getView().handleByView(action, obj);
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import butterknife.BindView;
 import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.PresenterManager;
+import sankemao.baselib.mvp.inject.InjectPresenter;
 import sankemao.baselib.recyclerview.LoadRefreshRecyclerView;
 import sankemao.baselib.recyclerview.RefreshRecyclerView;
 import sankemao.baselib.recyclerview.headfootview.DefaultLoadMoreCreator;
@@ -32,6 +33,7 @@ import sankemao.gankio.ui.iview.IFindV;
 public class FindFragment extends BaseFragment implements IFindV {
     @BindView(R.id.rv_fuli)
     LoadRefreshRecyclerView mRvFuli;
+    @InjectPresenter
     private PinsAdapter mPinsAdapter;
 
     private int maxId = Constant.Http.DEFAULT_VALUE_MINUS_ONE;
@@ -51,14 +53,14 @@ public class FindFragment extends BaseFragment implements IFindV {
     @Override
     protected void initView(View rootView) {
         mRvFuli.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mPinsAdapter = new PinsAdapter(mContext, null);
+        mPinsAdapter = new PinsAdapter(getContext(), null);
         mRvFuli.addLoadViewCreator(new DefaultLoadMoreCreator());
         mRvFuli.addRefreshViewCreator(new DefaultRefreshCreator());
         //加载更多
         mRvFuli.setOnLoadMoreListener(new LoadRefreshRecyclerView.OnLoadMoreListener() {
             @Override
             public void onLoad() {
-                getPresenter(PinsPresenter.class).getTypePins(Constant.Type.ALL, maxId);
+//                getPresenter(PinsPresenter.class).getTypePins(Constant.Type.ALL, maxId);
             }
         });
         //刷新
@@ -66,7 +68,7 @@ public class FindFragment extends BaseFragment implements IFindV {
             @Override
             public void onRefresh() {
                 maxId = Constant.Http.DEFAULT_VALUE_MINUS_ONE;
-                getPresenter(PinsPresenter.class).getTypePins(Constant.Type.ALL);
+//                getPresenter(PinsPresenter.class).getTypePins(Constant.Type.ALL);
             }
         });
         mRvFuli.setAdapter(mPinsAdapter);
@@ -74,43 +76,36 @@ public class FindFragment extends BaseFragment implements IFindV {
 
     @Override
     protected void initData() {
-        getPresenter(PinsPresenter.class).getTypePins(Constant.Type.ALL);
+//        getPresenter(PinsPresenter.class).getTypePins(Constant.Type.ALL);
     }
 
-    @Override
-    public PresenterManager attachPresenters() {
-        return PresenterManager.begin()
-                .addPresenter(new PinsPresenter())
-                .attach(this);
-    }
-
-    @Override
-    public void handleByView(int action, Object arg) {
-        switch (action) {
-            case Actions.Find.PIN_PICS:
-                List<PinsMainEntity> pins = (List<PinsMainEntity>) arg;
-                //没有更多数据，则不继续加载了
-                if (pins == null || pins.isEmpty() || pins.size() < Constant.Http.LIMIT){
-                    ToastUtils.showShort("没有数据");
-                }
-
-                if (maxId == Constant.Http.DEFAULT_VALUE_MINUS_ONE){
-                    mPinsAdapter.clear();
-                }
-
-                mPinsAdapter.addAllData(pins);
-                mRvFuli.stopRefreshLoad(20);
-
-                maxId = refreshMaxId(pins);
-                break;
-            case Actions.Error.HTTP_FAIL:
-                Exception exception = (Exception) arg;
-                mRvFuli.stopRefreshLoadByfail();
-                break;
-            default:
-                break;
-        }
-    }
+//    @Override
+//    public void handleByView(int action, Object arg) {
+//        switch (action) {
+//            case Actions.Find.PIN_PICS:
+//                List<PinsMainEntity> pins = (List<PinsMainEntity>) arg;
+//                //没有更多数据，则不继续加载了
+//                if (pins == null || pins.isEmpty() || pins.size() < Constant.Http.LIMIT){
+//                    ToastUtils.showShort("没有数据");
+//                }
+//
+//                if (maxId == Constant.Http.DEFAULT_VALUE_MINUS_ONE){
+//                    mPinsAdapter.clear();
+//                }
+//
+//                mPinsAdapter.addAllData(pins);
+//                mRvFuli.stopRefreshLoad(20);
+//
+//                maxId = refreshMaxId(pins);
+//                break;
+//            case Actions.Error.HTTP_FAIL:
+//                Exception exception = (Exception) arg;
+//                mRvFuli.stopRefreshLoadByfail();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private int refreshMaxId(List<PinsMainEntity> pins) {
         return pins.get(pins.size() - 1).getPin_id();

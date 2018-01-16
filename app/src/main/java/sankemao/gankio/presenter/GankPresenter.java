@@ -29,7 +29,7 @@ public class GankPresenter extends BasePresenter<IView> {
                     public void onMainSuccess(BaseResponse<ResultsBean> result) {
                         List<ResultsBean> results = result.getResults();
                         //加载图片
-                        handleByView(Actions.Find.GANK_PICS, results);
+//                        handleByView(Actions.Find.GANK_PICS, results);
                     }
 
                     @Override

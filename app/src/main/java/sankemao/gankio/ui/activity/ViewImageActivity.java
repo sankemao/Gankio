@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import sankemao.baselib.mvp.BaseActivity;
-import sankemao.baselib.mvp.PresenterManager;
+
+import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.recyclerview.JViewHolder;
 import sankemao.baselib.recyclerview.JrecyAdapter;
 import sankemao.gankio.R;
@@ -54,15 +54,5 @@ public class ViewImageActivity extends BaseActivity {
         for (int i = 0; i < 100; i++) {
             mShowItems.add("我是第" + i + "条");
         }
-    }
-
-    @Override
-    public Context getContext() {
-        return null;
-    }
-
-    @Override
-    public PresenterManager attachPresenters() {
-        return null;
     }
 }
