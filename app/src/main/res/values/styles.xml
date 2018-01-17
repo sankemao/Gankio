@@ -16,7 +16,7 @@
         <item name="android:gravity">center|bottom</item>
         <item name="android:textSize">10sp</item>
         <item name="android:drawablePadding">6dp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

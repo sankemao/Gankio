@@ -15,7 +15,7 @@
         <!--背景颜色及透明程度-->
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
-
+    
     <!--dialog动画-->
     <style name="dialog_from_bottom_anim">
         <item name="android:windowEnterAnimation">@anim/dialog_from_bottom_anim_in</item>

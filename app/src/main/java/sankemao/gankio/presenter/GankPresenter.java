@@ -7,8 +7,7 @@ import sankemao.baselib.mvp.base.BasePresenter;
 import sankemao.baselib.mvp.IView;
 import sankemao.framlib.http.callbacks.SimpleCallBack;
 import sankemao.framlib.http.response.BaseResponse;
-import sankemao.gankio.app.Actions;
-import sankemao.gankio.data.bean.ResultsBean;
+import sankemao.gankio.data.bean.gankio.ResultsBean;
 
 /**
  * Description:TODO

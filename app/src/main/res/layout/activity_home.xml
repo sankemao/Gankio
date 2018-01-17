@@ -20,7 +20,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="@color/colorAccent"
+        android:background="@android:color/holo_blue_light"
         android:gravity="bottom"
         android:orientation="horizontal"
         app:layout_behavior="sankemao.gankio.ui.custom.behavior.FooterBehavior">

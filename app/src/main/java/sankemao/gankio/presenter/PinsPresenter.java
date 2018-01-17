@@ -4,11 +4,10 @@ import java.util.List;
 
 import sankemao.baselib.http.HttpUtils;
 import sankemao.baselib.mvp.base.BasePresenter;
-import sankemao.baselib.mvp.IView;
 import sankemao.framlib.http.callbacks.DefaultCallBack;
-import sankemao.gankio.app.Actions;
 import sankemao.gankio.data.bean.pins.ListPinsBean;
 import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.ui.iview.IPinsLoadView;
 
 
 /**
@@ -17,10 +16,11 @@ import sankemao.gankio.data.bean.pins.PinsMainEntity;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class PinsPresenter extends BasePresenter<IView> {
+public class PinsPresenter extends BasePresenter<IPinsLoadView> {
 
-    //https://api.huaban.com/favorite/all?limit=20
-
+    /**
+     * https://api.huaban.com/favorite/all?limit=20
+     */
     public void getTypePins(String type) {
         HttpUtils.with(getContext())
                 .url("https://api.huaban.com/favorite/" + type)
@@ -29,18 +29,20 @@ public class PinsPresenter extends BasePresenter<IView> {
                     @Override
                     public void onMainSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
-//                        handleByView(Actions.Find.PIN_PICS, pins);
+                        getView().loadPinsSuccess(pins);
                     }
 
                     @Override
                     public void onMainError(Exception e) {
-//                        handleByView(Actions.Error.HTTP_FAIL, e);
+                        getView().loadFail(e);
                     }
                 });
 
     }
 
-    //https://api.huaban.com/favorite/anime?max=1389093486&limit=20
+    /**
+     * https://api.huaban.com/favorite/anime?max=1389093486&limit=20
+     */
     public void getTypePins(String type, int maxId) {
         HttpUtils.with(getContext())
                 .url("https://api.huaban.com/favorite/" + type)
@@ -50,14 +52,15 @@ public class PinsPresenter extends BasePresenter<IView> {
                     @Override
                     public void onMainSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
-//                        handleByView(Actions.Find.PIN_PICS, pins);
+                        getView().loadPinsSuccess(pins);
                     }
 
                     @Override
                     public void onMainError(Exception e) {
-//                        handleByView(Actions.Error.HTTP_FAIL, e);
+                        getView().loadFail(e);
                     }
                 });
 
     }
+
 }

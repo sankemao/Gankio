@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Description:TODO
+ * Description:注入Presenter
  * Create Time:2018/1/13.20:01
  * Author:jin
  * Email:210980059@qq.com

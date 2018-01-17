@@ -2,7 +2,6 @@ package sankemao.baselib.mvp.base;
 
 import android.content.Context;
 
-import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -16,6 +15,7 @@ import sankemao.baselib.mvp.IView;
  * Email:210980059@qq.com
  */
 public abstract class BasePresenter<V extends IView> {
+    //用于记录P层和V层是否有关联。
     private V mView;
     private V mProxyView;
 
@@ -23,6 +23,7 @@ public abstract class BasePresenter<V extends IView> {
      * 关联V层和P层
      */
     public void attachView(V view) {
+        mView = view;
         MvpViewHandler viewHandler = new MvpViewHandler(mView);
         mProxyView = (V) Proxy.newProxyInstance(view.getClass().getClassLoader(), view.getClass().getInterfaces(), viewHandler);
     }

@@ -1,19 +1,19 @@
 package sankemao.gankio.ui.fragment;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import sankemao.baselib.mvp.LazyFragment;
-import sankemao.baselib.mvp.PresenterManager;
 import sankemao.gankio.R;
-import sankemao.gankio.ui.activity.mvptest.MvpTestActivity;
+
 
 /**
  * Description:TODO
@@ -21,15 +21,14 @@ import sankemao.gankio.ui.activity.mvptest.MvpTestActivity;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class ItemFragment extends LazyFragment {
+public class HomeItemFragment extends LazyFragment {
+    private String mTitle;
 
     @BindView(R.id.tv_title)
     TextView mTvTitle;
 
-    private String mTitle;
-
-    public static ItemFragment newInstance(String title) {
-        ItemFragment itemFragment = new ItemFragment();
+    public static HomeItemFragment newInstance(String title) {
+        HomeItemFragment itemFragment = new HomeItemFragment();
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
         itemFragment.setArguments(bundle);
@@ -62,28 +61,21 @@ public class ItemFragment extends LazyFragment {
     @Override
     protected void onInvisible() {
         super.onInvisible();
-//        LogUtils.e(mTitle, "onInvisible");
     }
 
     @Override
     protected void onVisible() {
-//        LogUtils.e(mTitle, "onVisible " + this.toString());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        LogUtils.e(mTitle, "onDestroy");
     }
 
 
     @OnClick(R.id.btn_get_text)
     public void onClick() {
-        startActivity(new Intent(mContext, MvpTestActivity.class));
+        ToastUtils.showShort("你好");
     }
 
-    @Override
-    public PresenterManager attachPresenters() {
-        return null;
-    }
 }

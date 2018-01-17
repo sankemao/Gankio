@@ -7,8 +7,8 @@ import android.widget.FrameLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.mvp.FragmentManagerHelper;
+import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
 import sankemao.gankio.ui.fragment.FindFragment;
@@ -42,7 +42,7 @@ public class HomeAcitivy extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         //沉浸式状态栏
-        StatusbarUtil.setStatusBarColor(this, Color.WHITE);
+        StatusbarUtil.setStatusBarColor(this, Color.parseColor("#ff00ddff"));
 
         mFragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fl_container);
         HomeFragment homeFragment = mFragmentHelper.findfragment(HomeFragment.class);
