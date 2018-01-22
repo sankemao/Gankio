@@ -9,7 +9,7 @@ import android.view.ViewGroup;
  * Author:jin
  * Email:210980059@qq.com
  */
-public interface BaseIndicatorAdapter {
+public interface BaseIndicatorAdapter<V extends View> {
     /**
      * 获取indicator个数
      * @return  indicator个数
@@ -23,4 +23,19 @@ public interface BaseIndicatorAdapter {
      * @return          子view
      */
     View getView(int position, ViewGroup parent);
+
+    /**
+     * 选中
+     */
+    void highLightIndicator(V indicatorView);
+
+    /**
+     * 恢复
+     */
+    void restoreIndicator(V indicatorView);
+
+    /**
+     * 底部指示器
+     */
+    View getTrackItemView();
 }

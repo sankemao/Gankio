@@ -4,8 +4,11 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -48,7 +51,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initIndicator() {
         mIndicatorView.setBackgroundColor(Color.parseColor("#ff00ddff"));
-        mIndicatorView.setAdapter(new BaseIndicatorAdapter() {
+        mIndicatorView.setAdapter(new BaseIndicatorAdapter<TextView>() {
             @Override
             public int getCount() {
                 return items.length;
@@ -57,11 +60,33 @@ public class HomeFragment extends BaseFragment {
             @Override
             public View getView(int position, ViewGroup parent) {
                 TextView textView = new TextView(getContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                textView.setLayoutParams(layoutParams);
+                textView.setGravity(Gravity.CENTER);
                 textView.setTextColor(Color.WHITE);
                 textView.setText(items[position]);
                 return textView;
             }
-        });
+
+            @Override
+            public void highLightIndicator(TextView indicatorView) {
+                indicatorView.setTextColor(Color.RED);
+            }
+
+            @Override
+            public void restoreIndicator(TextView indicatorView) {
+                indicatorView.setTextColor(Color.WHITE);
+            }
+
+            @Override
+            public View getTrackItemView() {
+                FrameLayout frameLayout = new FrameLayout(getContext());
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20);
+                frameLayout.setBackgroundColor(Color.BLUE);
+                frameLayout.setLayoutParams(params);
+                return frameLayout;
+            }
+        }, mViewPager);
     }
 
     private void initViewPager() {
