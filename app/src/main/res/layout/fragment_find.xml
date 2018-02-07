@@ -6,17 +6,11 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.design.widget.AppBarLayout>
-
-    <sankemao.baselib.recyclerview.LoadRefreshRecyclerView
+    <com.sankemao.quick.recyclerview.LoadRefreshRecyclerView
         android:id="@+id/rv_fuli"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </sankemao.baselib.recyclerview.LoadRefreshRecyclerView>
+    </com.sankemao.quick.recyclerview.LoadRefreshRecyclerView>
 
 </LinearLayout>

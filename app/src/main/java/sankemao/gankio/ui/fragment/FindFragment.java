@@ -5,16 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.sankemao.quick.recyclerview.LoadRefreshRecyclerView;
+import com.sankemao.quick.recyclerview.RefreshRecyclerView;
+import com.sankemao.quick.recyclerview.headfootview.DefaultLoadMoreCreator;
+import com.sankemao.quick.recyclerview.headfootview.DefaultRefreshCreator;
 
 import java.util.List;
 
 import butterknife.BindView;
 import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.inject.InjectPresenter;
-import sankemao.baselib.recyclerview.LoadRefreshRecyclerView;
-import sankemao.baselib.recyclerview.RefreshRecyclerView;
-import sankemao.baselib.recyclerview.headfootview.DefaultLoadMoreCreator;
-import sankemao.baselib.recyclerview.headfootview.DefaultRefreshCreator;
 import sankemao.framlib.ui.QuickNavigationBar;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;

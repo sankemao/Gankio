@@ -37,7 +37,6 @@ public class HomeFragment extends BaseFragment {
         return R.layout.fragment_home;
     }
 
-
     @Override
     protected void initView(View rootView) {
 
@@ -47,6 +46,25 @@ public class HomeFragment extends BaseFragment {
     protected void initData() {
         initViewPager();
         initIndicator();
+    }
+
+    private void initViewPager() {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return HomeItemFragment.newInstance(items[position]);
+            }
+
+            @Override
+            public int getCount() {
+                return items.length;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                super.destroyItem(container, position, object);
+            }
+        });
     }
 
     private void initIndicator() {
@@ -87,24 +105,5 @@ public class HomeFragment extends BaseFragment {
                 return frameLayout;
             }
         }, mViewPager);
-    }
-
-    private void initViewPager() {
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return HomeItemFragment.newInstance(items[position]);
-            }
-
-            @Override
-            public int getCount() {
-                return items.length;
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                super.destroyItem(container, position, object);
-            }
-        });
     }
 }

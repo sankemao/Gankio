@@ -6,9 +6,10 @@ import android.os.Environment;
 
 import com.blankj.utilcode.util.Utils;
 import com.facebook.stetho.Stetho;
+import com.sankemao.quick.http.GoHttp;
+import com.sankemao.quick.http.GoHttpConfig;
 
 import okhttp3.logging.HttpLoggingInterceptor;
-import sankemao.baselib.http.HttpUtils;
 import sankemao.gankio.fix.FixDexManager;
 
 /**
@@ -46,9 +47,12 @@ public class App extends Application {
     }
 
     private void initHttp() {
-        HttpUtils.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
-        HttpUtils.setConnTimeOut(5);
-        HttpUtils.supportHttps();
+        GoHttpConfig config = new GoHttpConfig.Builder()
+                .setTimeout(5)
+                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .supportHttps()
+                .build();
+        GoHttp.config(config);
     }
 
 }

@@ -1,11 +1,12 @@
 package sankemao.gankio.presenter;
 
+import com.sankemao.quick.http.GoHttp;
+
 import java.util.List;
 
-import sankemao.baselib.http.HttpUtils;
-import sankemao.baselib.mvp.base.BasePresenter;
 import sankemao.baselib.mvp.IView;
-import sankemao.framlib.http.callbacks.SimpleCallBack;
+import sankemao.baselib.mvp.base.BasePresenter;
+import sankemao.framlib.http.callbacks.SimpleCallback;
 import sankemao.framlib.http.response.BaseResponse;
 import sankemao.gankio.data.bean.gankio.ResultsBean;
 
@@ -21,18 +22,18 @@ public class GankPresenter extends BasePresenter<IView> {
     private int mItemCount = 20;
 
     public void getGankPics() {
-        HttpUtils.with(getContext())
+        GoHttp.with(getContext())
                 .url("http://gank.io/api/data/福利/" + mItemCount + "/" + mPageCount)
-                .enqueue(new SimpleCallBack<BaseResponse<ResultsBean>>() {
+                .enqueue(new SimpleCallback<BaseResponse<ResultsBean>>() {
                     @Override
-                    public void onMainSuccess(BaseResponse<ResultsBean> result) {
+                    public void onParseSuccess(BaseResponse<ResultsBean> result) {
                         List<ResultsBean> results = result.getResults();
                         //加载图片
 //                        handleByView(Actions.Find.GANK_PICS, results);
                     }
 
                     @Override
-                    protected void onMainError(Exception e) {
+                    public void onError(Exception e) {
 
                     }
                 });

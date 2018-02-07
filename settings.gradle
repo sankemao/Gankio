@@ -1,1 +1,1 @@
-include ':app', ':baselib', ':framlib'
+include ':app', ':lib-base', ':lib-fram', ':lib-quick'

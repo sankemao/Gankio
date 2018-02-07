@@ -7,13 +7,13 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.sankemao.quick.recyclerview.JViewHolder;
+import com.sankemao.quick.recyclerview.JrecyAdapter;
+import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
 
 import java.util.List;
 
 import sankemao.baselib.imageload.ImageLoaderOptions;
-import sankemao.baselib.recyclerview.JViewHolder;
-import sankemao.baselib.recyclerview.JrecyAdapter;
-import sankemao.baselib.recyclerview.helper.DefaultHolderImageLoader;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.data.bean.pins.PinsMainEntity;
@@ -54,12 +54,13 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
         imageViewParams.height = (int) (originWidth / scale);
         imageView.setLayoutParams(imageViewParams);
 
-        holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(String.format(Constant.Http.URL_GENERAL_FORMAT, itemData.getFile().getKey()),
+        final String imageUrl = String.format(Constant.Http.URL_GENERAL_FORMAT, itemData.getFile().getKey());
+        holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(imageUrl,
                 options.override(imageViewParams.width, imageViewParams.height)))
                 .setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        ViewImageActivity.go(mContext);
+                        ViewImageActivity.go(mContext, imageUrl);
                     }
                 });
     }

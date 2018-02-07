@@ -11,7 +11,7 @@ import com.blankj.utilcode.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import sankemao.baselib.mvp.LazyFragment;
+import sankemao.baselib.mvp.base.LazyFragment;
 import sankemao.gankio.R;
 
 

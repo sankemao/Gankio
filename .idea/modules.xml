@@ -4,8 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Gankio.iml" filepath="$PROJECT_DIR$/Gankio.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/baselib/baselib.iml" filepath="$PROJECT_DIR$/baselib/baselib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/framlib/framlib.iml" filepath="$PROJECT_DIR$/framlib/framlib.iml" />
+      <module fileurl="file://D:\Android\Workspace\Gankio\lib-base\baselib.iml" filepath="D:\Android\Workspace\Gankio\lib-base\baselib.iml" />
+      <module fileurl="file://D:\Android\Workspace\Gankio\lib-fram\framlib.iml" filepath="D:\Android\Workspace\Gankio\lib-fram\framlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-base/lib-base.iml" filepath="$PROJECT_DIR$/lib-base/lib-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-fram/lib-fram.iml" filepath="$PROJECT_DIR$/lib-fram/lib-fram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-quick/lib-quick.iml" filepath="$PROJECT_DIR$/lib-quick/lib-quick.iml" />
     </modules>
   </component>
 </project>

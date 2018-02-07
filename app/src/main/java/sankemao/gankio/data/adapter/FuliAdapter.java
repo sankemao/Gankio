@@ -2,11 +2,12 @@ package sankemao.gankio.data.adapter;
 
 import android.content.Context;
 
+import com.sankemao.quick.recyclerview.JViewHolder;
+import com.sankemao.quick.recyclerview.JrecyAdapter;
+import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
+
 import java.util.List;
 
-import sankemao.baselib.recyclerview.JViewHolder;
-import sankemao.baselib.recyclerview.JrecyAdapter;
-import sankemao.baselib.recyclerview.helper.DefaultHolderImageLoader;
 import sankemao.gankio.R;
 import sankemao.gankio.data.bean.gankio.ResultsBean;
 
