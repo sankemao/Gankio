@@ -50,7 +50,6 @@ public class HomeItemFragment extends LazyFragment {
     @Override
     protected void initView(View rootView) {
         mTvTitle.setText(mTitle);
-        LogUtils.e(mTitle, "initView" + mTvTitle.getText());
     }
 
     @Override

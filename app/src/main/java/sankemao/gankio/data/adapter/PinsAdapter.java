@@ -39,7 +39,7 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
     }
 
     @Override
-    protected void convert(JViewHolder holder, PinsMainEntity itemData, int position) {
+    protected void convert(JViewHolder holder, final PinsMainEntity itemData, int position) {
         //设置图片宽高比
         int width = itemData.getFile().getWidth();
         int height = itemData.getFile().getHeight();
@@ -55,12 +55,14 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
         imageView.setLayoutParams(imageViewParams);
 
         final String imageUrl = String.format(Constant.Http.URL_GENERAL_FORMAT, itemData.getFile().getKey());
+        final float finalScale = scale;
         holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(imageUrl,
                 options.override(imageViewParams.width, imageViewParams.height)))
                 .setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewImageActivity.go(mContext, imageUrl);
+                        String url = String.format(Constant.Http.FORMAT_URL_IMAGE_BIG, itemData.getFile().getKey());
+                        ViewImageActivity.go(mContext, url, finalScale);
                     }
                 });
     }

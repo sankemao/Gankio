@@ -182,21 +182,8 @@ public class GoHttp {
         if (mDefaultConfig != null) {
             if (mHttpEngine == null) {
                 mHttpEngine = mDefaultConfig.getHttpEngine();
-                //设置https支持。
-                if (mDefaultConfig.isSupportHttps()) {
-                    mHttpEngine.supportHttps();
-                }
-
-                //添加拦截器，可能不止一个
-                if (mDefaultConfig.getInterceptors() != null) {
-                    mHttpEngine.addInterceptors(mDefaultConfig.getInterceptors());
-                }
-
-                //设置超时
-                if (mDefaultConfig.getTimeOut() > 0) {
-                    mHttpEngine.setConnTimeOut(mDefaultConfig.getTimeOut());
-                }
             }
+            //添加公共参数
             mParams.putAll(mDefaultConfig.getPublicParams());
         }
 

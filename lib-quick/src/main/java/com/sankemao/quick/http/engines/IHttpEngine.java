@@ -2,13 +2,12 @@ package com.sankemao.quick.http.engines;
 
 import android.content.Context;
 
+import com.sankemao.quick.http.GoHttpConfig;
 import com.sankemao.quick.http.callback.EngineCallback;
 import com.sankemao.quick.http.callback.EngineDownloadCallback;
 
-import java.util.List;
 import java.util.Map;
 
-import okhttp3.Interceptor;
 import okhttp3.Response;
 
 /**
@@ -17,11 +16,11 @@ import okhttp3.Response;
  */
 public interface IHttpEngine {
 
-    //添加拦截器
-    void addInterceptors(List<Interceptor> interceptor);
-
-    //忽略https
-    void supportHttps();
+//    //添加拦截器
+//    void addInterceptors(List<Interceptor> interceptor);
+//
+//    //忽略https
+//    void supportHttps();
 
     //get异步请求
     void get(boolean cache, Context context, String url, Map<String, Object> params, Map<String, String> headers, EngineCallback callBack);
@@ -43,6 +42,8 @@ public interface IHttpEngine {
     //https 添加证书.
 
     //设置超时
-    void setConnTimeOut(int timeOut);
+//    void setConnTimeOut(int timeOut);
 
+    //设置配置
+    void config(GoHttpConfig mDefaultConfig);
 }

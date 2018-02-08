@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.sankemao.quick.http.GoHttpConfig;
 import com.sankemao.quick.http.utils.HttpsSupport;
 import com.sankemao.quick.http.utils.Utils;
 import com.sankemao.quick.http.callback.EngineCallback;
@@ -48,28 +49,32 @@ public class OkHttpEngine implements IHttpEngine {
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
 
     @Override
-    public void addInterceptors(List<Interceptor> interceptors) {
+    public void config(GoHttpConfig mDefaultConfig) {
         OkHttpClient.Builder newBuilder = mOkHttpClient.newBuilder();
-        for (Interceptor interceptor : interceptors) {
-            newBuilder.addInterceptor(interceptor);
-        }
-        newBuilder.build();
-    }
-
-    @Override
-    public void supportHttps() {
-        HttpsSupport.SSLParams sslParams = HttpsSupport.getSslSocketFactory();
-        mOkHttpClient = mOkHttpClient.newBuilder().hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
+        //拦截器
+        if (mDefaultConfig.getInterceptors() != null && mDefaultConfig.getInterceptors().size() > 0) {
+            for (Interceptor interceptor : mDefaultConfig.getInterceptors()) {
+                newBuilder.addInterceptor(interceptor);
             }
-        }).sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager).build();
-    }
+        }
 
-    @Override
-    public void setConnTimeOut(int timeOut) {
-        mOkHttpClient = mOkHttpClient.newBuilder().connectTimeout(timeOut, TimeUnit.SECONDS).build();
+        //超时
+        if (mDefaultConfig.getTimeOut() > 0) {
+            newBuilder.connectTimeout(mDefaultConfig.getTimeOut(), TimeUnit.SECONDS);
+        }
+
+        //https支持
+        if (mDefaultConfig.isSupportHttps()) {
+            HttpsSupport.SSLParams sslParams = HttpsSupport.getSslSocketFactory();
+            newBuilder.hostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            }).sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager);
+        }
+
+        mOkHttpClient = newBuilder.build();
     }
 
     /**

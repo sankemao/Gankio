@@ -3,11 +3,14 @@ package sankemao.gankio.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.sankemao.quick.recyclerview.JViewHolder;
 import com.sankemao.quick.recyclerview.JrecyAdapter;
 
@@ -26,10 +29,13 @@ public class ViewImageActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.big_image)
     ImageView mBigImageView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
-    public static void go(Context context, String imageUrl) {
+    public static void go(Context context, String imageUrl, float scale) {
         Intent intent = new Intent(context, ViewImageActivity.class);
         intent.putExtra("url", imageUrl);
+        intent.putExtra("scale", scale);
         context.startActivity(intent);
     }
 
@@ -40,7 +46,8 @@ public class ViewImageActivity extends BaseActivity {
 
     @Override
     protected void initNavigationBar() {
-        StatusbarUtil.setStatusBarTrans(this, true);
+        StatusbarUtil.setStatusBarTrans(this, false);
+        StatusbarUtil.setTitlePadding(this, mToolbar);
     }
 
     @Override
@@ -59,7 +66,13 @@ public class ViewImageActivity extends BaseActivity {
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        String url = getIntent().getStringExtra("url");
+        Intent intent = getIntent();
+        String url = intent.getStringExtra("url");
+        float scale = intent.getFloatExtra("scale", 1.0f);
+
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mBigImageView.getLayoutParams();
+        params.height = (int) (ScreenUtils.getScreenWidth() / scale);
+        mBigImageView.setLayoutParams(params);
 
         ImageLoaderManager.INSTANCE.showImage(mBigImageView, url);
         for (int i = 0; i < 100; i++) {

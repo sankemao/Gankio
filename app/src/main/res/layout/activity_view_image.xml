@@ -5,28 +5,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context="sankemao.gankio.ui.activity.ViewImageActivity">
 
     <ImageView
         android:id="@+id/big_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="@android:color/holo_red_light"
+            app:contentScrim="@android:color/white"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:statusBarScrim="@android:color/holo_red_light">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            <!--app:statusBarScrim="@android:color/holo_red_light"-->
 
             <ImageView
                 android:id="@+id/main.backdrop"
@@ -38,14 +37,17 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
                 app:layout_collapseMode="pin">
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="?android:attr/actionBarSize">
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="返回"
                         android:layout_width="wrap_content"

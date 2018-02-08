@@ -5,9 +5,8 @@ import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-
-import com.blankj.utilcode.util.LogUtils;
 
 import sankemao.baselib.R;
 
@@ -116,6 +115,11 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         if (changed) {
@@ -123,9 +127,11 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
             mItemWidth = getItemWidth();
             int itemCount = mAdapter.getCount();
             for (int i = 0; i < itemCount; i++) {
-                mContainer.getItemViewAt(i).getLayoutParams().width = mItemWidth;
+                View itemView = mContainer.getItemViewAt(i);
+                ViewGroup.LayoutParams params = itemView.getLayoutParams();
+                params.width = mItemWidth;
+                itemView.setLayoutParams(params);
             }
-            LogUtils.d("item宽度-> " + mItemWidth);
 
             mContainer.addBottomTrackView(mAdapter.getTrackItemView(), mItemWidth);
         }
@@ -176,7 +182,7 @@ public class TrackIndicatorView extends HorizontalScrollView implements ViewPage
      * viewpager滚动时滚动指示器
      */
     private void scrollCurrentIndicator(int position, float positionOffset) {
-        LogUtils.d("position->" + position + " , positionOffset->" + positionOffset);
+//        LogUtils.d("position->" + position + " , positionOffset->" + positionOffset);
         float leftMargin = (position + positionOffset) * mItemWidth;
         int offsetScroll = (getWidth() - mItemWidth) / 2;
         //以view最左边竖线为y轴， 左加右减（少偏移offset）

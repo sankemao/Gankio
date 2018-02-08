@@ -30,13 +30,12 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initNavigationBar() {
-
+        //沉浸式状态栏
+        StatusbarUtil.setStatusBarColor(this, Color.parseColor("#ff00ddff"));
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        //沉浸式状态栏
-        StatusbarUtil.setStatusBarColor(this, Color.parseColor("#ff00ddff"));
 
         mFragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fl_container);
         HomeFragment homeFragment = mFragmentHelper.findFragment(HomeFragment.class);

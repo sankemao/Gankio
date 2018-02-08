@@ -22,7 +22,7 @@ public class GoHttpConfig {
     //公共参数
     private Map<String, Object> publicParams;
     //引擎
-    private IHttpEngine httpEngine;
+    private IHttpEngine mHttpEngine;
     //解析工厂，gson
     private Converter.Factory factory;
     //支持https
@@ -34,15 +34,17 @@ public class GoHttpConfig {
 
     private GoHttpConfig(Builder builder) {
         this.publicParams = builder.publicParams;
-        this.httpEngine = builder.httpEngine;
+        this.mHttpEngine = builder.httpEngine;
         this.factory = builder.factory;
         this.mIsSupportHttps = builder.isSupportHttps;
         this.mInterceptors = builder.interceptors;
         this.mTimeOut = builder.timeout;
+
+        mHttpEngine.config(this);
     }
 
     public IHttpEngine getHttpEngine() {
-        return httpEngine;
+        return mHttpEngine;
     }
 
     public Map<String, Object> getPublicParams() {
