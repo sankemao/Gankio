@@ -1,12 +1,14 @@
 package sankemao.gankio.data.bean.pins;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time: 2017/11/9.10:13
  * Author:jin
  * Email:210980059@qq.com
  */
-public class AvatarEntity {
+public class AvatarEntity implements Serializable{
 
     /**
      * id : 120295835

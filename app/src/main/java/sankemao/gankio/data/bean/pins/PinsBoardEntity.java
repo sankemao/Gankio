@@ -1,12 +1,14 @@
 package sankemao.gankio.data.bean.pins;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2017/11/8.23:45
  * Author:jin
  * Email:210980059@qq.com
  */
-public class PinsBoardEntity {
+public class PinsBoardEntity implements Serializable{
 
     /**
      * board_id : 13102151
@@ -152,7 +154,7 @@ public class PinsBoardEntity {
         this.extra = extra;
     }
 
-    public static class ExtraBean {
+    public static class ExtraBean implements Serializable{
         /**
          * cover : {"pin_id":"293264482"}
          */
@@ -167,7 +169,7 @@ public class PinsBoardEntity {
             this.cover = cover;
         }
 
-        public static class CoverBean {
+        public static class CoverBean implements Serializable{
             /**
              * pin_id : 293264482
              */

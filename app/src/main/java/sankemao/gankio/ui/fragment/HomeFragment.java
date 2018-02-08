@@ -76,7 +76,7 @@ public class HomeFragment extends BaseFragment {
             }
 
             @Override
-            public View getView(int position, ViewGroup parent) {
+            public TextView getView(int position, ViewGroup parent) {
                 TextView textView = new TextView(getContext());
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 textView.setLayoutParams(layoutParams);
@@ -98,12 +98,14 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public View getTrackItemView() {
-                FrameLayout frameLayout = new FrameLayout(getContext());
-                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20);
-                frameLayout.setBackgroundColor(Color.BLUE);
-                frameLayout.setLayoutParams(params);
-                return frameLayout;
+//                FrameLayout frameLayout = new FrameLayout(getContext());
+//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20);
+//                frameLayout.setBackgroundColor(Color.BLUE);
+//                frameLayout.setLayoutParams(params);
+//                return frameLayout;
+                return null;
             }
+
         }, mViewPager);
     }
 }

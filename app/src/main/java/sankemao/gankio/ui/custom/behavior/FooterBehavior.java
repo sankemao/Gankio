@@ -48,7 +48,7 @@ public class FooterBehavior  extends CoordinatorLayout.Behavior<View>{
         sinceDirectionChange += dy;
         if (sinceDirectionChange > child.getHeight() && child.getVisibility() == View.VISIBLE) {
             hide(child);
-        } else if (sinceDirectionChange < 0 && child.getVisibility() == View.INVISIBLE) {
+        } else if (sinceDirectionChange < -child.getHeight() && child.getVisibility() == View.INVISIBLE) {
             show(child);
         }
 

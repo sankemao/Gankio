@@ -22,6 +22,8 @@ import sankemao.baselib.imageload.ImageLoaderManager;
 import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
+import sankemao.gankio.app.Constant;
+import sankemao.gankio.data.bean.pins.PinsMainEntity;
 
 public class ViewImageActivity extends BaseActivity {
     private List<String> mShowItems = new ArrayList<>();
@@ -32,10 +34,10 @@ public class ViewImageActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    public static void go(Context context, String imageUrl, float scale) {
+    public static void go(Context context, float scale, PinsMainEntity pinsMainEntity) {
         Intent intent = new Intent(context, ViewImageActivity.class);
-        intent.putExtra("url", imageUrl);
         intent.putExtra("scale", scale);
+        intent.putExtra("entity", pinsMainEntity);
         context.startActivity(intent);
     }
 
@@ -67,14 +69,21 @@ public class ViewImageActivity extends BaseActivity {
     protected void initData(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
-        String url = intent.getStringExtra("url");
+        PinsMainEntity mainEntity = (PinsMainEntity) intent.getSerializableExtra("entity");
+        String imagePartUrl = mainEntity.getFile().getKey();
+        String imageType = mainEntity.getFile().getType();
+        String imageHighUrl = String.format(Constant.Http.FORMAT_URL_IMAGE_BIG, imagePartUrl);
+        String imageLowUrl = String.format(Constant.Http.FORMAT_URL_IMAGE_SMALL, imagePartUrl);
+        String pinId = String.valueOf(mainEntity.getPin_id());
+        //图片比例
         float scale = intent.getFloatExtra("scale", 1.0f);
-
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mBigImageView.getLayoutParams();
         params.height = (int) (ScreenUtils.getScreenWidth() / scale);
         mBigImageView.setLayoutParams(params);
 
-        ImageLoaderManager.INSTANCE.showImage(mBigImageView, url);
+        ImageLoaderManager.INSTANCE.showImage(mBigImageView, imageHighUrl);
+
+        //列表
         for (int i = 0; i < 100; i++) {
             mShowItems.add("我是第" + i + "条");
         }

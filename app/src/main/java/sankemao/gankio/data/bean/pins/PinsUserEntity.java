@@ -1,12 +1,14 @@
 package sankemao.gankio.data.bean.pins;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2017/11/8.23:47
  * Author:jin
  * Email:210980059@qq.com
  */
-public class PinsUserEntity {
+public class PinsUserEntity implements Serializable{
 
     /**
      * user_id : 844104

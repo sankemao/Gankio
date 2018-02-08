@@ -1,5 +1,6 @@
 package sankemao.gankio.data.bean.pins;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class PinsFileEntity {
+public class PinsFileEntity implements Serializable{
 
     /**
      * id : 138839969
@@ -114,7 +115,7 @@ public class PinsFileEntity {
         this.colors = colors;
     }
 
-    public static class ColorsBean {
+    public static class ColorsBean implements Serializable{
         /**
          * color : 16250871
          * ratio : 0.56
