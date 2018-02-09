@@ -17,7 +17,7 @@ public interface IPinsLoadView extends IView{
     /**
      * 加载图片成功
      */
-    void loadPinsSuccess(List<PinsMainEntity> pinsMainEntities);
+    void loadPinsSuccess(List<PinsMainEntity> pinsMainEntities, int maxId);
 
     /**
      * 加载失败

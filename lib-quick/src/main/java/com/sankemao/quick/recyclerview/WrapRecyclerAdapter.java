@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by jin on 2017/5/10.
  * recyclerview的adapter的包装类.
+ * 静态代理模式
  */
 public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static int BASE_ITEM_TYPE_HEADER = 10000000;

@@ -28,7 +28,7 @@ public abstract class DefaultCallback<T> implements EngineCallback {
         }
 
         try {
-            Converter<String, T> converter = factory.responseConverter((Class<T>) Utils.analysisClazzInfo(this));
+            Converter<String, T> converter = factory.responseConverter(Utils.analysisClazzInfo(this));
             T parseResult = converter.convert(result);
             onParseSuccess(parseResult);
         } catch (Exception e) {

@@ -47,7 +47,7 @@ public abstract class SimpleCallback<T> implements EngineCallback {
         }
 
         try {
-            Converter<String, T> converter = factory.responseConverter((Class<T>) type);
+            Converter<String, T> converter = factory.responseConverter(type);
             T parseResult = converter.convert(resultStr);
 
             if (rawType == BaseResponse.class) {

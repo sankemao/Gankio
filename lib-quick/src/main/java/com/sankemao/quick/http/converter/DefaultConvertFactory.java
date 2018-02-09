@@ -2,6 +2,8 @@ package com.sankemao.quick.http.converter;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 /**
  * description: 提供jsonConverter.
  * author: Darren on 2017/10/18 10:23
@@ -10,7 +12,7 @@ import com.google.gson.Gson;
  */
 public class DefaultConvertFactory extends Converter.Factory {
     @Override
-    public <T> Converter<String, T> responseConverter(final Class<T> type) {
+    public <T> Converter<String, T> responseConverter(final Type type) {
         return new Converter<String, T>() {
             @Override
             public T convert(String value) {

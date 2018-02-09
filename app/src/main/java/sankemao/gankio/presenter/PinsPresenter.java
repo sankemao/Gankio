@@ -35,7 +35,8 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
                     @Override
                     public void onParseSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
-                        getView().loadPinsSuccess(pins);
+
+                        getView().loadPinsSuccess(pins, getMaxId(pins));
                     }
                 });
 
@@ -53,7 +54,7 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
                     @Override
                     public void onParseSuccess(ListPinsBean result) {
                         List<PinsMainEntity> pins = result.getPins();
-                        getView().loadPinsSuccess(pins);
+                        getView().loadPinsSuccess(pins, getMaxId(pins));
                     }
 
                     @Override
@@ -62,5 +63,35 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
                     }
                 });
     }
+
+
+    /**
+     * 获取推荐的
+     */
+    public void getPinsRecommend(String pinsId, int page) {
+        GoHttp.with(getContext())
+                .url("https://api.huaban.com/pins/" + pinsId + "/recommend/")
+                .addParam("page", page)
+                .addParam("limit", 20)
+                .enqueue(new DefaultCallback<List<PinsMainEntity>>() {
+                    @Override
+                    public void onParseSuccess(List<PinsMainEntity> pins) {
+                        getView().loadPinsSuccess(pins, getMaxId(pins));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        getView().loadFail(e);
+                    }
+                });
+    }
+
+    /**
+     * 获取maxId,集合最后一个条目中返回
+     */
+    private int getMaxId(List<PinsMainEntity> pins) {
+        return pins.get(pins.size() - 1).getPin_id();
+    }
+
 
 }

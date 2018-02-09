@@ -3,7 +3,7 @@ apply plugin: 'org.greenrobot.greendao' // apply plugin
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion "25.0.3"
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "sankemao.gankio"
@@ -50,6 +50,10 @@ dependencies {
     //调试工具
     compile 'com.facebook.stetho:stetho:' + rootProject.ext.stetho
     compile 'com.facebook.stetho:stetho-okhttp3:' + rootProject.ext.stetho
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:' + rootProject.ext.butterknife
+
+    compile 'com.github.piasy:BigImageViewer:1.4.6'
+    // load with glide
+    compile 'com.github.piasy:GlideImageLoader:1.4.6'
+    compile 'com.github.piasy:ProgressPieIndicator:1.4.6'
 }

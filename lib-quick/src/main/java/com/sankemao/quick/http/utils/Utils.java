@@ -43,10 +43,10 @@ public class Utils {
      * 解析一个类上面的class-泛型
      * 如果支持泛型，返回表示此类型实际类型参数的Type对象的数组,数组里放的都是对应类型的Class，因为可能有多个，所以是数组。
      */
-    public static Class<?> analysisClazzInfo(Object object) {
+    public static Type analysisClazzInfo(Object object) {
         Type genType = object.getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        return (Class) params[0];
+        return params[0];
     }
 
     public static void closeIo(Closeable closeable) {

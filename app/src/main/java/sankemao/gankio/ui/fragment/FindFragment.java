@@ -83,13 +83,8 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
         mPinsPresenter.getTypePins(Constant.Type.ALL);
     }
 
-
-    private int refreshMaxId(List<PinsMainEntity> pins) {
-        return pins.get(pins.size() - 1).getPin_id();
-    }
-
     @Override
-    public void loadPinsSuccess(List<PinsMainEntity> pins) {
+    public void loadPinsSuccess(List<PinsMainEntity> pins, int refreshedMaxId) {
         //没有更多数据，则不继续加载了
         if (pins == null || pins.isEmpty() || pins.size() < Constant.Http.LIMIT) {
             ToastUtils.showShort("没有数据");
@@ -101,8 +96,8 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
 
         mPinsAdapter.addAllData(pins);
         mRvFuli.stopRefreshLoad(20);
-
-        maxId = refreshMaxId(pins);
+        //刷新maxId
+        maxId = refreshedMaxId;
     }
 
     @Override

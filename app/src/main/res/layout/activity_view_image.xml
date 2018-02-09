@@ -6,12 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    tools:context="sankemao.gankio.ui.activity.ViewImageActivity">
-
-    <ImageView
-        android:id="@+id/big_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    tools:context="sankemao.gankio.ui.activity.ImageDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -26,13 +21,33 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
             <!--app:statusBarScrim="@android:color/holo_red_light"-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax">
+                <ImageView
+                    android:id="@+id/big_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:id="@+id/main.backdrop"
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
-                android:background="@android:color/transparent"
-                app:layout_collapseMode="parallax"/>
+                <TextView
+                    android:id="@+id/tv_author"
+                    android:layout_below="@id/big_image"
+                    tools:text = "zx123.cn"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+                <TextView
+                    android:id="@+id/tv_discribe"
+                    android:layout_below="@id/tv_author"
+                    android:textSize="12sp"
+                    tools:text="地中海分格家具"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                
+            </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -59,12 +74,12 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_test"
+    <FrameLayout
+        android:id="@+id/image_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

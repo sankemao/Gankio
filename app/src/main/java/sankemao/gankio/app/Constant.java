@@ -38,11 +38,13 @@ public class Constant {
         public static final int DEFAULT_VALUE_MINUS_ONE = -1;
 
         //用于生成图片地址
-        public static final String URL_GENERAL_FORMAT = "http://img.hb.aicdn.com/%s_fw320sf";
+        public static final String FORMAT_URL_IMAGE_GENERAL = "http://img.hb.aicdn.com/%s_fw320sf";
         //大图的后缀
         public static final String FORMAT_URL_IMAGE_BIG = "http://img.hb.aicdn.com/%s_fw658";
         //小图的后缀
         public static final String FORMAT_URL_IMAGE_SMALL = "http://img.hb.aicdn.com/%s_sq75sf";
+        //原图
+        public static final String FORMAT_URL_IMAGE_ORIGIN = "http://img.hb.aicdn.com/%s";
     }
 
     public static final class Commom {

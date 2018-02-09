@@ -28,7 +28,9 @@
 
         <service android:name="sankemao.baselib.appupdate.service.DownloadService"/>
 
-        <activity android:name=".ui.activity.ViewImageActivity">
+        <activity android:name=".ui.activity.ImageDetailActivity">
+        </activity>
+        <activity android:name=".ui.activity.ImageSingleActivity">
         </activity>
     </application>
 

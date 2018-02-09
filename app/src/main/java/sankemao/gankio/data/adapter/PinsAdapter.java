@@ -1,17 +1,12 @@
 package sankemao.gankio.data.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.sankemao.quick.recyclerview.JViewHolder;
 import com.sankemao.quick.recyclerview.JrecyAdapter;
 import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
@@ -22,7 +17,7 @@ import sankemao.baselib.imageload.ImageLoaderOptions;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.data.bean.pins.PinsMainEntity;
-import sankemao.gankio.ui.activity.ViewImageActivity;
+import sankemao.gankio.ui.activity.ImageDetailActivity;
 
 /**
  * Description:TODO
@@ -39,7 +34,7 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
     public PinsAdapter(Context context, List<PinsMainEntity> showItems) {
         super(context, showItems, R.layout.item_pins);
         options = ImageLoaderOptions.newOptions()
-//                .placeHolder(R.drawable.shape_loading_fail)
+                .placeHolder(R.drawable.shape_loading_fail)
                 .setCropType(ImageLoaderOptions.centerCrop)
                 .isCrossFade(true);
     }
@@ -60,16 +55,16 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
         imageViewParams.height = (int) (originWidth / scale);
         imageView.setLayoutParams(imageViewParams);
 
-        String themeColor = "#" + itemData.getFile().getTheme();
+//        String themeColor = "#" + itemData.getFile().getTheme();
+//
+//        LogUtils.d("颜色为： " + themeColor);
+//        try {
+//            imageView.setBackgroundColor(Color.parseColor(themeColor));
+//        } catch (Exception e) {
+//            imageView.setBackgroundColor(Color.parseColor("#ffffff"));
+//        }
 
-        LogUtils.d("颜色为： " + themeColor);
-        try {
-            imageView.setBackgroundColor(Color.parseColor(themeColor));
-        } catch (Exception e) {
-            imageView.setBackgroundColor(Color.parseColor("#ffffff"));
-        }
-
-        final String imageUrl = String.format(Constant.Http.URL_GENERAL_FORMAT, itemData.getFile().getKey());
+        final String imageUrl = String.format(Constant.Http.FORMAT_URL_IMAGE_GENERAL, itemData.getFile().getKey());
         final float finalScale = scale;
 
         holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(imageUrl,
@@ -77,7 +72,7 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
                 .setOnItemClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewImageActivity.go(mContext, finalScale, itemData);
+                        ImageDetailActivity.go(mContext, finalScale, itemData);
                     }
                 });
     }

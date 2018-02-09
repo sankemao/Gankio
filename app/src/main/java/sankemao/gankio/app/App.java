@@ -6,6 +6,8 @@ import android.os.Environment;
 
 import com.blankj.utilcode.util.Utils;
 import com.facebook.stetho.Stetho;
+import com.github.piasy.biv.BigImageViewer;
+import com.github.piasy.biv.loader.glide.GlideImageLoader;
 import com.sankemao.quick.http.GoHttp;
 import com.sankemao.quick.http.GoHttpConfig;
 
@@ -32,7 +34,8 @@ public class App extends Application {
         Stetho.initializeWithDefaults(this);
         initHttp();
         fix();
-
+        //长图加载
+        BigImageViewer.initialize(GlideImageLoader.with(this));
 //        Dat2Db.readDat(this, "ncoui.dat");
     }
 

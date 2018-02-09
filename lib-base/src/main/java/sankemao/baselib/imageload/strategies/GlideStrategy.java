@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import sankemao.baselib.imageload.ImageLoaderOptions;
 import sankemao.baselib.imageload.ImageLoaderStrategyInter;
@@ -20,37 +20,36 @@ public class GlideStrategy implements ImageLoaderStrategyInter {
 
     @Override
     public void showImage(View container, Object imagePath, ImageLoaderOptions options) {
-        DrawableTypeRequest<Object> mRequest = Glide.with(container.getContext())
-                .load(imagePath);
-
-        loadOptions(mRequest, options);
-
-        mRequest.into((ImageView) container);
+        Glide.with(container.getContext()).load(imagePath).apply(generateOption(options)).into((ImageView) container);
     }
 
-    private void loadOptions(DrawableTypeRequest<Object> mRequest, ImageLoaderOptions options) {
-        //裁剪方式
+    private RequestOptions generateOption(ImageLoaderOptions options) {
+        RequestOptions requestOptions = new RequestOptions();
+
         if (options.getCropType() == ImageLoaderOptions.fitCenter) {
-            mRequest.fitCenter();
+            requestOptions = requestOptions.fitCenter();
         } else if(options.getCropType() == ImageLoaderOptions.centerCrop){
-            mRequest.centerCrop();
+            requestOptions = requestOptions.centerCrop();
         }
 
         //设置占位图
         if (options.getHolderRes() > 0) {
-            mRequest.placeholder(options.getHolderRes());
+            requestOptions = requestOptions.placeholder(options.getHolderRes());
         }
 
         //设置错误的占位图
         if (options.getErrorHolderRes() > 0) {
-            mRequest.error(options.getErrorHolderRes());
+            requestOptions = requestOptions.error(options.getErrorHolderRes());
         }
 
         //重新设置大小
         if (options.getResizeWidth() > 0 || options.getResizeHeight() > 0) {
-            mRequest.override(options.getResizeWidth(), options.getResizeHeight());
+            requestOptions = requestOptions.override(options.getResizeWidth(), options.getResizeHeight());
         }
+
+        return requestOptions;
     }
+
 
     @Override
     public void showRoundImage(View container, Object imagePath) {

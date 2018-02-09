@@ -1,5 +1,7 @@
 package com.sankemao.quick.http.converter;
 
+import java.lang.reflect.Type;
+
 /**
  * description: 提供converter的工厂
  * author: Darren on 2017/10/18 09:51
@@ -12,6 +14,6 @@ public interface Converter<F, T> {
 
     abstract class Factory {
         // 对请求响应的类型转换
-        public abstract <T> Converter<String, T> responseConverter(Class<T> type);
+        public abstract <T> Converter<String, T> responseConverter(Type type);
     }
 }
