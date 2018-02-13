@@ -1,10 +1,11 @@
-package com.sankemao.quick.recyclerview.helper;
+package com.sankemao.quick.recyclerviewfixed.helper;
 
 import android.widget.ImageView;
 
+import com.sankemao.quick.recyclerviewfixed.adapters.BaseViewHolder;
+
 import sankemao.baselib.imageload.ImageLoaderManager;
 import sankemao.baselib.imageload.ImageLoaderOptions;
-import com.sankemao.quick.recyclerview.BaseViewHolder;
 
 
 /**

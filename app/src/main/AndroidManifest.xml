@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".ui.activity.ImageSingleActivity">
         </activity>
+        <activity android:name=".ui.activity.test.RecyclerViewTestActivity">
+        </activity>
     </application>
 
 </manifest>

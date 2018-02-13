@@ -6,16 +6,23 @@
                 android:layout_marginBottom="50dp">
 
 
-    <sankemao.gankio.ui.custom.customview.MyViewGroup
-        android:background="@color/colorAccent"
-        android:layout_width="100dp"
-        android:layout_height="200dp">
+    <!--<sankemao.gankio.ui.custom.customview.MyViewGroup-->
+        <!--android:id="@+id/mg_test_rv"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="200dp">-->
 
-        <TextView
-            android:text="消息"
-            android:layout_alignParentBottom="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </sankemao.gankio.ui.custom.customview.MyViewGroup>
+        <!--<TextView-->
+            <!--android:text="消息"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+    <!--</sankemao.gankio.ui.custom.customview.MyViewGroup>-->
+
+    <Button
+        android:id="@+id/btn_click"
+        android:text="点我"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

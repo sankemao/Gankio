@@ -2,8 +2,8 @@ package sankemao.gankio.data.adapter;
 
 import android.content.Context;
 
-import com.sankemao.quick.recyclerview.JViewHolder;
-import com.sankemao.quick.recyclerview.JrecyAdapter;
+import com.sankemao.quick.recyclerview.BaseViewHolder;
+import com.sankemao.quick.recyclerview.BaseAdapter;
 import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
 
 import java.util.List;
@@ -17,14 +17,14 @@ import sankemao.gankio.data.bean.gankio.ResultsBean;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class FuliAdapter extends JrecyAdapter<ResultsBean> {
+public class FuliAdapter extends BaseAdapter<ResultsBean> {
 
     public FuliAdapter(Context context, List<ResultsBean> showItems, int layoutId) {
         super(context, showItems, layoutId);
     }
 
     @Override
-    protected void convert(JViewHolder holder, ResultsBean itemData, int position) {
+    protected void convert(BaseViewHolder holder, ResultsBean itemData, int position) {
         holder.setImgByUrl(R.id.iv_fuli, new DefaultHolderImageLoader(itemData.getUrl()));
     }
 }

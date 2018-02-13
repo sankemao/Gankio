@@ -1,17 +1,15 @@
-package com.sankemao.quick.recyclerview;
+package com.sankemao.quick.recyclerviewfixed;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.sankemao.quick.recyclerview.headfootview.RefreshViewCreator;
+import com.sankemao.quick.recyclerviewfixed.headfootview.RefreshViewCreator;
 
 
 /**
@@ -68,7 +66,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
     }
 
     @Override
-    public void setAdapter(RecyclerView.Adapter adapter) {
+    public void setAdapter(Adapter adapter) {
         super.setAdapter(adapter);
         addRefreshView();
     }
@@ -134,7 +132,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         if (mRefreshView == null) {
             return;
         }
-        int currentTopMargin = ((ViewGroup.MarginLayoutParams) mRefreshView.getLayoutParams()).topMargin;
+        int currentTopMargin = ((MarginLayoutParams) mRefreshView.getLayoutParams()).topMargin;
         int finalTopMargin = -mRefreshViewHeight + 1;
         if (mCurrentRefreshStatus == REFRESH_STATUS_LOOSEN_REFRESHING) {//如果之前处于margin>0状态.(松开以刷新状态)
             finalTopMargin = 0;
@@ -198,7 +196,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
      * 添加头部的刷新View
      */
     private void addRefreshView() {
-        RecyclerView.Adapter adapter = getAdapter();
+        Adapter adapter = getAdapter();
         if (adapter != null && mRefreshCreator != null) {
             // 添加头部的刷新View
             View refreshView = mRefreshCreator.getRefreshView(getContext(), this);
@@ -234,7 +232,7 @@ public class RefreshRecyclerView extends WrapRecyclerView {
         if (mRefreshView == null) {
             return;
         }
-        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mRefreshView.getLayoutParams();
+        MarginLayoutParams params = (MarginLayoutParams) mRefreshView.getLayoutParams();
         if (marginTop < -mRefreshViewHeight + 1) {
             marginTop = -mRefreshViewHeight + 1;
         }

@@ -1,4 +1,4 @@
-package com.sankemao.quick.recyclerview;
+package com.sankemao.quick.recyclerviewfixed;
 
 import android.content.Context;
 import android.support.annotation.CallSuper;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.sankemao.quick.recyclerviewfixed.adapters.WrapAdapter;
 
 /**
  * Created by jin on 2017/5/10.
@@ -16,7 +18,7 @@ public class WrapRecyclerView extends RecyclerView {
     private View mEmptyView, mLoadingView;
 
     // 包裹了一层的头部底部Adapter
-    protected WrapRecyclerAdapter mWrapRecyclerAdapter;
+    protected WrapAdapter mWrapAdapter;
     // 这个是列表数据的Adapter
     private Adapter mAdapter;
 
@@ -47,48 +49,48 @@ public class WrapRecyclerView extends RecyclerView {
 
         this.mAdapter = adapter;
 
-        if (adapter instanceof WrapRecyclerAdapter) {
-            mWrapRecyclerAdapter = (WrapRecyclerAdapter) adapter;
+        if (adapter instanceof WrapAdapter) {
+            mWrapAdapter = (WrapAdapter) adapter;
         } else {
-            mWrapRecyclerAdapter = new WrapRecyclerAdapter(adapter);
+            mWrapAdapter = new WrapAdapter(adapter);
         }
 
-        super.setAdapter(mWrapRecyclerAdapter);
+        super.setAdapter(mWrapAdapter);
 
         // 注册一个观察者
         mAdapter.registerAdapterDataObserver(mDataObserver);
 
         // 解决GridLayout添加头部和底部也要占据一行
-        mWrapRecyclerAdapter.adjustSpanSize(this);
+        mWrapAdapter.adjustSpanSize(this);
     }
 
     // 添加头部
     public void addHeaderView(View view) {
         // 如果没有Adapter那么就不添加，也可以选择抛异常提示
         // 让他必须先设置Adapter然后才能添加，这里是仿照ListView的处理方式
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.addHeaderView(view);
+        if (mWrapAdapter != null) {
+            mWrapAdapter.addHeaderView(view);
         }
     }
 
     // 添加底部
     public void addFooterView(View view) {
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.addFooterView(view);
+        if (mWrapAdapter != null) {
+            mWrapAdapter.addFooterView(view);
         }
     }
 
     // 移除头部
     public void removeHeaderView(View view) {
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.removeHeaderView(view);
+        if (mWrapAdapter != null) {
+            mWrapAdapter.removeHeaderView(view);
         }
     }
 
     // 移除底部
     public void removeFooterView(View view) {
-        if (mWrapRecyclerAdapter != null) {
-            mWrapRecyclerAdapter.removeFooterView(view);
+        if (mWrapAdapter != null) {
+            mWrapAdapter.removeFooterView(view);
         }
     }
 
@@ -97,8 +99,8 @@ public class WrapRecyclerView extends RecyclerView {
         public void onChanged() {
             if (mAdapter == null) return;
             // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyDataSetChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyDataSetChanged();
+            if (mWrapAdapter != mAdapter)
+                mWrapAdapter.notifyDataSetChanged();
             dataChanged();
         }
 
@@ -106,8 +108,8 @@ public class WrapRecyclerView extends RecyclerView {
         public void onItemRangeRemoved(int positionStart, int itemCount) {
             if (mAdapter == null) return;
             // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyDataSetChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter)
-                mWrapRecyclerAdapter.notifyItemRemoved(positionStart + mWrapRecyclerAdapter.getHeaderViewsCount());
+            if (mWrapAdapter != mAdapter)
+                mWrapAdapter.notifyItemRemoved(positionStart + mWrapAdapter.getHeaderViewsCount());
             dataChanged();
         }
 
@@ -115,9 +117,9 @@ public class WrapRecyclerView extends RecyclerView {
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
             if (mAdapter == null) return;
             // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemMoved没效果
-            if (mWrapRecyclerAdapter != mAdapter) {
-                int headerViewsCount = mWrapRecyclerAdapter.getHeaderViewsCount();
-                mWrapRecyclerAdapter.notifyItemMoved(fromPosition + headerViewsCount, toPosition + headerViewsCount);
+            if (mWrapAdapter != mAdapter) {
+                int headerViewsCount = mWrapAdapter.getHeaderViewsCount();
+                mWrapAdapter.notifyItemMoved(fromPosition + headerViewsCount, toPosition + headerViewsCount);
             }
             dataChanged();
         }
@@ -142,9 +144,9 @@ public class WrapRecyclerView extends RecyclerView {
         public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
             if (mAdapter == null) return;
             // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemChanged没效果
-            if (mWrapRecyclerAdapter != mAdapter) {
-                int headerViewsCount = mWrapRecyclerAdapter.getHeaderViewsCount();
-                mWrapRecyclerAdapter.notifyItemRangeChanged(positionStart + headerViewsCount, itemCount, payload);
+            if (mWrapAdapter != mAdapter) {
+                int headerViewsCount = mWrapAdapter.getHeaderViewsCount();
+                mWrapAdapter.notifyItemRangeChanged(positionStart + headerViewsCount, itemCount, payload);
             }
             dataChanged();
         }
@@ -153,9 +155,9 @@ public class WrapRecyclerView extends RecyclerView {
         public void onItemRangeInserted(int positionStart, int itemCount) {
             if (mAdapter == null) return;
             // 观察者  列表Adapter更新 包裹的也需要更新不然列表的notifyItemInserted没效果
-            if (mWrapRecyclerAdapter != mAdapter) {
-                int headerViewsCount = mWrapRecyclerAdapter.getHeaderViewsCount();
-                mWrapRecyclerAdapter.notifyItemInserted(positionStart + headerViewsCount);
+            if (mWrapAdapter != mAdapter) {
+                int headerViewsCount = mWrapAdapter.getHeaderViewsCount();
+                mWrapAdapter.notifyItemInserted(positionStart + headerViewsCount);
             }
             dataChanged();
         }

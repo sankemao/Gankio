@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.sankemao.quick.recyclerview.JViewHolder;
-import com.sankemao.quick.recyclerview.JrecyAdapter;
+import com.sankemao.quick.recyclerview.BaseViewHolder;
+import com.sankemao.quick.recyclerview.BaseAdapter;
 import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import sankemao.gankio.ui.activity.ImageDetailActivity;
  * Author:jin
  * Email:210980059@qq.com
  */
-public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
+public class PinsAdapter extends BaseAdapter<PinsMainEntity> {
 
     public static final int originWidth = ScreenUtils.getScreenWidth() / 2 - ConvertUtils.dp2px(8);
 
@@ -40,7 +40,7 @@ public class PinsAdapter extends JrecyAdapter<PinsMainEntity> {
     }
 
     @Override
-    protected void convert(JViewHolder holder, final PinsMainEntity itemData, int position) {
+    protected void convert(BaseViewHolder holder, final PinsMainEntity itemData, int position) {
         //设置图片宽高比
         int width = itemData.getFile().getWidth();
         int height = itemData.getFile().getHeight();

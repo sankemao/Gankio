@@ -13,7 +13,7 @@ import java.util.List;
  * Created by jin on 2017/5/10.
  *
  */
-public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
+public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder>{
 
     private MultiTypeSupport<T> multiTypeSupport;
     private int mLayoutId;
@@ -21,14 +21,14 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
     public List<T> mShowItems;
     private final LayoutInflater mInflater;
 
-    public JrecyAdapter(Context context, List<T> showItems, int layoutId) {
+    public BaseAdapter(Context context, List<T> showItems, int layoutId) {
         this.mContext = context;
         mShowItems = showItems;
         this.mLayoutId = layoutId;
         mInflater = LayoutInflater.from(context);
     }
 
-    public JrecyAdapter(Context context, List<T> showItems, MultiTypeSupport<T> multiTypeSupport) {
+    public BaseAdapter(Context context, List<T> showItems, MultiTypeSupport<T> multiTypeSupport) {
         this(context, showItems, -1);
         this.multiTypeSupport = multiTypeSupport;
     }
@@ -53,11 +53,11 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
      * @return
      */
     @Override
-    public JViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (multiTypeSupport != null) {
             this.mLayoutId = viewType;
         }
-        return new JViewHolder(mInflater.inflate(mLayoutId, parent, false));
+        return new BaseViewHolder(mInflater.inflate(mLayoutId, parent, false));
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
      * RecyclerView的条目数据有偏移
      */
     @Override
-    public void onBindViewHolder(final JViewHolder holder, final int position) {
+    public void onBindViewHolder(final BaseViewHolder holder, final int position) {
         if (mItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,7 +86,7 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
         convert(holder, mShowItems.get(position), position);
     }
 
-    protected abstract void convert(JViewHolder holder, T itemData, int position);
+    protected abstract void convert(BaseViewHolder holder, T itemData, int position);
 
     @Override
     public int getItemCount() {
@@ -132,7 +132,7 @@ public abstract class JrecyAdapter<T> extends RecyclerView.Adapter<JViewHolder>{
      * 清除所有条目.
      */
     public void clear() {
-        synchronized (JrecyAdapter.class) {
+        synchronized (BaseAdapter.class) {
             if (mShowItems == null) {
                 return;
             }
