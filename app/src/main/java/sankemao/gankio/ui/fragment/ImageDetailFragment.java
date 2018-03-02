@@ -2,12 +2,12 @@ package sankemao.gankio.ui.fragment;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.sankemao.quick.recyclerview.LoadRefreshRecyclerView;
-import com.sankemao.quick.recyclerview.headfootview.DefaultLoadMoreCreator;
+import com.sankemao.quick.recyclerviewfixed.loadmore.LoadMoreDelegate;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class ImageDetailFragment extends BaseFragment implements IPinsLoadView{
     PinsPresenter mPinsPresenter;
 
     @BindView(R.id.rv)
-    LoadRefreshRecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
 
     private int page;
     private String mPinsId;
@@ -51,14 +51,14 @@ public class ImageDetailFragment extends BaseFragment implements IPinsLoadView{
     protected void initView(View rootView) {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mPinsAdapter = new PinsAdapter(getContext(), null);
-        mRecyclerView.addLoadViewCreator(new DefaultLoadMoreCreator());
-        //加载更多
-        mRecyclerView.setOnLoadMoreListener(new LoadRefreshRecyclerView.OnLoadMoreListener() {
+
+        mPinsAdapter.openLoadMore(new LoadMoreDelegate.RequestLoadMoreListener() {
             @Override
-            public void onLoad() {
+            public void onLoadMoreRequested() {
                 mPinsPresenter.getPinsRecommend(mPinsId, page);
             }
         });
+
         mRecyclerView.setAdapter(mPinsAdapter);
     }
 
@@ -73,12 +73,18 @@ public class ImageDetailFragment extends BaseFragment implements IPinsLoadView{
     @Override
     public void loadPinsSuccess(List<PinsMainEntity> pins, int maxId) {
         //没有更多数据，则不继续加载了
-        if (pins == null || pins.isEmpty() || pins.size() < Constant.Http.LIMIT) {
+        if (pins == null || pins.isEmpty()) {
             ToastUtils.showShort("没有数据");
+            return;
         }
 
-        mPinsAdapter.addAllData(pins);
-        mRecyclerView.stopRefreshLoad(20);
+        mPinsAdapter.addDatas(pins);
+
+        if (pins.size() < Constant.Http.LIMIT) {
+            mPinsAdapter.loadMoreEnd();
+        } else {
+            mPinsAdapter.loadMoreComplete();
+        }
         page++;
     }
 

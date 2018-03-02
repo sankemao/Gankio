@@ -57,15 +57,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public BaseViewHolder setCircleImgByUrl(int viewId, HolderImageLoader imageLoader) {
-        ImageView imageView = getViewById(viewId);
-        if (imageLoader == null) {
-            throw new NullPointerException("imageLoader is null");
-        }
-        imageLoader.displayCircleImage(imageView, imageLoader.getImagePath());
-        return this;
-    }
-
     public BaseViewHolder setTextStyle(int viewId, int style) {
         TextView textView = getViewById(viewId);
         textView.getPaint().setFlags(style);
@@ -101,8 +92,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         }
 
         public abstract void displayImage(ImageView imageView, Object imagePath, ImageLoaderOptions options);
-
-        public abstract void displayCircleImage(ImageView imageView, Object imagePath);
     }
 
 

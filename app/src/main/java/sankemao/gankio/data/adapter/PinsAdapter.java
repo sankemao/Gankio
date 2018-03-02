@@ -1,15 +1,17 @@
 package sankemao.gankio.data.adapter;
 
 import android.content.Context;
-import android.view.View;
+import android.graphics.Color;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
-import com.sankemao.quick.recyclerview.BaseViewHolder;
-import com.sankemao.quick.recyclerview.BaseAdapter;
-import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.sankemao.quick.recyclerviewfixed.adapters.BaseAdapter;
+import com.sankemao.quick.recyclerviewfixed.adapters.BaseViewHolder;
 
 import java.util.List;
 
@@ -17,7 +19,6 @@ import sankemao.baselib.imageload.ImageLoaderOptions;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.data.bean.pins.PinsMainEntity;
-import sankemao.gankio.ui.activity.ImageDetailActivity;
 
 /**
  * Description:TODO
@@ -34,7 +35,7 @@ public class PinsAdapter extends BaseAdapter<PinsMainEntity> {
     public PinsAdapter(Context context, List<PinsMainEntity> showItems) {
         super(context, showItems, R.layout.item_pins);
         options = ImageLoaderOptions.newOptions()
-                .placeHolder(R.drawable.shape_loading_fail)
+//                .placeHolder(R.drawable.shape_loading_fail)
                 .setCropType(ImageLoaderOptions.centerCrop)
                 .isCrossFade(true);
     }
@@ -55,25 +56,29 @@ public class PinsAdapter extends BaseAdapter<PinsMainEntity> {
         imageViewParams.height = (int) (originWidth / scale);
         imageView.setLayoutParams(imageViewParams);
 
-//        String themeColor = "#" + itemData.getFile().getTheme();
-//
-//        LogUtils.d("颜色为： " + themeColor);
-//        try {
-//            imageView.setBackgroundColor(Color.parseColor(themeColor));
-//        } catch (Exception e) {
-//            imageView.setBackgroundColor(Color.parseColor("#ffffff"));
-//        }
+        String themeColor = "#" + itemData.getFile().getTheme();
+
+        LogUtils.d("颜色为： " + themeColor);
+        try {
+            imageView.setBackgroundColor(Color.parseColor(themeColor));
+        } catch (Exception e) {
+            imageView.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
 
         final String imageUrl = String.format(Constant.Http.FORMAT_URL_IMAGE_GENERAL, itemData.getFile().getKey());
         final float finalScale = scale;
 
-        holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(imageUrl,
-                options.override(imageViewParams.width, imageViewParams.height)))
-                .setOnItemClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ImageDetailActivity.go(mContext, finalScale, itemData);
-                    }
-                });
+//        holder.setImgByUrl(R.id.iv_pin, new DefaultHolderImageLoader(imageUrl,
+//                options))
+//                .setOnItemClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        ImageDetailActivity.go(mContext, finalScale, itemData);
+//                    }
+//                });
+        Glide.with(imageView)
+                .load(imageUrl)
+                .transition(new DrawableTransitionOptions().crossFade(1000))
+                .into(imageView);
     }
 }

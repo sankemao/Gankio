@@ -2,9 +2,9 @@ package sankemao.gankio.data.adapter;
 
 import android.content.Context;
 
-import com.sankemao.quick.recyclerview.BaseViewHolder;
-import com.sankemao.quick.recyclerview.BaseAdapter;
-import com.sankemao.quick.recyclerview.helper.DefaultHolderImageLoader;
+import com.sankemao.quick.recyclerviewfixed.adapters.BaseAdapter;
+import com.sankemao.quick.recyclerviewfixed.adapters.BaseViewHolder;
+import com.sankemao.quick.recyclerviewfixed.helper.DefaultHolderImageLoader;
 
 import java.util.List;
 

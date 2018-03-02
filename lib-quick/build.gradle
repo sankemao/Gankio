@@ -39,4 +39,7 @@ dependencies {
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.8'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
 }

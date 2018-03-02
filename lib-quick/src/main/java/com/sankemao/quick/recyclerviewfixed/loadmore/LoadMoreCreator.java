@@ -1,4 +1,4 @@
-package com.sankemao.quick.recyclerviewfixed.headfootview;
+package com.sankemao.quick.recyclerviewfixed.loadmore;
 
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;

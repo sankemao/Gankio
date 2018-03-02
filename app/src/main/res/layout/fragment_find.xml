@@ -6,11 +6,18 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.sankemao.quick.recyclerview.LoadRefreshRecyclerView
-        android:id="@+id/rv_fuli"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.sankemao.quick.recyclerview.LoadRefreshRecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_fuli"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

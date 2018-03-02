@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sankemao.quick.recyclerviewfixed.headfootview.LoadMoreCreator;
+import com.sankemao.quick.recyclerviewfixed.loadmore.LoadMoreDelegate;
+import com.sankemao.quick.recyclerviewfixed.loadmore.DefaultLoadMoreCreator;
+import com.sankemao.quick.recyclerviewfixed.loadmore.LoadMoreCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +28,19 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     private int mLayoutId;
 
     protected Context mContext;
-    public List<T> mShowItems;
+    public List<T> mShowItems = new ArrayList<>();
+
     private final LayoutInflater mInflater;
 
     //头尾布局
     private SparseArray<View> mHeaderViews;
     private SparseArray<View> mFooterViews;
+
     //Loading布局
-    private LoadMoreCreator mLoadingView;
+    private LoadMoreCreator mLoadMoreCreator = new DefaultLoadMoreCreator();
+    private LoadMoreDelegate mLoadMoreDelegate;
+    //加载更多结束后是否允许点击重试
+    private boolean mEnableLoadMoreEndClick;
 
     private static int TYPE_HEADER = 10000000;
     private static int TYPE_FOOTER = 20000000;
@@ -66,9 +73,17 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         } else if (position < getHeadersCount() + getShowItemsCount()) {
             return super.getItemViewType(position);
         } else if (position < getHeadersCount() + getShowItemsCount() + getFootersCount()) {
-            return mFooterViews.keyAt(position);
+            return mFooterViews.keyAt(position - getHeadersCount() - getShowItemsCount());
         } else {
             return TYPE_LOADING;
+        }
+    }
+
+    private int getDefItemViewType(int position) {
+        if (multiTypeSupport != null) {
+            return multiTypeSupport.getLayoutId(mShowItems.get(position), position);
+        } else {
+            return super.getItemViewType(position);
         }
     }
 
@@ -76,7 +91,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      * 是不是底部位置
      */
     private boolean isFooterPosition(int position) {
-        return position >= getHeadersCount() + getShowItemsCount();
+        if (mLoadMoreDelegate == null) {
+            return position >= getHeadersCount() + getShowItemsCount();
+        } else {
+            return position >= getHeadersCount() + getShowItemsCount() && position != getLoadMoreViewPosition();
+        }
     }
 
     /**
@@ -91,7 +110,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      */
     @Override
     public int getItemCount() {
-        return getHeadersCount() + getShowItemsCount() + getFootersCount();
+        return getHeadersCount()
+                + getShowItemsCount()
+                + getFootersCount()
+                + (mLoadMoreDelegate == null ? 0 : mLoadMoreDelegate.getLoadMoreViewCount());
     }
 
     /**
@@ -136,18 +158,51 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
             return getLoadingHolder(parent);
         }
 
+        //因为在getDefItemViewType中，type返回的就是layoutId @see #getDefItemViewType(int)
+        if (multiTypeSupport != null) {
+            this.mLayoutId = viewType;
+        }
+
         BaseViewHolder baseViewHolder = new BaseViewHolder(mInflater.inflate(mLayoutId, parent, false));
         bindViewClickListener(baseViewHolder);
         return baseViewHolder;
     }
 
+    /**
+     * @param parent    recyclerView
+     * @return          返回加载更多的loadingView
+     */
     private BaseViewHolder getLoadingHolder(ViewGroup parent) {
+        View loadMoreView = mInflater.inflate(mLoadMoreCreator.getLayoutId(), parent, false);
+        BaseViewHolder loadMoreViewHolder = new BaseViewHolder(loadMoreView);
+        loadMoreViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mLoadMoreCreator.getLoadMoreStatus() == LoadMoreCreator.STATUS_FAIL) {
+                    notifyLoadMoreToLoading();
+                }
+                if (mEnableLoadMoreEndClick && mLoadMoreCreator.getLoadMoreStatus() == LoadMoreCreator.STATUS_END) {
+                    notifyLoadMoreToLoading();
+                }
+            }
+        });
+        return loadMoreViewHolder;
+    }
 
-        return null;
+    private void notifyLoadMoreToLoading() {
+        if (mLoadMoreCreator.getLoadMoreStatus() == LoadMoreCreator.STATUS_LOADING) {
+            return;
+        }
+        mLoadMoreCreator.setLoadMoreStatus(LoadMoreCreator.STATUS_DEFAULT);
+        notifyItemChanged(getLoadMoreViewPosition());
+    }
+
+    public int getLoadMoreViewPosition() {
+        return getItemCount() - 1;
     }
 
     /**
-     * 绑定点击事件，避免生成多个clickListener
+     * 绑定点击事件，避免onConvert中生成多个clickListener
      */
     private void bindViewClickListener(final BaseViewHolder baseViewHolder) {
         if (baseViewHolder == null) {
@@ -215,23 +270,26 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
             gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    boolean isHeaderOrFooter = isHeaderPosition(position) || isFooterPosition(position);
+                    boolean isHeaderOrFooterOrLoadMore = isHeaderPosition(position) || isFooterPosition(position) || getItemViewType(position) == TYPE_LOADING;
                     if (mSpanSizeLookup == null) {
-                        return isHeaderOrFooter ? gridManager.getSpanCount() : 1;
+                        return isHeaderOrFooterOrLoadMore ? gridManager.getSpanCount() : 1;
                     } else {
                         //如果有自定义跨度，非头尾布局按自定义的来
-                        return isHeaderOrFooter ? gridManager.getSpanCount() : mSpanSizeLookup.getSpanSize(gridManager, position - mHeaderViews.size());
+                        return isHeaderOrFooterOrLoadMore ? gridManager.getSpanCount() : mSpanSizeLookup.getSpanSize(gridManager, position - mHeaderViews.size());
                     }
                 }
             });
         }
     }
 
+    /**
+     * 瀑布流头部尾部修复
+     */
     @Override
     public void onViewAttachedToWindow(BaseViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         int position = holder.getLayoutPosition();
-        if (isHeaderPosition(position) || isFooterPosition(position)) {
+        if (isHeaderPosition(position) || isFooterPosition(position) || holder.getItemViewType() == TYPE_LOADING) {
             setFullSpan(holder);
         } else {
             addAnimation(holder);
@@ -256,10 +314,21 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
      */
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
+        if (mLoadMoreDelegate != null) {
+            mLoadMoreDelegate.autoLoadMore(position);
+        }
+
         if (isHeaderPosition(position) || isFooterPosition(position)) {
             //头布局和尾布局都先与数据绑定完成了, 不需要再绑定, 直接return;
             return;
         }
+
+        if (holder.getItemViewType() == TYPE_LOADING) {
+            //loadMore布局
+            mLoadMoreCreator.convert(holder);
+            return;
+        }
+
         convert(holder, mShowItems.get(position - mHeaderViews.size()), position - mHeaderViews.size());
     }
 
@@ -267,6 +336,55 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
 
 
     //************************************对外提供的调用接口***************************************//
+
+    public void loadMoreComplete() {
+        mLoadMoreDelegate.loadMoreComplete();
+    }
+
+    public void loadMoreEnd() {
+        this.loadMoreEnd(false);
+    }
+
+    public void loadMoreEnd(boolean gone) {
+        mLoadMoreDelegate.loadMoreEnd(gone);
+    }
+
+    public void loadMoreFail() {
+        mLoadMoreDelegate.loadMoreFail();
+    }
+
+    public void setEnableLoadMore(boolean enable) {
+        mLoadMoreDelegate.setEnableLoadMore(enable);
+    }
+
+    /**
+     * Set custom load more
+     * @param loadMoreCreator 加载视图
+     */
+    public void setLoadMoreCreator(LoadMoreCreator loadMoreCreator) {
+        this.mLoadMoreCreator = loadMoreCreator;
+        mLoadMoreDelegate = new LoadMoreDelegate(this, mLoadMoreCreator);
+    }
+
+    public void openLoadMore(LoadMoreDelegate.RequestLoadMoreListener requestLoadMoreListener) {
+        mLoadMoreDelegate = new LoadMoreDelegate(this, mLoadMoreCreator);
+        mLoadMoreDelegate.openLoadMore(requestLoadMoreListener);
+    }
+
+    /**
+     * 设置预加载的数量
+     * @param preLoadNumber
+     */
+    public void setPreLoadNumber(int preLoadNumber) {
+        mLoadMoreDelegate.setPreLoadNumber(preLoadNumber);
+    }
+
+    /**
+     * 设置没有更多状态下重试
+     */
+    public void enableLoadMoreEndClick(boolean enable) {
+        mEnableLoadMoreEndClick = enable;
+    }
 
     /**
      * 添加头布局
@@ -323,6 +441,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
             showItems = new ArrayList<>();
         }
         this.mShowItems = showItems;
+
+        if (mLoadMoreDelegate != null) {
+            mLoadMoreDelegate.resetState();
+        }
+
         this.notifyDataSetChanged();
     }
 
@@ -424,7 +547,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
     public void setOnLongClickListener(OnLongClickListener<T> longClickListener) {
         this.mLongClickListener = longClickListener;
     }
-
 
     public interface OnItemClickListener<K>{
         void onItemClick(View v, K itemData, int position);

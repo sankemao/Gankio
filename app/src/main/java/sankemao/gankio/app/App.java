@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.blankj.utilcode.util.Utils;
-import com.facebook.stetho.Stetho;
 import com.github.piasy.biv.BigImageViewer;
 import com.github.piasy.biv.loader.glide.GlideImageLoader;
 import com.sankemao.quick.http.GoHttp;
@@ -31,7 +30,7 @@ public class App extends Application {
         mContext = this;
 
         Utils.init(this);
-        Stetho.initializeWithDefaults(this);
+//        Stetho.initializeWithDefaults(this);
         initHttp();
         fix();
         //长图加载

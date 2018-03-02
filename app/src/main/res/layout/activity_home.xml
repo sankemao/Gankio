@@ -23,7 +23,9 @@
         android:background="@android:color/holo_blue_light"
         android:gravity="bottom"
         android:orientation="horizontal"
-        app:layout_behavior="sankemao.gankio.ui.custom.behavior.FooterBehavior">
+        app:layout_behavior="sankemao.gankio.ui.custom.behavior.FooterBehavior"
+        >
+        <!--app:layout_behavior="sankemao.gankio.ui.custom.behavior.FooterBehavior"-->
 
         <RadioButton
             android:id="@+id/home_rb"

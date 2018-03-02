@@ -1,5 +1,6 @@
 package sankemao.baselib.imageload;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 
 import sankemao.baselib.R;
@@ -20,6 +21,7 @@ public class ImageLoaderOptions {
     private boolean mIsCrossFade;
     private int mResizeWidth = -1;
     private int mResizeHeight = -1;
+    private Drawable mDrawable;
 
     public int getHolderRes() {
         return mHolderRes;
@@ -56,6 +58,11 @@ public class ImageLoaderOptions {
      */
     public ImageLoaderOptions placeHolder(@DrawableRes int holderRes) {
         this.mHolderRes = holderRes;
+        return this;
+    }
+
+    public ImageLoaderOptions placeHolder(Drawable drawable) {
+        this.mDrawable = drawable;
         return this;
     }
 

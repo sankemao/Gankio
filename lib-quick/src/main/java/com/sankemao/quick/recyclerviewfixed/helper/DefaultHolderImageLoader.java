@@ -28,9 +28,4 @@ public class DefaultHolderImageLoader extends BaseViewHolder.HolderImageLoader {
         ImageLoaderManager.INSTANCE.showImage(imageView, imagePath, options);
     }
 
-    @Override
-    public void displayCircleImage(ImageView imageView, Object imagePath) {
-        ImageLoaderManager.INSTANCE.showRoundImage(imageView, imagePath);
-    }
-
 }
