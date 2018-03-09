@@ -2,6 +2,7 @@ package sankemao.baselib.mvp.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import sankemao.baselib.loadsir.core.LoadService;
 import sankemao.baselib.mvp.IView;
 import sankemao.baselib.mvp.proxy.FragmentMvpProxy;
 import sankemao.baselib.mvp.proxy.FragmentMvpProxyImp;
+import sankemao.baselib.mvp.proxy.StateViewProxy;
 
 /**
  * Description:TODO
@@ -23,12 +26,12 @@ import sankemao.baselib.mvp.proxy.FragmentMvpProxyImp;
 public abstract class BaseFragment extends Fragment implements IView {
 
     private Unbinder mBind;
-    private View mRootView;
     /**
      * 记录onCreateView()中rootView是否被初始化过.
      */
     private boolean mViewInflated;
     private FragmentMvpProxy mMvpProxy;
+    private StateViewProxy mStateViewProxy;
 
     /**
      * @return 该fragment所关联的view是否被初始化过
@@ -37,15 +40,33 @@ public abstract class BaseFragment extends Fragment implements IView {
         return mViewInflated;
     }
 
+    /**
+     * @return 控制显示页
+     */
+    public LoadService getLoadService() {
+        return mStateViewProxy.getLoadService();
+    }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getLayoutId(), container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(getLayoutId(), container, false);
         mViewInflated = true;
-        mBind = ButterKnife.bind(this, mRootView);
-        initNavigationBar((ViewGroup) mRootView);
-        initView(mRootView);
-        return mRootView;
+
+        if (mStateViewProxy == null) {
+            mStateViewProxy = new StateViewProxy(this);
+        }
+        rootView = mStateViewProxy.handleStateView(rootView);
+        mBind = ButterKnife.bind(this, rootView);
+        initView(rootView);
+        return rootView;
+    }
+
+    /**
+     * 重新请求网络数据
+     */
+    public void reLoad(View v) {
+
     }
 
     @Override
@@ -63,12 +84,14 @@ public abstract class BaseFragment extends Fragment implements IView {
         super.onActivityCreated(savedInstanceState);
     }
 
-    protected abstract @LayoutRes int getLayoutId();
+    protected abstract @LayoutRes
+    int getLayoutId();
 
     /**
      * 顶栏, 不是必须的.
      */
-    protected void initNavigationBar(ViewGroup rootView){
+    @Override
+    public void initNavigationBar(ViewGroup rootView) {
 
     }
 

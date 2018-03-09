@@ -2,7 +2,7 @@ package sankemao.gankio.ui.fragment;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
@@ -14,6 +14,7 @@ import butterknife.BindView;
 import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.ui.indicators.BaseIndicatorAdapter;
 import sankemao.baselib.ui.indicators.TrackIndicatorView;
+import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
 
 /**
@@ -37,6 +38,12 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
+    public void initNavigationBar(ViewGroup rootView) {
+        super.initNavigationBar(rootView);
+        StatusbarUtil.setFakeStatusView(getActivity(), rootView, Color.parseColor("#ff00ddff"));
+    }
+
+    @Override
     protected void initView(View rootView) {
 
     }
@@ -48,7 +55,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initViewPager() {
-        mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
+        mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return HomeItemFragment.newInstance(items[position]);
@@ -61,7 +68,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
-                super.destroyItem(container, position, object);
+//                super.destroyItem(container, position, object);
             }
         });
     }
@@ -97,11 +104,6 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public View getTrackItemView() {
-//                FrameLayout frameLayout = new FrameLayout(getContext());
-//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20);
-//                frameLayout.setBackgroundColor(Color.BLUE);
-//                frameLayout.setLayoutParams(params);
-//                return frameLayout;
                 return null;
             }
 

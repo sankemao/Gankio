@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.github.piasy.biv.indicator.progresspie.ProgressPieIndicator;
@@ -38,7 +39,7 @@ public class ImageSingleActivity extends BaseActivity {
     }
 
     @Override
-    protected void initNavigationBar() {
+    public void initNavigationBar(ViewGroup rootView) {
         StatusbarUtil.setStatusBarTrans(this, false);
     }
 

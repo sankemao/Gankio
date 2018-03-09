@@ -1,8 +1,8 @@
 package sankemao.gankio.ui.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import butterknife.OnClick;
 import sankemao.baselib.mvp.FragmentManagerHelper;
@@ -29,9 +29,8 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    protected void initNavigationBar() {
-        //沉浸式状态栏
-        StatusbarUtil.setStatusBarColor(this, Color.parseColor("#ff00ddff"));
+    public void initNavigationBar(ViewGroup rootView) {
+        StatusbarUtil.setStatusBarTrans(this, true);
     }
 
     @Override

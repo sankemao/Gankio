@@ -9,6 +9,10 @@ import com.github.piasy.biv.BigImageViewer;
 import com.github.piasy.biv.loader.glide.GlideImageLoader;
 import com.sankemao.quick.http.GoHttp;
 import com.sankemao.quick.http.GoHttpConfig;
+import sankemao.framlib.loadsir.EmptyCallback;
+import sankemao.framlib.loadsir.ErrorCallback;
+import sankemao.framlib.loadsir.LoadingCallback;
+import sankemao.baselib.loadsir.core.LoadSir;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 import sankemao.gankio.fix.FixDexManager;
@@ -36,6 +40,17 @@ public class App extends Application {
         //长图加载
         BigImageViewer.initialize(GlideImageLoader.with(this));
 //        Dat2Db.readDat(this, "ncoui.dat");
+
+        initLoadSir();
+    }
+
+    private void initLoadSir() {
+        LoadSir.beginBuilder()
+                .addCallback(new LoadingCallback())
+                .addCallback(new EmptyCallback())
+                .addCallback(new ErrorCallback())
+                .setDefaultCallback(LoadingCallback.class)
+                .commit();
     }
 
     private void fix() {

@@ -11,6 +11,9 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
+
+        renderscriptTargetApi rootProject.ext.compileSdkVersion
+        renderscriptSupportModeEnabled true    // Enable RS support
     }
     buildTypes {
         release {
@@ -56,4 +59,6 @@ dependencies {
     // load with glide
     compile 'com.github.piasy:GlideImageLoader:1.4.6'
     compile 'com.github.piasy:ProgressPieIndicator:1.4.6'
+
+    compile 'com.github.mmin18:realtimeblurview:1.1.0'
 }

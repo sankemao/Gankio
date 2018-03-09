@@ -2,20 +2,17 @@ package sankemao.gankio.ui.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.sankemao.quick.http.GoHttp;
-import com.sankemao.quick.http.callback.DefaultCallback;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import sankemao.baselib.mvp.base.LazyFragment;
+import sankemao.baselib.mvp.ioc.StateView;
 import sankemao.gankio.R;
-import sankemao.gankio.data.bean.TestBean;
 
 
 /**
@@ -24,6 +21,7 @@ import sankemao.gankio.data.bean.TestBean;
  * Author:jin
  * Email:210980059@qq.com
  */
+@StateView
 public class HomeItemFragment extends LazyFragment {
     private String mTitle;
 
@@ -58,6 +56,12 @@ public class HomeItemFragment extends LazyFragment {
     @Override
     protected void initLazyData() {
         LogUtils.e(mTitle, "initLazyData" + mTvTitle.getText());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getLoadService().showSuccess();
+            }
+        }, 1500);
     }
 
     @Override
@@ -72,24 +76,6 @@ public class HomeItemFragment extends LazyFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-
-    @OnClick(R.id.btn_get_text)
-    public void onClick() {
-        GoHttp.with(getContext())
-                .url("http://proorder.cn/pronline/Msg?FunName@dishesManage&groupid=650456179")
-                .enqueue(new DefaultCallback<TestBean>() {
-                    @Override
-                    public void onParseSuccess(TestBean result) {
-                        ToastUtils.showShort("总条数： " + result.getEimdata().size());
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        ToastUtils.showShort("出错了");
-                    }
-                });
     }
 
 }

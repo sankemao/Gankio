@@ -1,6 +1,7 @@
 package sankemao.gankio.ui.activity;
 
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import sankemao.baselib.mvp.base.BaseActivity;
 
@@ -12,7 +13,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected void initNavigationBar() {
+    public void initNavigationBar(ViewGroup rootView) {
 
     }
 

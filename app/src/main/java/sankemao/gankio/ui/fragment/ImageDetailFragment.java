@@ -1,19 +1,22 @@
 package sankemao.gankio.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sankemao.quick.recyclerviewfixed.decoration.StaggeredDecoration;
 import com.sankemao.quick.recyclerviewfixed.loadmore.LoadMoreDelegate;
 
 import java.util.List;
 
 import butterknife.BindView;
 import sankemao.baselib.mvp.base.BaseFragment;
-import sankemao.baselib.mvp.inject.InjectPresenter;
+import sankemao.baselib.mvp.ioc.InjectPresenter;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.data.adapter.PinsAdapter;
@@ -50,6 +53,7 @@ public class ImageDetailFragment extends BaseFragment implements IPinsLoadView{
     @Override
     protected void initView(View rootView) {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.addItemDecoration(new StaggeredDecoration(ConvertUtils.dp2px(10f), Color.RED));
         mPinsAdapter = new PinsAdapter(getContext(), null);
 
         mPinsAdapter.openLoadMore(new LoadMoreDelegate.RequestLoadMoreListener() {

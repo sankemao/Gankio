@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sankemao.baselib.mvp.IView;
 import sankemao.baselib.mvp.proxy.ActivityMvpProxy;
 import sankemao.baselib.mvp.proxy.ActivityMvpProxyImp;
+import sankemao.baselib.mvp.proxy.StateViewProxy;
 
 /**
  * Description:TODO
@@ -24,10 +28,23 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
 
     private ActivityMvpProxy mMvpProxy;
 
+    private StateViewProxy mStateViewProxy;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+
+        ViewGroup parentView = (ViewGroup) findViewById(android.R.id.content);
+
+        View rootView = LayoutInflater.from(this).inflate(getLayoutId(), parentView, false);
+
+        if (mStateViewProxy == null) {
+            mStateViewProxy = new StateViewProxy(this);
+        }
+        rootView = mStateViewProxy.handleStateView(rootView);
+
+        setContentView(rootView);
+
         mBind = ButterKnife.bind(this);
 
         if(mMvpProxy == null){
@@ -35,17 +52,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
         }
         mMvpProxy.bindPresenter();
 
-        initNavigationBar();
         initView(savedInstanceState);
         initData(savedInstanceState);
     }
 
-    protected abstract @LayoutRes int getLayoutId();
+    @Override
+    public void reLoad(View v) {
 
-    /**
-     * 标题栏
-     */
-    protected abstract void initNavigationBar();
+    }
+
+    protected abstract @LayoutRes int getLayoutId();
 
     /**
      * 初始化view.

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -50,6 +51,20 @@ public class StatusbarUtil {
         }
     }
 
+    /**
+     * 调用前提，需在已设置了全屏模式下进行
+     * 如果没有效果，配合AutoLinearLayout注解使用
+     */
+    public static void setFakeStatusView(Activity activity, ViewGroup contentView, @ColorInt int color) {
+        View fakeStatusView = new View(contentView.getContext());
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+        fakeStatusView.setLayoutParams(params);
+        fakeStatusView.setBackgroundColor(color);
+        if (contentView instanceof LinearLayout) {
+            contentView.addView(fakeStatusView, 0);
+        }
+    }
+
     public static int getStatusBarHeight(Activity activity) {
         Resources resources = activity.getResources();
         int statusBarHeightId = resources.getIdentifier("status_bar_height","dimen","android");
@@ -71,13 +86,18 @@ public class StatusbarUtil {
     /**
      * 设置titleBar距顶部的高度，防止顶到上去
      */
-    public static void setTitlePadding(Activity activity, View titleView) {
-        if (titleView == null) {
+    public static void setTitlePadding(Activity activity, View view) {
+        if (view == null) {
             return;
         }
-
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        int addHeight = getStatusBarHeight(activity);
+        if (lp != null && lp.height > 0) {
+            lp.height += addHeight;//增高
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            titleView.setPadding(0, getStatusBarHeight(activity), 0, 0);
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + addHeight,
+                    view.getPaddingRight(), view.getPaddingBottom());
         }
     }
 

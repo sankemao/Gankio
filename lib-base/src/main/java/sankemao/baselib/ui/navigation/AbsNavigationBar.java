@@ -2,7 +2,6 @@ package sankemao.baselib.ui.navigation;
 
 import android.app.Activity;
 import android.content.Context;
-
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -11,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -23,6 +23,10 @@ public class AbsNavigationBar<B extends AbsNavigationBar.AbsBuilder> implements 
     protected B mBuilder;
 
     private View mNavigationView;
+
+    public View getNavigationView() {
+        return mNavigationView;
+    }
 
     public AbsNavigationBar(B builder) {
         this.mBuilder = builder;
@@ -49,7 +53,11 @@ public class AbsNavigationBar<B extends AbsNavigationBar.AbsBuilder> implements 
 
     @Override
     public void attachParent(View navigationView, ViewGroup parent) {
-       parent.addView(navigationView, 0);
+        if (parent instanceof LinearLayout) {
+            parent.addView(navigationView, 0);
+        } else {
+            parent.addView(navigationView);
+        }
     }
 
     @Override

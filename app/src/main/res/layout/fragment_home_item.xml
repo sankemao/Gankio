@@ -4,15 +4,9 @@
               android:layout_height="match_parent">
     <TextView
         android:id="@+id/tv_title"
+        android:textSize="18sp"
         android:background="@color/colorAccent"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btn_get_text"
-        android:layout_below="@+id/tv_title"
-        android:text="获取textview的文字"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

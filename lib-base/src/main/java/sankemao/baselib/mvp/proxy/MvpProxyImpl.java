@@ -8,7 +8,7 @@ import java.util.List;
 
 import sankemao.baselib.mvp.IView;
 import sankemao.baselib.mvp.base.BasePresenter;
-import sankemao.baselib.mvp.inject.InjectPresenter;
+import sankemao.baselib.mvp.ioc.InjectPresenter;
 
 /**
  * Description:presenter注入代理

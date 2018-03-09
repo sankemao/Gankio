@@ -1,4 +1,4 @@
-package sankemao.baselib.mvp.inject;
+package sankemao.baselib.mvp.ioc;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

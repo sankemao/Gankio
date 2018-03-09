@@ -1,6 +1,8 @@
 package sankemao.baselib.mvp;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Description:TODO
@@ -10,4 +12,15 @@ import android.content.Context;
  */
 public interface IView {
     Context getContext();
+
+    /**
+     * 出现错误页面后，重新加载
+     */
+    void reLoad(View view);
+
+    /**
+     * 标题栏
+     * @param rootView
+     */
+    void initNavigationBar(ViewGroup rootView);
 }
