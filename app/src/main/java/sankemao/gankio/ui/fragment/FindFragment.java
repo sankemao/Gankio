@@ -15,6 +15,8 @@ import com.sankemao.quick.recyclerviewfixed.decoration.StaggeredDecoration;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.ioc.AutoLinearLayout;
@@ -25,9 +27,10 @@ import sankemao.framlib.loadsir.ErrorCallback;
 import sankemao.framlib.loadsir.LoadingCallback;
 import sankemao.framlib.ui.QuickNavigationBar;
 import sankemao.gankio.R;
+import sankemao.gankio.app.App;
 import sankemao.gankio.app.Constant;
-import sankemao.gankio.data.adapter.AnotherPinsAdapter;
-import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.model.adapter.AnotherPinsAdapter;
+import sankemao.gankio.model.bean.pins.PinsMainEntity;
 import sankemao.gankio.presenter.PinsPresenter;
 import sankemao.gankio.ui.iview.IPinsLoadView;
 
@@ -51,7 +54,9 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
     //用于区分是否是刷新
     private int maxId = Constant.Http.DEFAULT_VALUE_MINUS_ONE;
     private boolean hasSuccess = false;
-    private AnotherPinsAdapter mAnotherPinsAdapter;
+
+    @Inject
+    public AnotherPinsAdapter mAnotherPinsAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -69,6 +74,9 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
 
     @Override
     protected void initView(View rootView) {
+
+        App.getAppComponent().find().build().inject(this);
+
         mRvFuli.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRvFuli.addItemDecoration(new StaggeredDecoration(ConvertUtils.dp2px(10f), Color.RED));
 
@@ -81,8 +89,6 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
                 mPinsPresenter.getTypePins(Constant.Type.ALL);
             }
         });
-
-        mAnotherPinsAdapter = new AnotherPinsAdapter(null);
 
         mAnotherPinsAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override

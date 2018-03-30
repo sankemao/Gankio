@@ -1,4 +1,4 @@
-package sankemao.gankio.data.adapter;
+package sankemao.gankio.model.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -18,7 +18,7 @@ import java.util.List;
 import sankemao.baselib.imageload.ImageLoaderOptions;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
-import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.model.bean.pins.PinsMainEntity;
 
 /**
  * Description:TODO

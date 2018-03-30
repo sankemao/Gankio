@@ -1,4 +1,4 @@
-package sankemao.gankio.data.bean;
+package sankemao.gankio.model.bean;
 
 import java.util.List;
 

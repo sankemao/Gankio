@@ -9,12 +9,18 @@ import com.github.piasy.biv.BigImageViewer;
 import com.github.piasy.biv.loader.glide.GlideImageLoader;
 import com.sankemao.quick.http.GoHttp;
 import com.sankemao.quick.http.GoHttpConfig;
+
+import okhttp3.logging.HttpLoggingInterceptor;
+import sankemao.baselib.loadsir.core.LoadSir;
 import sankemao.framlib.loadsir.EmptyCallback;
 import sankemao.framlib.loadsir.ErrorCallback;
 import sankemao.framlib.loadsir.LoadingCallback;
-import sankemao.baselib.loadsir.core.LoadSir;
-
-import okhttp3.logging.HttpLoggingInterceptor;
+import sankemao.gankio.di.component.ApiComponent;
+import sankemao.gankio.di.component.AppComponent;
+import sankemao.gankio.di.component.DaggerApiComponent;
+import sankemao.gankio.di.component.DaggerAppComponent;
+import sankemao.gankio.di.module.ApiModule;
+import sankemao.gankio.di.module.AppModule;
 import sankemao.gankio.fix.FixDexManager;
 
 /**
@@ -27,6 +33,8 @@ public class App extends Application {
     public static Context mContext;
 
     static String patchFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dex/";
+    private static AppComponent mAppComponent;
+    private static ApiComponent mApiComponent;
 
     @Override
     public void onCreate() {
@@ -42,6 +50,16 @@ public class App extends Application {
 //        Dat2Db.readDat(this, "ncoui.dat");
 
         initLoadSir();
+
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        mApiComponent = DaggerApiComponent.builder().apiModule(new ApiModule()).build();
+    }
+
+    public static AppComponent getAppComponent() {
+        return mAppComponent;
+    }
+    public static ApiComponent getApiComponent() {
+        return mApiComponent;
     }
 
     private void initLoadSir() {

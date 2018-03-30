@@ -1,4 +1,4 @@
-package sankemao.gankio.data.adapter;
+package sankemao.gankio.model.adapter;
 
 import android.content.Context;
 
@@ -9,7 +9,7 @@ import com.sankemao.quick.recyclerviewfixed.helper.DefaultHolderImageLoader;
 import java.util.List;
 
 import sankemao.gankio.R;
-import sankemao.gankio.data.bean.gankio.ResultsBean;
+import sankemao.gankio.model.bean.gankio.ResultsBean;
 
 /**
  * Description:TODO

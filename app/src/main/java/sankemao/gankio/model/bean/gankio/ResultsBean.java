@@ -1,4 +1,4 @@
-package sankemao.gankio.data.bean.gankio;
+package sankemao.gankio.model.bean.gankio;
 
 /**
  * Description:TODO

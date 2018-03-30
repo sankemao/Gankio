@@ -19,8 +19,8 @@ import sankemao.baselib.mvp.base.BaseFragment;
 import sankemao.baselib.mvp.ioc.InjectPresenter;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
-import sankemao.gankio.data.adapter.PinsAdapter;
-import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.model.adapter.PinsAdapter;
+import sankemao.gankio.model.bean.pins.PinsMainEntity;
 import sankemao.gankio.presenter.PinsPresenter;
 import sankemao.gankio.ui.iview.IPinsLoadView;
 

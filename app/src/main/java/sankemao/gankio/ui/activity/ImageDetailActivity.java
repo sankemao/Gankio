@@ -19,7 +19,7 @@ import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
-import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.model.bean.pins.PinsMainEntity;
 import sankemao.gankio.ui.fragment.ImageDetailFragment;
 
 public class ImageDetailActivity extends BaseActivity {

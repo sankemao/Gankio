@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 import sankemao.baselib.mvp.IView;
-import sankemao.gankio.data.bean.pins.PinsMainEntity;
+import sankemao.gankio.model.bean.pins.PinsMainEntity;
 
 /**
  * Description: 处理数据请求

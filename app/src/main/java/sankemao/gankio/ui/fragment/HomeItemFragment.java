@@ -60,6 +60,7 @@ public class HomeItemFragment extends LazyFragment {
             @Override
             public void run() {
                 getLoadService().showSuccess();
+                LogUtils.e(mTitle, "initLazyData 完毕" + mTvTitle.getText());
             }
         }, 1500);
     }

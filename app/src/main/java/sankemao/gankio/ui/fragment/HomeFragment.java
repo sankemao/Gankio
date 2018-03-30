@@ -55,6 +55,8 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initViewPager() {
+        //如果不加这句，当页面切换过快时，加载成功页面可能不显示
+        mViewPager.setOffscreenPageLimit(items.length);
         mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
