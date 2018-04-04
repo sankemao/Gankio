@@ -44,6 +44,9 @@ public abstract class BaseFragment extends Fragment implements IView {
      * @return 控制显示页
      */
     public LoadService getLoadService() {
+        if (mStateViewProxy == null) {
+            throw new RuntimeException("请在" + this.getClass().getSimpleName() + "类上加@StateView()注解");
+        }
         return mStateViewProxy.getLoadService();
     }
 
@@ -65,7 +68,7 @@ public abstract class BaseFragment extends Fragment implements IView {
     /**
      * 重新请求网络数据
      */
-    public void reLoad(View v) {
+    public void reload(View v) {
 
     }
 

@@ -1,5 +1,7 @@
 package sankemao.gankio.presenter;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sankemao.quick.http.GoHttp;
 import com.sankemao.quick.http.callback.DefaultCallback;
 import com.sankemao.quick.retrofit.RetrofitClient;
@@ -8,11 +10,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
+import io.reactivex.Observable;
 import sankemao.baselib.mvp.base.BasePresenter;
 import sankemao.gankio.app.App;
 import sankemao.gankio.model.apis.HuabanApi;
-import sankemao.gankio.model.bean.pins.ListPinsBean;
 import sankemao.gankio.model.bean.pins.PinsMainEntity;
 import sankemao.gankio.ui.iview.IPinsLoadView;
 
@@ -28,28 +29,41 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
     HuabanApi mHuabanApi;
 
     public PinsPresenter() {
-        App.getApiComponent().inject(this);
+        App.getAppComponent().inject(this);
     }
 
     /**
      * https://api.huaban.com/favorite/all?limit=20
      */
+//    public void getTypePins(String type) {
+//        mHuabanApi.getTypePins(type, 20)
+//                .compose(RetrofitClient.IO_TRANSFORMER())
+//                .subscribe((listPinsBean) -> {
+//                    List<PinsMainEntity> pins = listPinsBean.getPins();
+//                    getView().loadPinsSuccess(pins, getMaxId(pins));
+//                }, throwable -> {LogUtils.e("请求失败" + throwable.getMessage());
+//                    getView().loadFail(throwable.getCause());
+//        });
+//    }
     public void getTypePins(String type) {
-        mHuabanApi.getTypePins(type, 20)
-                .compose(RetrofitClient.<ListPinsBean>IO_TRANSFORMER())
-                .subscribe(new Consumer<ListPinsBean>() {
-                    @Override
-                    public void accept(ListPinsBean listPinsBean) throws Exception {
-                        List<PinsMainEntity> pins = listPinsBean.getPins();
-
-                        getView().loadPinsSuccess(pins, getMaxId(pins));
+         mHuabanApi.getTypePins(type, 20)
+                .compose(RetrofitClient.IO_TRANSFORMER())
+                .flatMap(listPinsBean -> {
+                    if (listPinsBean.getPins().size() > 0) {
+                        return Observable.empty();
+                    } else {
+                        return Observable.just(listPinsBean);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                })
+                .subscribe(
+                        (listPinsBean) -> {
+                            List<PinsMainEntity> pins = listPinsBean.getPins();
+                            getView().loadPinsSuccess(pins, getMaxId(pins));
+                        }, throwable -> {
+                            LogUtils.e("请求失败" + throwable.getMessage());
+                            getView().loadFail(throwable.getCause());
+                        }, () -> ToastUtils.showShort("啥也没有")
+                );
     }
 
     /**
@@ -57,19 +71,11 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
      */
     public void getTypePins(String type, int maxId) {
         mHuabanApi.getTypePins(type, 20, maxId)
-                .compose(RetrofitClient.<ListPinsBean>IO_TRANSFORMER())
-                .subscribe(new Consumer<ListPinsBean>() {
-                    @Override
-                    public void accept(ListPinsBean listPinsBean) throws Exception {
-                        List<PinsMainEntity> pins = listPinsBean.getPins();
-                        getView().loadPinsSuccess(pins, getMaxId(pins));
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-
-                    }
-                });
+                .compose(RetrofitClient.IO_TRANSFORMER())
+                .subscribe(listPinsBean -> {
+                    List<PinsMainEntity> pins = listPinsBean.getPins();
+                    getView().loadPinsSuccess(pins, getMaxId(pins));
+                }, throwable -> LogUtils.e("请求失败"));
     }
 
 

@@ -21,6 +21,8 @@ public abstract class Callback implements Serializable {
     private Context context;
     private OnReloadListener onReloadListener;
     private boolean successViewVisible;
+    //默认开启reload
+    private boolean mReload = true;
 
     public Callback() {
     }
@@ -29,6 +31,12 @@ public abstract class Callback implements Serializable {
         this.rootView = view;
         this.context = context;
         this.onReloadListener = onReloadListener;
+    }
+
+
+    public Callback reload(boolean mReload) {
+        this.mReload = mReload;
+        return this;
     }
 
     public Callback setCallback(View view, Context context, OnReloadListener onReloadListener) {
@@ -51,17 +59,21 @@ public abstract class Callback implements Serializable {
         if (rootView == null) {
             rootView = View.inflate(context, onCreateView(), null);
         }
-        rootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onReloadEvent(context, rootView)) {
-                    return;
+
+        if (mReload) {
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onReloadEvent(context, rootView)) {
+                        return;
+                    }
+                    if (onReloadListener != null) {
+                        onReloadListener.onReload(v);
+                    }
                 }
-                if (onReloadListener != null) {
-                    onReloadListener.onReload(v);
-                }
-            }
-        });
+            });
+        }
+
         onViewCreate(context, rootView);
         return rootView;
     }

@@ -38,7 +38,7 @@ public class StateViewProxy {
             mLoadService = LoadSir.getDefault().register(targetView, new Callback.OnReloadListener() {
                 @Override
                 public void onReload(View v) {
-                    mView.reLoad(v);
+                    mView.reload(v);
                 }
             });
         }

@@ -57,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     }
 
     @Override
-    public void reLoad(View v) {
+    public void reload(View v) {
 
     }
 

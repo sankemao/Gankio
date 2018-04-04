@@ -52,7 +52,7 @@ public class RetrofitClient {
         }
         String baseUrl = clazzAnnotation.url();
         if (TextUtils.isEmpty(baseUrl)) {
-            throw new IllegalArgumentException("@BaseUrl注解中必须设置url");
+            throw new IllegalArgumentException(clazz.getSimpleName() + "的@BaseUrl注解中必须设置url");
         }
         return getmRetrofitBuilder().baseUrl(baseUrl).build().create(clazz);
     }
@@ -78,10 +78,11 @@ public class RetrofitClient {
 
     //将baseResult中的data -> Observable<T>
     private static <T> Observable<T> createObservable(T data) {
-        return Observable.create(observableEmitter -> {
-            observableEmitter.onNext(data);
-            observableEmitter.onComplete();
-        });
+//        return Observable.create(observableEmitter -> {
+//            observableEmitter.onNext(data);
+//            observableEmitter.onComplete();
+//        });
+        return Observable.just(data);
     }
 
 }

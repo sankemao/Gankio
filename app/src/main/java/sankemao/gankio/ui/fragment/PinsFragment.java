@@ -1,6 +1,7 @@
 package sankemao.gankio.ui.fragment;
 
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sankemao.quick.recyclerviewfixed.decoration.StaggeredDecoration;
 
 import java.util.List;
@@ -42,7 +42,7 @@ import sankemao.gankio.ui.iview.IPinsLoadView;
  */
 @StateView
 @AutoLinearLayout
-public class FindFragment extends BaseFragment implements IPinsLoadView {
+public class PinsFragment extends BaseFragment implements IPinsLoadView {
     @BindView(R.id.rv_fuli)
     RecyclerView mRvFuli;
     @BindView(R.id.refresh_layout)
@@ -69,7 +69,7 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
                 .setTitle("图片")
                 .build();
 
-        StatusbarUtil.setFakeStatusView(getActivity(), rootView, Color.WHITE);
+        StatusbarUtil.setFakeStatusView(getActivity(), rootView, ContextCompat.getColor(rootView.getContext(), R.color.colorMain));
     }
 
     @Override
@@ -80,22 +80,16 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
         mRvFuli.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRvFuli.addItemDecoration(new StaggeredDecoration(ConvertUtils.dp2px(10f), Color.RED));
 
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //刷新时不允许加载更多
-                mAnotherPinsAdapter.setEnableLoadMore(false);
-                maxId = Constant.Http.DEFAULT_VALUE_MINUS_ONE;
-                mPinsPresenter.getTypePins(Constant.Type.ALL);
-            }
+        mRefreshLayout.setOnRefreshListener(() -> {
+            //刷新时不允许加载更多
+            mAnotherPinsAdapter.setEnableLoadMore(false);
+            maxId = Constant.Http.DEFAULT_VALUE_MINUS_ONE;
+            mPinsPresenter.getTypePins(Constant.Type.ALL);
         });
 
-        mAnotherPinsAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                LogUtils.d("开始加载更多数据");
-                mPinsPresenter.getTypePins(Constant.Type.ALL, maxId);
-            }
+        mAnotherPinsAdapter.setOnLoadMoreListener(() -> {
+            LogUtils.d("开始加载更多数据");
+            mPinsPresenter.getTypePins(Constant.Type.ALL, maxId);
         }, mRvFuli);
         mRvFuli.setAdapter(mAnotherPinsAdapter);
     }
@@ -135,7 +129,7 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
     }
 
     @Override
-    public void loadFail(Exception e) {
+    public void loadFail(Throwable throwable) {
         if (maxId == Constant.Http.DEFAULT_VALUE_MINUS_ONE) {
             //表示此时为刷新
             if (!hasSuccess) {
@@ -150,7 +144,7 @@ public class FindFragment extends BaseFragment implements IPinsLoadView {
     }
 
     @Override
-    public void reLoad(View v) {
+    public void reload(View v) {
         getLoadService().showCallback(LoadingCallback.class);
         initData();
     }

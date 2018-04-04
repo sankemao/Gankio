@@ -3,7 +3,7 @@ package sankemao.gankio.di.component;
 import dagger.Subcomponent;
 import sankemao.gankio.di.module.FindModule;
 import sankemao.gankio.di.scope.PerFragment;
-import sankemao.gankio.ui.fragment.FindFragment;
+import sankemao.gankio.ui.fragment.PinsFragment;
 
 /**
  * Description:TODO
@@ -14,7 +14,7 @@ import sankemao.gankio.ui.fragment.FindFragment;
 @PerFragment
 @Subcomponent(modules = FindModule.class)
 public interface FindComponent {
-    void inject(FindFragment findFragment);
+    void inject(PinsFragment pinsFragment);
 
     @Subcomponent.Builder
     interface Builder{//继承，必须

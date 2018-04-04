@@ -93,7 +93,7 @@ public class ImageDetailFragment extends BaseFragment implements IPinsLoadView{
     }
 
     @Override
-    public void loadFail(@Nullable Exception e) {
+    public void loadFail(@Nullable Throwable throwable) {
 
     }
 }

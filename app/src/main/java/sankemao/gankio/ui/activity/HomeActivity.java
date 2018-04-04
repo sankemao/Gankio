@@ -9,7 +9,7 @@ import sankemao.baselib.mvp.FragmentManagerHelper;
 import sankemao.baselib.mvp.base.BaseActivity;
 import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
-import sankemao.gankio.ui.fragment.FindFragment;
+import sankemao.gankio.ui.fragment.PinsFragment;
 import sankemao.gankio.ui.fragment.HomeFragment;
 import sankemao.gankio.ui.fragment.MessageFragment;
 import sankemao.gankio.ui.fragment.NewFragment;
@@ -17,7 +17,7 @@ import sankemao.gankio.ui.fragment.NewFragment;
 public class HomeActivity extends BaseActivity {
 
     private HomeFragment mHomeFragment;
-    private FindFragment mFindFragment;
+    private PinsFragment mPinsFragment;
     private NewFragment mNewFragment;
     private MessageFragment mMessageFragment;
 
@@ -43,7 +43,7 @@ public class HomeActivity extends BaseActivity {
             mFragmentHelper.add(mHomeFragment);
         } else {
             mHomeFragment = homeFragment;
-            mFindFragment = mFragmentHelper.findFragment(FindFragment.class);
+            mPinsFragment = mFragmentHelper.findFragment(PinsFragment.class);
             mNewFragment = mFragmentHelper.findFragment(NewFragment.class);
             mMessageFragment = mFragmentHelper.findFragment(MessageFragment.class);
         }
@@ -64,10 +64,10 @@ public class HomeActivity extends BaseActivity {
                 mFragmentHelper.switchFragment(mHomeFragment);
                 break;
             case R.id.find_rb:
-                if (mFindFragment == null) {
-                    mFindFragment = new FindFragment();
+                if (mPinsFragment == null) {
+                    mPinsFragment = new PinsFragment();
                 }
-                mFragmentHelper.switchFragment(mFindFragment);
+                mFragmentHelper.switchFragment(mPinsFragment);
                 break;
             case R.id.new_rb:
                 if (mNewFragment == null) {

@@ -15,9 +15,7 @@ import sankemao.baselib.loadsir.core.LoadSir;
 import sankemao.framlib.loadsir.EmptyCallback;
 import sankemao.framlib.loadsir.ErrorCallback;
 import sankemao.framlib.loadsir.LoadingCallback;
-import sankemao.gankio.di.component.ApiComponent;
 import sankemao.gankio.di.component.AppComponent;
-import sankemao.gankio.di.component.DaggerApiComponent;
 import sankemao.gankio.di.component.DaggerAppComponent;
 import sankemao.gankio.di.module.ApiModule;
 import sankemao.gankio.di.module.AppModule;
@@ -34,7 +32,6 @@ public class App extends Application {
 
     static String patchFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/dex/";
     private static AppComponent mAppComponent;
-    private static ApiComponent mApiComponent;
 
     @Override
     public void onCreate() {
@@ -51,20 +48,16 @@ public class App extends Application {
 
         initLoadSir();
 
-        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
-        mApiComponent = DaggerApiComponent.builder().apiModule(new ApiModule()).build();
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).apiModule(new ApiModule()).build();
     }
 
     public static AppComponent getAppComponent() {
         return mAppComponent;
     }
-    public static ApiComponent getApiComponent() {
-        return mApiComponent;
-    }
 
     private void initLoadSir() {
         LoadSir.beginBuilder()
-                .addCallback(new LoadingCallback())
+                .addCallback(new LoadingCallback().reload(false))
                 .addCallback(new EmptyCallback())
                 .addCallback(new ErrorCallback())
                 .setDefaultCallback(LoadingCallback.class)

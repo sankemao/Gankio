@@ -16,7 +16,7 @@ public interface IView {
     /**
      * 出现错误页面后，重新加载
      */
-    void reLoad(View view);
+    void reload(View view);
 
     /**
      * 标题栏

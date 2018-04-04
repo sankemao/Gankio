@@ -56,12 +56,9 @@ public class HomeItemFragment extends LazyFragment {
     @Override
     protected void initLazyData() {
         LogUtils.e(mTitle, "initLazyData" + mTvTitle.getText());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getLoadService().showSuccess();
-                LogUtils.e(mTitle, "initLazyData 完毕" + mTvTitle.getText());
-            }
+        new Handler().postDelayed(() -> {
+            getLoadService().showSuccess();
+            LogUtils.e(mTitle, "initLazyData 完毕" + mTvTitle.getText());
         }, 1500);
     }
 

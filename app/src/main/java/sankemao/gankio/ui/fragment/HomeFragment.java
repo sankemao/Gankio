@@ -3,6 +3,7 @@ package sankemao.gankio.ui.fragment;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +17,8 @@ import sankemao.baselib.ui.indicators.BaseIndicatorAdapter;
 import sankemao.baselib.ui.indicators.TrackIndicatorView;
 import sankemao.baselib.ui.utils.StatusbarUtil;
 import sankemao.gankio.R;
+import sankemao.gankio.app.App;
+import sankemao.gankio.ui.fragment.child.ZhihuFragment;
 
 /**
  * Description:TODO
@@ -30,7 +33,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.indicator)
     TrackIndicatorView mIndicatorView;
 
-    private String[] items = {"直播", "推荐", "视频", "图片", "段子", "精华", "同城", "游戏"};
+    private String[] items = {"直播", "推荐", "视频"};
 
     @Override
     protected int getLayoutId() {
@@ -40,7 +43,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void initNavigationBar(ViewGroup rootView) {
         super.initNavigationBar(rootView);
-        StatusbarUtil.setFakeStatusView(getActivity(), rootView, Color.parseColor("#ff00ddff"));
+        StatusbarUtil.setFakeStatusView(getActivity(), rootView, ContextCompat.getColor(App.mContext, R.color.colorMain));
     }
 
     @Override
@@ -60,6 +63,9 @@ public class HomeFragment extends BaseFragment {
         mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+                if (position == 0) {
+                    return new ZhihuFragment();
+                }
                 return HomeItemFragment.newInstance(items[position]);
             }
 

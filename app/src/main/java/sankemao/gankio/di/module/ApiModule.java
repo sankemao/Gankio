@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 import sankemao.gankio.model.apis.GankApi;
 import sankemao.gankio.model.apis.HuabanApi;
+import sankemao.gankio.model.apis.ZhihuApi;
 
 /**
  * Description:TODO
@@ -27,6 +28,12 @@ public class ApiModule {
     @Singleton
     HuabanApi provideHuabanApi() {
         return RetrofitClient.getApi(HuabanApi.class);
+    }
+
+    @Provides
+    @Singleton
+    ZhihuApi provideZhihuApi() {
+        return RetrofitClient.getApi(ZhihuApi.class);
     }
 
 }

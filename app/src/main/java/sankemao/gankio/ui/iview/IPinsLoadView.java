@@ -23,5 +23,5 @@ public interface IPinsLoadView extends IView{
      * 加载失败
      * @param e  异常
      */
-    void loadFail(@Nullable Exception e);
+    void loadFail(@Nullable Throwable throwable);
 }
