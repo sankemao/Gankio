@@ -1,5 +1,6 @@
 package sankemao.baselib.mvp.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -32,6 +33,7 @@ public abstract class BaseFragment extends Fragment implements IView {
     private boolean mViewInflated;
     private FragmentMvpProxy mMvpProxy;
     private StateViewProxy mStateViewProxy;
+    private Context mContext;
 
     /**
      * @return 该fragment所关联的view是否被初始化过
@@ -48,6 +50,22 @@ public abstract class BaseFragment extends Fragment implements IView {
             throw new RuntimeException("请在" + this.getClass().getSimpleName() + "类上加@StateView()注解");
         }
         return mStateViewProxy.getLoadService();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
+
+
+    @Nullable
+    @Override
+    public Context getContext() {
+        if (this.mContext == null) {
+            mContext = super.getContext();
+        }
+        return mContext;
     }
 
     @Nullable

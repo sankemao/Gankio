@@ -15,6 +15,7 @@ import sankemao.gankio.model.adapter.ZhihuAdapter;
 import sankemao.gankio.model.bean.zhihu.Story;
 import sankemao.gankio.model.bean.zhihu.TopStory;
 import sankemao.gankio.presenter.ZhihuPresenter;
+import sankemao.gankio.ui.activity.ZhihuDetailActivity;
 import sankemao.gankio.ui.iview.IZhihuView;
 
 /**
@@ -24,7 +25,7 @@ import sankemao.gankio.ui.iview.IZhihuView;
  * Email:210980059@qq.com
  */
 @StateView
-public class ZhihuFragment extends LazyFragment implements IZhihuView{
+public class ZhihuFragment extends LazyFragment implements IZhihuView {
 
     @InjectPresenter
     public ZhihuPresenter mZhihuPresenter;
@@ -45,6 +46,11 @@ public class ZhihuFragment extends LazyFragment implements IZhihuView{
 
         mZhihuAdapter = new ZhihuAdapter(R.layout.item_zhihu_normal, null);
         mRvZhihu.setAdapter(mZhihuAdapter);
+
+        mZhihuAdapter.setOnItemClickListener((baseQuickAdapter, view, i) ->
+                ZhihuDetailActivity.go(getContext(), ((ZhihuAdapter) baseQuickAdapter).getItem(i).getId())
+        );
+
     }
 
     @Override

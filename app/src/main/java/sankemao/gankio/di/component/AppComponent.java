@@ -6,6 +6,7 @@ import dagger.Component;
 import sankemao.gankio.di.module.ApiModule;
 import sankemao.gankio.di.module.AppModule;
 import sankemao.gankio.presenter.PinsPresenter;
+import sankemao.gankio.presenter.ZhihuDetailPresenter;
 import sankemao.gankio.presenter.ZhihuPresenter;
 
 /**
@@ -22,4 +23,6 @@ public interface AppComponent {
     void inject(PinsPresenter presenter);
 
     void inject(ZhihuPresenter presenter);
+
+    void inject(ZhihuDetailPresenter presenter);
 }

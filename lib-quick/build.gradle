@@ -49,5 +49,5 @@ dependencies {
 
 
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.35'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.37'
 }

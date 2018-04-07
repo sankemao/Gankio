@@ -35,7 +35,6 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
         mFragmentHelper = new FragmentManagerHelper(getSupportFragmentManager(), R.id.fl_container);
         HomeFragment homeFragment = mFragmentHelper.findFragment(HomeFragment.class);
         if (homeFragment == null) {

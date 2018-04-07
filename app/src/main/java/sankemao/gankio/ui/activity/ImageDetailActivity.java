@@ -47,8 +47,9 @@ public class ImageDetailActivity extends BaseActivity {
 
     @Override
     public void initNavigationBar(ViewGroup rootView) {
-        StatusbarUtil.setStatusBarTrans(this, false);
-        StatusbarUtil.setTitlePadding(this, mToolbar);
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
+        StatusbarUtil.setTitlePadding(this, toolbar);
+        StatusbarUtil.setStatusBarTrans(this, true);
     }
 
     @Override

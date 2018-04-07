@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -152,11 +153,15 @@ public class StatusbarUtil {
     /**魅族状态栏设置类*/
     public static class MeizuLightStatusBarImpl implements ILightStatusBar {
         static boolean isMe() {
-            final Method method;
-            try {
-                method = Build.class.getMethod("hasSmartBar");
-                return method != null;
-            } catch (NoSuchMethodException e) {
+            String displayId = Build.DISPLAY;
+            if (!TextUtils.isEmpty(displayId) && displayId.contains("Flyme")) {
+                String[] displayIdArray = displayId.split(" ");
+                for (String temp : displayIdArray) {
+                    //版本号4以上，形如4.x.
+                    if (temp.matches("^[4-9]\\.(\\d+\\.)+\\S*")) {
+                        return true;
+                    }
+                }
             }
             return false;
         }

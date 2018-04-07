@@ -31,6 +31,7 @@ public class ZhihuAdapter extends BaseQuickAdapter<Story, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder holder, Story story) {
         holder.setText(R.id.tv_title, story.getTitle());
+
         ImageView imageView = holder.getView(R.id.iv_img);
         Glide.with(imageView.getContext()).load(story.getImages()[0])
                 .transition(new DrawableTransitionOptions().crossFade(800))

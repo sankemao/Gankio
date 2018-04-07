@@ -49,7 +49,7 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
          mHuabanApi.getTypePins(type, 20)
                 .compose(RetrofitClient.IO_TRANSFORMER())
                 .flatMap(listPinsBean -> {
-                    if (listPinsBean.getPins().size() > 0) {
+                    if (listPinsBean.getPins().size() <= 0) {
                         return Observable.empty();
                     } else {
                         return Observable.just(listPinsBean);

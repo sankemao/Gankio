@@ -56,12 +56,7 @@ public class ImageDetailFragment extends BaseFragment implements IPinsLoadView{
         mRecyclerView.addItemDecoration(new StaggeredDecoration(ConvertUtils.dp2px(10f), Color.RED));
         mPinsAdapter = new PinsAdapter(getContext(), null);
 
-        mPinsAdapter.openLoadMore(new LoadMoreDelegate.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mPinsPresenter.getPinsRecommend(mPinsId, page);
-            }
-        });
+        mPinsAdapter.openLoadMore(() -> mPinsPresenter.getPinsRecommend(mPinsId, page));
 
         mRecyclerView.setAdapter(mPinsAdapter);
     }
