@@ -65,7 +65,7 @@ public class ZhihuFragment extends LazyFragment implements IZhihuView {
     }
 
     @Override
-    public void showBannerImtes(List<TopStory> bannerItems) {
+    public void showBannerItems(List<TopStory> bannerItems) {
 
     }
 }

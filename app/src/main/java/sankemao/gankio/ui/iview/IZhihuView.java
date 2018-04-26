@@ -16,5 +16,5 @@ public interface IZhihuView extends IView{
 
     void showNormalItems(List<Story> normalItems);
 
-    void showBannerImtes(List<TopStory> bannerItems);
+    void showBannerItems(List<TopStory> bannerItems);
 }

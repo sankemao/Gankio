@@ -36,12 +36,7 @@ public class ZhihuPresenter extends BasePresenter<IZhihuView> {
                     List<TopStory> bannerItems = newsTimeLine.getTop_stories();
                     List<Story> normalItems = newsTimeLine.getStories();
                     getView().showNormalItems(normalItems);
-                    getView().showBannerImtes(bannerItems);
-                }, this::loadError);
+                    getView().showBannerItems(bannerItems);
+                }, Throwable::printStackTrace);
     }
-
-    private void loadError(Throwable throwable) {
-        throwable.printStackTrace();
-    }
-
 }

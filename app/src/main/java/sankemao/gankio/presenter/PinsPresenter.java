@@ -50,7 +50,7 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
                 .compose(RetrofitClient.IO_TRANSFORMER())
                 .flatMap(listPinsBean -> {
                     if (listPinsBean.getPins().size() <= 0) {
-                        return Observable.empty();
+                        return Observable.empty();//直接跳到onComplete中处理逻辑
                     } else {
                         return Observable.just(listPinsBean);
                     }
@@ -62,7 +62,7 @@ public class PinsPresenter extends BasePresenter<IPinsLoadView> {
                         }, throwable -> {
                             LogUtils.e("请求失败" + throwable.getMessage());
                             getView().loadFail(throwable.getCause());
-                        }, () -> ToastUtils.showShort("啥也没有")
+                        }, () -> ToastUtils.showShort("onComplete")
                 );
     }
 

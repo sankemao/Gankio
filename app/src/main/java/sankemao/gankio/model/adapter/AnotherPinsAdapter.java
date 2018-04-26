@@ -1,5 +1,6 @@
 package sankemao.gankio.model.adapter;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -19,7 +20,8 @@ import java.util.List;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.model.bean.pins.PinsMainEntity;
-import sankemao.gankio.ui.activity.ImageDetailActivity;
+import sankemao.gankio.ui.custom.customview.GalleryPhotoInfo;
+import sankemao.gankio.ui.custom.customview.GalleryView;
 
 /**
  * Description:TODO
@@ -67,11 +69,16 @@ public class AnotherPinsAdapter extends BaseQuickAdapter<PinsMainEntity, BaseVie
                 .load(imageUrl)
                 .transition(new DrawableTransitionOptions().crossFade(800))
                 .into(imageView);
+//        holder.itemView.setOnClickListener(view -> ImageDetailActivity.go(mContext, finalScale, itemData));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                ImageDetailActivity.go(mContext, finalScale, itemData);
+            public void onClick(View v) {
+                final GalleryPhotoInfo galleryPhotoInfo = new GalleryPhotoInfo();
+                galleryPhotoInfo.imageObj = imageUrl;
+                final GalleryView galleryView = new GalleryView(imageView.getContext());
+                galleryView.showImageView(((Activity) imageView.getContext()), galleryPhotoInfo);
             }
         });
+
     }
 }

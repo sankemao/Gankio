@@ -40,7 +40,7 @@ public class ImageSingleActivity extends BaseActivity {
 
     @Override
     public void initNavigationBar(ViewGroup rootView) {
-        StatusbarUtil.setStatusBarTrans(this, false);
+        StatusbarUtil.setStatusBarTrans(this, true);
     }
 
     @Override

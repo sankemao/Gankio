@@ -34,7 +34,7 @@ public class RetrofitClient {
         return mOkHttpClient;
     }
 
-    private static Retrofit.Builder getmRetrofitBuilder() {
+    private static Retrofit.Builder getRetrofitBuilder() {
         if (mRetrofitBuilder == null) {
             mRetrofitBuilder = new Retrofit.Builder()
                     .client(getOkClient())
@@ -54,7 +54,7 @@ public class RetrofitClient {
         if (TextUtils.isEmpty(baseUrl)) {
             throw new IllegalArgumentException(clazz.getSimpleName() + "的@BaseUrl注解中必须设置url");
         }
-        return getmRetrofitBuilder().baseUrl(baseUrl).build().create(clazz);
+        return getRetrofitBuilder().baseUrl(baseUrl).build().create(clazz);
     }
 
     public static <T> ObservableTransformer<BaseResult<T>, T> transformer(){
