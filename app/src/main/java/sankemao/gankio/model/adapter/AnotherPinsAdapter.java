@@ -2,9 +2,12 @@ package sankemao.gankio.model.adapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ConvertUtils;
@@ -20,8 +23,7 @@ import java.util.List;
 import sankemao.gankio.R;
 import sankemao.gankio.app.Constant;
 import sankemao.gankio.model.bean.pins.PinsMainEntity;
-import sankemao.gankio.ui.custom.customview.GalleryPhotoInfo;
-import sankemao.gankio.ui.custom.customview.GalleryView;
+import sankemao.gankio.ui.custom.customview.NewGalleryView;
 
 /**
  * Description:TODO
@@ -73,10 +75,49 @@ public class AnotherPinsAdapter extends BaseQuickAdapter<PinsMainEntity, BaseVie
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final GalleryPhotoInfo galleryPhotoInfo = new GalleryPhotoInfo();
-                galleryPhotoInfo.imageObj = imageUrl;
-                final GalleryView galleryView = new GalleryView(imageView.getContext());
-                galleryView.showImageView(((Activity) imageView.getContext()), galleryPhotoInfo);
+
+                final Rect startBounds = new Rect();
+                imageView.getGlobalVisibleRect(startBounds);
+//
+//                final GalleryPhotoInfo galleryPhotoInfo = new GalleryPhotoInfo();
+//                galleryPhotoInfo.imageObj = imageUrl;
+//                galleryPhotoInfo.startBounds = startBounds;
+//
+//                final GalleryView galleryView = new GalleryView(imageView.getContext());
+//                galleryView.showImageView(((Activity) imageView.getContext()), galleryPhotoInfo);
+
+
+                Activity activity = (Activity) imageView.getContext();
+                final WindowManager windowManager = activity.getWindowManager();
+                final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+                params.width = WindowManager.LayoutParams.MATCH_PARENT;
+                params.height = WindowManager.LayoutParams.MATCH_PARENT;
+                params.format = PixelFormat.RGBA_8888;
+                params.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+
+                final NewGalleryView galleryView = new NewGalleryView(activity);
+                Glide.with(activity).load(imageUrl).into(galleryView);
+                //添加
+                windowManager.addView(galleryView, params);
+                galleryView.playEnterAnima(startBounds, new NewGalleryView.OnEnterAnimaEndListener() {
+                    @Override
+                    public void onEnterAnimaEnd() {
+
+                    }
+                });
+
+                galleryView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        galleryView.playExitAnima(startBounds, null, new NewGalleryView.OnExitAnimaEndListener() {
+                            @Override
+                            public void onExitAnimaEnd() {
+                                windowManager.removeViewImmediate(galleryView);
+                            }
+                        });
+                    }
+                });
             }
         });
 
